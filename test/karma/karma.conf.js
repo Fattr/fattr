@@ -13,12 +13,12 @@ module.exports = function(config) {
     // list of files / patterns to load in the browser
     files: [
       'js/angular/angular.js',
-      'js/bower_components/angular-mocks/angular-mocks.js',
+      'bower_components/angular-mocks/angular-mocks.js',
       'js/angular-*/*.js',
       'js/ionic.js',
       'js/ionic-angular.js',
-      'js/bower_components/angular-facebook/lib/angular-facebook.js',
-      'js/bower_components/angular-local-storage/angular-local-storage.js',
+      'bower_components/angular-facebook/lib/angular-facebook.js',
+      'bower_components/angular-local-storage/angular-local-storage.js',
       'js/src/app.js',
       'js/src/services/services.js',
       'js/src/services/userService.js',
