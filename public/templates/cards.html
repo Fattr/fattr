@@ -1,8 +1,11 @@
 <content padding="true" style="margin-top: 190px; background: #999">
   CARDS
 <div class="card" ng-repeat="user in users">
-  <div class="item item-text-wrap">
-    {{ user.name }}<br />
+  <div class="item item-avatar">
+    <img src="http://placekitten.com/64/64">
+    <h2>{{user.name}}</h2>
+  </div>
+  <div class="item item-body">
     Steps: {{ user.steps | number }}
   </div>
 </div>
