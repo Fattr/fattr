@@ -44,7 +44,8 @@
     "grunt-contrib-coffee": "~0.8.0",
     "grunt-mocha-test": "~0.8.2",
     "coffee": "0.0.1",
-    "passport": "~0.1.18"
+    "passport": "~0.1.18",
+    "passport-local": "~0.1.6"
   },
   "devDependencies": {
     "jshint": "~2.4.1",

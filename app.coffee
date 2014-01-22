@@ -1,5 +1,8 @@
 app = require './server'
 
-app.listen app.get 'port'
+###### TO-DO - CHANGE ALL INSTANCES OF COFFEE WITH JS ##########
+port  = require('./app/coffee/config/serverConfig')['port']
 
-console.log "I hears ya on #{app.get 'port'} breh !"
+app.listen port
+
+console.log "I hears ya on #{port} breh!"
