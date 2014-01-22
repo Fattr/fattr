@@ -1,0 +1,22 @@
+<view title="'Connect your devices'">
+  <content has-header="true" has-tabs="false" padding="true">
+  <div class="list">
+    <div class="item item-divider">
+      Activity Trackers
+    </div>
+    <a ng-repeat="device in devices" class="item item-thumbnail-left" href="{{device.apiUrl}}">
+      <img class="logo" ng-src={{device.imgUrl}}>
+      <h2>{{device.deviceName}}</h2>
+      <p>Go ahead and connect your {{device.deviceName}}</p>
+    </a>
+    <div class="item item-divider">
+      Social Networks
+    </div>
+    <a ng-repeat="service in services" class="item item-thumbnail-left" href="#">
+      <img class="logo" ng-src={{service.imgUrl}}>
+      <h2>{{service.serviceName}}</h2>
+      <p>Go ahead and connect your {{service.serviceName}}</p>
+    </a>
+  </div>
+  </content>
+</view>

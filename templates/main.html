@@ -1,0 +1,22 @@
+<div class="bar bar-header bar-stable">
+  <button class="button button-icon icon ion-navicon" ng-click="toggleMenu()"></button>
+  <div class="h1 title">Main | Stream</div>
+  <button class="button button-icon icon ion-search" ng-click="toggleSearch()"></button>
+</div>
+
+
+
+<view title="'Main | Stream'">
+<!--   <content 
+    has-header="true"
+    has-tabs="false"
+    padding="false"
+    scroll="true"
+    on-refresh="onRefresh()"
+    >
+ -->      
+      <div ui-view="searchBar"></div>
+      <div ui-view="topBar"></div>
+      <div ui-view="cards"></div>
+  <!-- </content> -->
+</view>

@@ -1,0 +1,24 @@
+{
+  "name": "www",
+  "version": "0.0.0",
+  "homepage": "https://github.com/stateoflux/App",
+  "authors": [
+    "Wayne Montague <wayne.montague@gmail.com>"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "js/bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-facebook": "~0.2.2",
+    "angular-local-storage": "*",
+    "angular-mocks": "~1.2.9",
+    "oauth.io": "*"
+  }
+}

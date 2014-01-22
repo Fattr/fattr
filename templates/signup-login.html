@@ -1,0 +1,34 @@
+
+<view title="title">
+  <content has-header="true" has-tabs="true" padding="true">
+    <form name="signupLoginForm" novalidate>
+      <div class="list list-inset">
+
+        <!-- user email -->
+        <label class="item item-input">
+          <i class="icon ion-email"></i>
+          <input type="email" name="email" placeholder="Enter your email" required
+            ng-model="user.email">
+            <i class="icon ion-checkmark-circled success" ng-show="inputValid(signupLoginForm.email)"></i>
+            <i class="icon ion-close-circled error" ng-show="inputInvalid(signupLoginForm.email)"></i>
+        </label>
+
+        <!-- user password -->
+        <label class="item item-input">
+          <i class="icon ion-locked"></i>
+          <input type="password" name="password" placeholder="Enter a password" required
+            ng-model="user.password"
+            ng-minlength="3">
+            <i class="icon ion-checkmark-circled success" ng-show="inputValid(signupLoginForm.password)"></i>
+            <i class="icon ion-close-circled error" ng-show="inputInvalid(signupLoginForm.password)"></i>
+        </label>
+
+        <button class="button button-block button-balanced"
+          ng-click="signup(signupLoginForm)"
+          ng-disabled="!(signupLoginForm.$dirty && signupLoginForm.$valid)">
+          Sign Up / Log in
+        </button>
+      </div>
+    </form>
+  </content>
+</view>
