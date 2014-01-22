@@ -15,7 +15,7 @@ module.exports =
   # TO-DO: DECIDE WHAT INDEX ROUTE SHOULD RETURN
   index: (req, res) ->
     # by default express will send index.html on  GET '/'
-    res.sendfile('index.html', root:__dirname + '/../../../public/')
+    res.sendfile('index.html')
 
   testData: (req, res) ->
     data = []
