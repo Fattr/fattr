@@ -1,86 +1,77 @@
 module.exports = function(grunt) {
-  // Project Configuration
+  'use strict';
+  // Project configuration.
   grunt.initConfig({
+
     pkg: grunt.file.readJSON('package.json'),
-    watch: {
-      js: {
-        files: ['js/src/**/*.js'],
-        tasks: ['jshint'],
-        options: {
-          livereload: true,
-        },
-      },
-      html: {
-        files: ['index.html, templates/**/'],
-        options: {
-          livereload: true,
-        },
-      },
-      css: {
-        files: ['css/**'],
-        options: {
-          livereload: true
-        }
-      },
-      karma: {
-        files: ['js/src/**/*.js', 'test/jasmine/**/*.js'],
-        tasks: ['karma:unit:run']
-      }
-    },
-    jshint: {
-      all: ['gruntfile.js', '/js/src/*.js', 'test/jasmine/**/*.js']
-    },
-    nodemon: {
+
+    express: {
       dev: {
         options: {
-          file: 'server.js',
-          args: [],
-          ignoredFiles: ['README.md', 'node_modules/**', '.DS_Store'],
-          watchedExtensions: ['js', 'html', 'css'],
-          watchedFolders: ['js', 'css', 'templates', './'],
-          debug: true,
-          delayTime: 1,
-          env: {
-            PORT: 3000
-          },
-          cwd: __dirname
+          cmd: 'coffee',
+          script: 'src/app.coffee'
         }
       }
     },
-    concurrent: {
-      tasks: ['nodemon', 'watch'],
+
+    coffeelint: {
+      app: 'src/**/*.coffee'
+    },
+
+    coffee: {
       options: {
-        logConcurrentOutput: true
+        sourceMap: true
+      },
+
+      compile: {
+        files: [{
+          expand: true,
+          cwd: 'src',
+          src: '**/*.coffee',
+          dest: 'target',
+          ext: '.js'
+        }]
       }
     },
-    env: {
+
+    watch: {
+      files: ['src/**/*.coffee'],
+      tasks: ['coffeelint','coffee']
+    },
+
+    mochaTest: {
       test: {
-        NODE_ENV: 'test'
+        options: {
+          require: 'coffee-script',
+          reporter: 'spec'
+        },
+        src: ['src/test/route_spec.coffee']
       }
     },
-    // Karma will run our Jasmine tests for us
-    karma: {
-      unit: {
-        configFile: 'test/karma/karma.conf.js'
+
+    shell: {
+      server: {
+        options: {
+          stdout: true
+        },
+        command: 'nodemon src/app.coffee'
       }
     }
   });
 
-  //Load NPM tasks 
   grunt.loadNpmTasks('grunt-contrib-watch');
-  grunt.loadNpmTasks('grunt-contrib-jshint');
-  grunt.loadNpmTasks('grunt-karma');
-  grunt.loadNpmTasks('grunt-nodemon');
-  grunt.loadNpmTasks('grunt-concurrent');
-  grunt.loadNpmTasks('grunt-env');
-  grunt.loadNpmTasks('grunt-contrib-sass');
+  grunt.loadNpmTasks('grunt-coffeelint');
+  grunt.loadNpmTasks('grunt-contrib-coffee');
+  grunt.loadNpmTasks('grunt-express-server');
+  grunt.loadNpmTasks('grunt-shell');
+  grunt.loadNpmTasks('grunt-mocha-test');
 
-  //Making grunt default to force in order not to break the project.
-  grunt.option('force', true);
+  // deafult tasks lints and compiles coffe
+  // use grunt command no options
 
-  //Default task(s).
-  grunt.registerTask('default', ['jshint', 'concurrent']);
+  grunt.registerTask('build', ['coffeelint', 'coffee']);
+  grunt.registerTask('default', ['watch']);
+  grunt.registerTask('test', 'mochaTest:test');
+  grunt.registerTask('travis', ['build', 'test']);
 
-  //Test task.
-  grunt.registerTask('test', ['env:test', 'karma:unit']);
 };
