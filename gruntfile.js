@@ -9,7 +9,7 @@ module.exports = function(grunt) {
       dev: {
         options: {
           cmd: 'coffee',
-          script: 'src/app.coffee'
+          script: '/app.coffee'
         }
       }
     },
@@ -54,7 +54,7 @@ module.exports = function(grunt) {
         options: {
           stdout: true
         },
-        command: 'nodemon src/app.coffee'
+        command: 'nodemon app/coffee/app.coffee'
       }
     }
   });
@@ -70,6 +70,7 @@ module.exports = function(grunt) {
   // use grunt command no options
 
   grunt.registerTask('build', ['coffeelint', 'coffee']);
+  grunt.registerTask('serve', ['shell:server']);
   grunt.registerTask('default', ['watch']);
   grunt.registerTask('test', 'mochaTest:test');
   grunt.registerTask('travis', ['build', 'test']);
