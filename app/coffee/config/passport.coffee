@@ -4,16 +4,16 @@ apiUrl  = require('./serverConfig')['url']
 bcrypt  = require 'bcrypt-nodejs'
 
 module.exports = (passport) ->
-  
+
   # =========================================================================
   # passport session setup ==================================================
   # =========================================================================
   # required for persistent login sessions
   # passport needs ability to serialize and unserialize users out of session
-  
+
   # used to serialize the user for the session
   passport.serializeUser (user, done) ->
-    done null, user.id
+    done null, user._id
 
   # used to deserialize the user
   passport.deserializeUser (id, done) ->
@@ -26,19 +26,19 @@ module.exports = (passport) ->
   # Using named strategies since we have one for login and one for signup
   # by default, if there was no name, it would just be called 'local'
   passport.use "local-signup", new LocalStrategy(
-    
+
     # by default, local strategy uses username/password, override with email
     usernameField: "email"
     passwordField: "password"
     passReqToCallback: true # pass back the entire req to the callback
   , (req, email, password, done) ->
-    
+
     # find a user whose email is the same as the forms email
     # we are checking to see if the user trying to login already exists
     User.findOne
       "email": email
     , (err, user) ->
-      
+
       # if there are any errors, return the error
       if err
         return done err
