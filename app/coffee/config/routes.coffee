@@ -12,7 +12,6 @@ module.exports = (app, passport) ->
   app.post '/signup', passport.authenticate('local-signup',
     successRedirect: '/profile' # redirect to the secure profile section
     failureRedirect: '/signup' # redirect to /signup if there is an error
-    failureFlash: true # allow flash messages
   )
 
   #### TO-DO:  FIX THIS DUMMY ROUTE BELOW ####
