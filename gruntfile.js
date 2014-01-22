@@ -54,7 +54,7 @@ module.exports = function(grunt) {
         options: {
           stdout: true
         },
-        command: 'nodemon app/coffee/app.coffee'
+        command: 'nodemon app.coffee'
       }
     }
   });
