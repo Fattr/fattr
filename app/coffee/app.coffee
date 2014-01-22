@@ -1,5 +1,6 @@
 app = require './server'
+port  = require('./config/serverConfig')['port']
 
-app.listen app.get 'port'
+app.listen port
 
-console.log "I hears ya on #{app.get 'port'} breh!"
+console.log "I hears ya on #{port} breh!"

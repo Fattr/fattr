@@ -5,6 +5,7 @@ mongoose = require 'mongoose'
 cors = require './config/middleWare'
 mongoConfig = require './config/dbconfig'
 passport = require 'passport'
+port  = require('./config/serverConfig')['port']
 
 # connect to DB
 
@@ -15,7 +16,7 @@ app = express()
 # app config
 # express middleware for passport and sessions
 
-app.set 'port', process.env.PORT || 3000
+app.set 'port', port
 app.use express.logger('dev')
 
 app.use cors.headers
