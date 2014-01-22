@@ -9,7 +9,7 @@ module.exports = (app, passport) ->
   app.get '/users', helper.getAll
 
   app.post '/signup', passport.authenticate('local-signup'), (req, res) ->
-    res.json req.user
+    res.json 201, req.user
 
   app.post '/login', passport.authenticate('local-login'), (req, res) ->
     res.json req.user
