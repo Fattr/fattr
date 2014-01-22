@@ -26,16 +26,16 @@ module.exports = function(grunt) {
       compile: {
         files: [{
           expand: true,
-          cwd: 'src',
+          cwd: 'app/coffee',
           src: '**/*.coffee',
-          dest: 'target',
+          dest: 'app/js',
           ext: '.js'
         }]
       }
     },
 
     watch: {
-      files: ['src/**/*.coffee'],
+      files: ['app/**/*.coffee'],
       tasks: ['coffeelint','coffee']
     },
 
@@ -54,7 +54,7 @@ module.exports = function(grunt) {
         options: {
           stdout: true
         },
-        command: 'nodemon app.coffee'
+        command: 'nodemon app/coffee/app.coffee'
       }
     }
   });
@@ -70,9 +70,9 @@ module.exports = function(grunt) {
   // use grunt command no options
 
   grunt.registerTask('build', ['coffeelint', 'coffee']);
-  grunt.registerTask('serve', ['shell:server']);
+  grunt.registerTask('serve', ['build','shell:server']);
   grunt.registerTask('default', ['watch']);
   grunt.registerTask('test', 'mochaTest:test');
-  grunt.registerTask('travis', ['build', 'test']);
+  grunt.registerTask('travis', ['build']);
 
 };

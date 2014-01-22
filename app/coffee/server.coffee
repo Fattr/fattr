@@ -5,15 +5,15 @@ mongoose = require 'mongoose'
 passport = require 'passport'
 
 ###### TO-DO - CHANGE ALL INSTANCES OF COFFEE WITH JS ##########
-cors = require './app/coffee/config/middleWare'
-mongoConfig = require './app/coffee/config/dbconfig'
-port  = require('./app/coffee/config/serverConfig')['port']
+cors = require './config/middleWare'
+mongoConfig = require './config/dbconfig'
+port  = require('./config/serverConfig')['port']
 
 # connect to DB
 mongoose.connect mongoConfig.url
 
 # Populate passport object with strategies
-require('./app/coffee/config/passport')(passport)
+require('./config/passport')(passport)
 
 app = express()
 app.set 'port', port
@@ -32,6 +32,6 @@ app.use app.router
 app.use express.static __dirname + '/public'
 
 # routes for api and DB endpoints
-require('./app/coffee/config/routes')(app, passport)
+require('./config/routes')(app, passport)
 
 module.exports = app
