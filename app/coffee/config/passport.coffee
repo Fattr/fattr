@@ -67,3 +67,38 @@ module.exports = (passport) ->
                 return done err
               return done null, newUser
   )
+
+  # =========================================================================
+  # LOCAL LOGIN =============================================================
+  # =========================================================================
+  # we are using named strategies since we have one for login and one for signup
+  # by default, if there was no name, it would just be called 'local'
+  passport.use "local-login", new LocalStrategy(
+    usernameField: "email"
+    passwordField: "password"
+    passReqToCallback: true # pass back the entire request to the callback
+  , (req, email, password, done) -> # callback with email/password from our form
+    
+    # find a user whose email is the same as the forms email
+    # we are checking to see if the user trying to login already exists
+    User.findOne
+      "email": email
+    , (err, user) ->
+      if err
+        return done err
+      # if wrong email or password
+      if not user
+        return done null, false
+      # all is well, return successful user
+      else
+        bcrypt.compare password, user.password, (err, same) ->
+            if err
+              console.error 'bcrypt.compare error ', err
+              return done err
+            else if not same
+              # password is incorrect
+              return done null, false
+            else
+              # found a user in the db
+              done null, user
+  )
