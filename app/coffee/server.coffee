@@ -29,7 +29,7 @@ app.use express.session secret: 'superfit'
 app.use passport.initialize()
 app.use passport.session()
 app.use app.router
-app.use express.static __dirname + '/public'
+app.use express.static __dirname + '/../../public'
 
 # routes for api and DB endpoints
 require('./config/routes')(app, passport)
