@@ -2,15 +2,15 @@
 
 express = require 'express'
 mongoose = require 'mongoose'
-cors = require './config/middleWare'
-mongoConfig = require './config/dbconfig'
+cors = require './app/coffee/config/middleWare'
+mongoConfig = require './app/coffee/config/dbconfig'
 passport = require 'passport'
 port  = require('./config/serverConfig')['port']
 
 # connect to DB
 
 mongoose.connect mongoConfig.url
-require('./config/passport')(passport)
+require('./app/coffee/config/passport')(passport)
 app = express()
 
 # app config
@@ -30,8 +30,9 @@ app.use passport.session()
 app.use app.router
 app.use express.static __dirname + '/public'
 
+
 # routes for api and DB endpoints
 
-require('./config/routes')(app, passport)
+require('./app/coffee/config/routes')(app, passport)
 
 module.exports = app
