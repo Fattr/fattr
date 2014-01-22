@@ -1,14 +1,14 @@
 angular.module('fittr.services')
 
 .provider('UserService', function() {
-  var baseUrl = "http://localhost:3000/users";
-  var apiKey = '';
+  var baseUrl = "http://localhost:3000/";
+  // var apiKey = '';
 
-  // Set our API key from the .config section
-  // of our app
-  this.setApiKey = function(key) {
-    apiKey = key || apiKey;
-  };
+  // // Set our API key from the .config section
+  // // of our app
+  // this.setApiKey = function(key) {
+  //   apiKey = key || apiKey;
+  // };
 
 
   this.$get = function($http, $q, localStorageService) {
@@ -16,15 +16,15 @@ angular.module('fittr.services')
       // persist user details in memory
       currentUser: {},
       // TODO: integrate with user object.  quick and dirty hack :/
-      sessionToken: '',
+      // sessionToken: '',
 
       signup: function(user) {
-        console.log(user, apiKey);
+        console.log(user);
         var creatingUser = $q.defer();
         
         // configure http to send app access token along with POST
-        $http.defaults.headers.common['fittr-api-key'] = apiKey;
-        $http.post(baseUrl, user)
+        // $http.defaults.headers.common['fittr-api-key'] = apiKey;
+        $http.post(baseUrl + 'signup', user)
           .success(function(data, status, headers, config) {
             console.log("data: ", data, "status: ", status);
             creatingUser.resolve(data); 
@@ -44,7 +44,7 @@ angular.module('fittr.services')
         
         // // configure http to send app access token along with POST
         // $http.defaults.headers.post.apikey = apiKey;
-        // $http.post(baseUrl + , user)
+        // $http.post(baseUrl + 'login', user)
         //   .success(function(data, status, headers, config) {
         //     console.log("data: ", data, "status: ", status);
         //     creatingUser.resolve(data);
@@ -66,8 +66,8 @@ angular.module('fittr.services')
 
       retrieve: function(userId, token) {
         var retrievingUser = $q.defer();
-        $http.defaults.headers.common['fittr-api-key'] = apiKey;
-        $http.defaults.headers.common['fittr-session-token'] = token;
+        // $http.defaults.headers.common['fittr-api-key'] = apiKey;
+        // $http.defaults.headers.common['fittr-session-token'] = token;
         console.log("retrieve: ", userId);
         $http.get(baseUrl + "/" + userId)
           .success(function(data, status, headers, config) {

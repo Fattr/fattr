@@ -7,7 +7,7 @@
 // 'fittr.controllers' is found in controllers.js
 angular.module('fittr', ['ionic', 'ngRoute', 'LocalStorageModule', 'fittr.services', 'fittr.controllers'])
 .config(function(UserServiceProvider) {
-  UserServiceProvider.setApiKey('myKey');
+  // UserServiceProvider.setApiKey('myKey');
 })
 
 // Allows us to segregate app data by using a 'Fittr' prefix
