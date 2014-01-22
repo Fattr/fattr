@@ -44,7 +44,6 @@ module.exports = (passport) ->
         return done err
       # check to see if theres already a user with that email
       if user
-        console.log "EMAIL IS TAKEN"
         return done null, false
       else
         # if there is no user with that email, create new user

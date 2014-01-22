@@ -15,6 +15,10 @@ module.exports = (app, passport) ->
     failureRedirect: '/signup' # redirect to /signup if there is an error 
   )
 
+  app.get "/logout", (req, res) ->
+    req.logout()
+    res.redirect "/"
+
   #### TO-DO:  FIX THIS DUMMY ROUTE BELOW ####
   app.get "/profile", isLoggedIn, (req, res) ->
     res.send('ok')
