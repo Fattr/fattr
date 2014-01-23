@@ -4,8 +4,9 @@ angular.module('fittr.services')
  * A simple example service that returns some data.
  */
 .factory('DeviceService', function(UserService) {
-  var baseUrl = process.env.HEROKU_URL || "http://localhost:3000/connect/fitbit";
+  // var baseUrl = process.env.HEROKU_URL || "http://localhost:3000/connect/fitbit";
   // Some fake testing data
+  var baseUrl = "http://localhost:3000/connect/fitbit";
   devices = [
       {
         deviceName: "FitBit",
