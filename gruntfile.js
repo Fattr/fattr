@@ -15,7 +15,7 @@ module.exports = function(grunt) {
     },
 
     coffeelint: {
-      app: 'src/**/*.coffee'
+      app: 'app/**/*.coffee'
     },
 
     coffee: {
@@ -100,7 +100,7 @@ module.exports = function(grunt) {
       }
     },
 
-    
+
   });
 
   grunt.loadNpmTasks('grunt-contrib-watch');
@@ -126,11 +126,11 @@ module.exports = function(grunt) {
   grunt.registerTask('travis', ['build', 'test']);
 
   // client side tasks
-  grunt.registerTask('karma', ['env:test', 'karma:unit'])
+  grunt.registerTask('karma', ['env:test', 'karma:unit']);
   grunt.registerTask('sass', ['sass']);
-  
 
-  // client side 
+
+  // client side
   // ==========================================================================
 
 
@@ -170,7 +170,7 @@ module.exports = function(grunt) {
   //   }
   // });
 
-  // //Load NPM tasks 
+  // //Load NPM tasks
   // grunt.loadNpmTasks('grunt-contrib-watch');
   // grunt.loadNpmTasks('grunt-contrib-jshint');
   // grunt.loadNpmTasks('grunt-karma');

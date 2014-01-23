@@ -23,4 +23,4 @@ module.exports =
     return next()  if req.isAuthenticated()
 
     # if they aren't redirect them to the home page
-    res.redirect('/');
+    res.redirect '/'
