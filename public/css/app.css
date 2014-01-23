@@ -119,7 +119,7 @@ input[type="email"].error, input[type="password"].error {
 /* entire container, keeps perspective */
 .flip-container {
   -webkit-perspective: 1000;
-  margin-top: 15px;
+  margin: 20px;
 }
 /* flip the pane when hovered */
 .flip-container:hover .flipper, .flip-container.hover .flipper {
@@ -133,7 +133,7 @@ input[type="email"].error, input[type="password"].error {
 
 /* flip speed goes here */
 .flipper {
-  -webkit-transition: 0.6s;
+  -webkit-transition: 0.4s;
   -webkit-transform-style: preserve-3d;
 
   position: relative;
@@ -145,7 +145,7 @@ input[type="email"].error, input[type="password"].error {
 
   position: absolute;
   top: 0;
-  left: 0;
+
 }
 
 /* front pane, placed above back */
@@ -156,9 +156,8 @@ input[type="email"].error, input[type="password"].error {
 /* back, initially hidden pane */
 .back {
   -webkit-transform: rotateY(180deg);
-  background-color: white;
-  color: black;
   text-align: center;
+  margin-right: 40px;
 }
 
 
