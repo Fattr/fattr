@@ -32,12 +32,15 @@ module.exports =
     users = [
       'fred'
       'scott'
+      'Manning'
+      'Blake Griffin'
       'david'
       'tony'
       'santiago'
       'mehul'
       'wayne'
-      'douche'
+      'LeBron'
+      'Kobe'
     ]
     user = 0
     while user < users.length
@@ -45,6 +48,11 @@ module.exports =
         username: users[user]
         date: new Date Date.now()
         steps: Math.floor Math.random() * (16000 - 2200 + 1) + 2200
+      mock.isAthelete =
+        if user is 'Kobe' or 'LeBron' or 'Manning' or 'Blake Griffin'
+          true
+        else
+          false
       data.push mock
       user++
     res.json data
