@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'fittr.services' is found in services.js
 // 'fittr.controllers' is found in controllers.js
-angular.module('fittr', ['ionic', 'ngRoute', 'LocalStorageModule', 'fittr.services', 'fittr.controllers'])
+angular.module('fittr', ['ionic', 'ngRoute', 'LocalStorageModule', 'dangle', 'fittr.services', 'fittr.controllers'])
 .config(function(UserServiceProvider) {
   // UserServiceProvider.setApiKey('myKey');
 })
@@ -66,6 +66,12 @@ angular.module('fittr', ['ionic', 'ngRoute', 'LocalStorageModule', 'fittr.servic
           controller: 'CardsController'
         }
       }
+    })
+
+    .state('charts', {
+      url: '/charts',
+      templateUrl: 'templates/testChart.html',
+      controller: 'ChartController'
     })
 
     // User will connect their devices/services here
