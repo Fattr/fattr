@@ -22,10 +22,8 @@ module.exports = (app, passport) ->
   app.get '/connect/fitbit', isLoggedIn ,passport.authenticate('fitbit')
   app.get '/connect/fitbit/callback', isLoggedIn, passport.authenticate('fitbit',
     failureRedirect: '/login'
-  ), (req, res) ->
-    res.json req.user
-    # Successful authentication, redirect home.
-    # res.redirect '/'
+    successRedirect: '#/connect-devices'
+  )
 
   #### TO-DO:  FIX THIS DUMMY ROUTE BELOW ####
   app.get '/profile', isLoggedIn, (req, res) ->
