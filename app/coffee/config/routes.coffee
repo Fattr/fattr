@@ -14,12 +14,21 @@ module.exports = (app, passport) ->
   app.post '/login', passport.authenticate('local-login'), (req, res) ->
     res.json req.user
 
-  app.get "/logout", (req, res) ->
+  app.get '/logout', (req, res) ->
     req.logout()
-    res.redirect "/"
+    res.redirect '/'
+
+## FITBIT AUTHORIZATION ###
+  app.get '/connect/fitbit', isLoggedIn ,passport.authenticate('fitbit')
+  app.get '/connect/fitbit/callback', isLoggedIn, passport.authenticate('fitbit',
+    failureRedirect: '/login'
+  ), (req, res) ->
+    res.json req.user
+    # Successful authentication, redirect home.
+    # res.redirect '/'
 
   #### TO-DO:  FIX THIS DUMMY ROUTE BELOW ####
-  app.get "/profile", isLoggedIn, (req, res) ->
+  app.get '/profile', isLoggedIn, (req, res) ->
     res.send('ok')
   
   app.get '/users/:id', helper.getUser
