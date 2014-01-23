@@ -24,6 +24,10 @@ UserSchema = new mongoose.Schema(
 
   lastLoggedIn: Date
 
+  dummy: Boolean
+
+  isAthlete: Boolean
+
   authData:
 
     fitbit:
