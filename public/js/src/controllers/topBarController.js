@@ -14,6 +14,12 @@ angular.module('fittr.controllers')
 
   // $scope.value = differential.['category']();
 
+  $scope.$watch(
+    function(scope) {
+      console.log(scope.activeSlide);
+    }
+  );
+
   $scope.categories = [
     'Calories',
     'Steps',
@@ -22,6 +28,18 @@ angular.module('fittr.controllers')
     'Sleep'
   ];
 
-  $scope.diffNum = Math.floor( Math.random() * 10001 );
+  var unitBounds = {
+    'Calories': 5000,
+    'Steps': 20000,
+    'Levels': 20,
+    'Distance': 30,
+    'Sleep': 10
+  };
+
+  var function
+
+  var num = Math.floor( Math.random() * 10001 );
+  num *= Math.floor(Math.random()*2) == 1 ? 1 : -1;
+  $scope.diffNum = num;
 
 });
