@@ -46,6 +46,7 @@ module.exports =
   logout: (req, res) ->
 
   getUser: (req, res) ->
+    res.json req.user
 
   getAll: (req, res) ->
 
