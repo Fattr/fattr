@@ -21,9 +21,14 @@ describe "New user signUp", (done) ->
     return done()  if mongoose.connection.db
     mongoose.connect dbURI, done
 
-  request(app).post('/signUp')
-  .send('email': 'scottmoss35@gmail', 'password': '1234')
-  .expect(200)
-  .end (err, res) ->
-    expect(err).to.be null
-    expect(res.body).to.be.an 'object'
+  it "Should sing up new user", (done) ->
+    request(app).post('/signUp')
+    .send('email': 'scott33moss35@gmail', 'password': '1234')
+    .expect(200)
+    .end (err, res) ->
+      expect(err).to.be.an 'object'
+      expect(res.body).to.be.an 'object'
+      expect(res.body).to.have.property '_id'
+      expect(res.body).to.have.property 'salt'
+      expect(res.body).to.have.property 'password'
+      do done
