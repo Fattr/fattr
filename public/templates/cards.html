@@ -1,11 +1,33 @@
 <content padding="true" style="margin-top: 190px; background: #999">
   CARDS
-<div class="card" ng-repeat="user in users">
-  <div class="item item-text-wrap">
-    {{ user.name }}<br />
-    Steps: {{ user.steps | number }}
+
+<!-- Card containter that loops through users -->
+<div class="flip-container" ng-touch="this.classList.toggle('hover');" ng-repeat="user in users">
+  <!-- The entire card itself -->
+  <div class="flipper">
+    <!-- The front of the card -->
+    <div class="front card">
+      <div class="item item-avatar">
+        <img src="http://placekitten.com/64/64">
+        <h2>{{user.name}}</h2>
+      </div>
+      <div class="item item-body">
+        Steps: {{ user.steps | number }}
+      </div>
+    </div>
+    <!-- Back of hte card -->
+    <div class="back card">
+      <div class="item item-avatar">
+        <img src="http://placekitten.com/g/64/64">
+        <h2>AWWW SNAP SON!</h2>
+      </div>
+      <div class="item item-body">
+        charts go here on the back!
+      </div>
+    </div>
   </div>
 </div>
+
 
 <!-- SAMPLE -->
 <div class="list card" ng-click="back()">
