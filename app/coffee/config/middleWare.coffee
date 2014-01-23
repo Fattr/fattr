@@ -11,9 +11,9 @@ module.exports =
 
   # route middleware to make sure a user is logged in
   isLoggedIn: (req, res, next) ->
-    # if user is authenticated in the session, carry on 
+    # if user is authenticated in the session, carry on
     return next()  if req.isAuthenticated()
-    
+
     # if they aren't redirect them to the home page
     console.log "DEBUG: User not logged in"
-    res.redirect "/"
+    res.send 401

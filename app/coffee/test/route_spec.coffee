@@ -32,3 +32,14 @@ describe "New user signUp", (done) ->
       expect(res.body).to.have.property 'salt'
       expect(res.body).to.have.property 'password'
       do done
+
+describe "Auth with Fitbit", (done) ->
+
+  it "Should not auth with fitbit if not logged in", (done) ->
+    request(app).get('/connect/fitbit').expect(401)
+    .end (err, res) ->
+      expect(err).to.be null
+      do done
+
+
+
