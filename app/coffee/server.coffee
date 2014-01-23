@@ -1,13 +1,11 @@
 # requiring dependencies
 
-express = require 'express'
-mongoose = require 'mongoose'
-passport = require 'passport'
-
-###### TO-DO - CHANGE ALL INSTANCES OF COFFEE WITH JS ##########
-cors = require './config/middleWare'
+express     = require 'express'
+mongoose    = require 'mongoose'
+passport    = require 'passport'
+cors        = require './config/middleWare'
 mongoConfig = require './config/dbconfig'
-port  = require('./config/serverConfig')['port']
+port        = require('./config/serverConfig')['port']
 
 # connect to DB
 mongoose.connect mongoConfig.url
