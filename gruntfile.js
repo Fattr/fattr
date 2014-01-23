@@ -74,7 +74,7 @@ module.exports = function(grunt) {
           require: 'coffee-script',
           reporter: 'spec'
         },
-        src: ['src/test/route_spec.coffee']
+        src: ['app/coffee/test/route_spec.coffee']
       }
     },
 
@@ -123,7 +123,7 @@ module.exports = function(grunt) {
   grunt.registerTask('serve', ['build','shell:server']);
   grunt.registerTask('default', ['watch', 'jshint']);
   grunt.registerTask('test', 'mochaTest:test');
-  grunt.registerTask('travis', ['build']);
+  grunt.registerTask('travis', ['build', 'test']);
 
   // client side tasks
   grunt.registerTask('karma', ['env:test', 'karma:unit'])
