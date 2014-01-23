@@ -32,7 +32,7 @@ module.exports =
     users = [
       'Fred'
       'Scott'
-      'Manning'
+      'Monte Ellis'
       'Blake Griffin'
       'David'
       'Tony'
@@ -56,10 +56,49 @@ module.exports =
         if users[user] is 'Kobe' or
             users[user] is 'LeBron' or
             users[user] is 'Blake Griffin' or
-            users[user] is 'Manning'
+            users[user] is 'Monte Ellis'
           true
         else
           false
+
+      mock.pic =
+        if users[user] is 'LeBron'
+          'http://i.cdn.turner.com/nba/nba/.element/img
+          /2.0/sect/statscube/players/large/lebron_james.png'
+        else if users[user] is 'Kobe'
+          'http://i.cdn.turner.com/nba/nba/.element/img
+          /2.0/sect/statscube/players/large/kobe_bryant.png'
+        else if users[user] is 'Blake Griffin'
+          'http://i.cdn.turner.com/nba/nba/.element/
+          img/2.0/sect/statscube/players/large/blake_griffin.png'
+        else if users[user] is 'Monte Ellis'
+          'http://i.cdn.turner.com/nba/nba/.element/
+          img/2.0/sect/statscube/players/large/monte_ellis.png'
+        else if users[user] is 'Scott'
+          'https://1.gravatar.com/avatar/96d5a49ddb4d1d6988dd1929dccd3661?d
+          =https%3A%2F%2Fidenticons.github.com%2Fd1943b74ae4cd1ce3d3ad429
+          7b626c1a.png&r=x&s=440'
+        else if users[user] is 'David'
+          'https://0.gravatar.com/avatar/7fc76b7262f1e22d769652a9506acc
+          9b?d=https%3A%2F%2Fidenticons.github.com%2F56842110357e1aba7
+          e14857dd6bd070c.png&r=x&s=440'
+        else if users[user] is 'Santiago'
+          'https://1.gravatar.com/avatar/501933637783f2df99d065ac0e6ad
+          f4a?d=https%3A%2F%2Fidenticons.github.com%2F9c4979333012b6db
+          b47769acf5b3b397.png&r=x&s=440'
+        else if users[user] is 'Mehul'
+          'https://0.gravatar.com/avatar/0eaac84ceab7d598e05d570dce7f
+          a99f?d=https%3A%2F%2Fidenticons.github.com%2F3790612107b7e2
+          854245b2142f7a300f.png&r=x&s=440'
+        else if users[user] is 'Wayne'
+          'https://2.gravatar.com/avatar/7e3df1c25b636118521100ba361
+          45163?d=https%3A%2F%2Fidenticons.github.com%2F74abb5e54014
+          bd2260eef52f3f862966.png&r=x&s=440'
+        else if users[user] is 'Fred'
+          'https://i4.sndcdn.com/avatars-000004417025-ogo23j-t120x120
+          .jpg?5a267fd'
+        else if users[user] is 'Tony'
+          'http://hrhq.squarespace.com/assets/images/heroes/tonyphillips.jpg'
 
       data.push mock
       user++
