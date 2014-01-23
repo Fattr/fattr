@@ -93,8 +93,6 @@ angular.module('fittr.services')
 
       getAllUsers: function() {
         var fetchingUsers = $q.defer();
-
-        console.log("retrieve: ", userId);
         // $http.get(baseUrl + "users/")
         $http.get(baseUrl + "test/data")
           .success(function(data, status, headers, config) {
