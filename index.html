@@ -31,6 +31,8 @@
 
     <!-- SERVICES -->
     <script src="js/src/services/services.js"></script>
+    <script src="js/src/services/differentialService.js"></script>
+    <script src="js/src/services/directives.js"></script>
     <script src="js/src/services/userService.js"></script>
     <script src="js/src/services/deviceService.js"></script>
 
@@ -69,17 +71,19 @@
             Menu
           </div>
 
-          <a class="item" href="" ng-click="toggleMenu()">
+          <a class="item" href="" ng-touch="toggleMenu()">
             Profile
           </a>
-          <a class="item" href="" ng-click="toggleMenu()">
+          <a class="item" href="" ng-touch="toggleMenu()">
             Settings
           </a>
-          <a class="item" href="#/connect-devices" ng-click="toggleMenu()">
+          <a class="item" href="#/connect-devices" ng-touch="toggleMenu()">
             Add Another Device or Service
           </a>
-          <a class="item" href="#/logout" ng-click="toggleMenu()">
+          <a class="item" href="#/logout" ng-touch="toggleMenu()">
             Logout
+          <a class="item" href="" ng-touch="toggleMenu()">
+            Other stuff
           </a>
         </div>
       </side-menu>

@@ -4437,7 +4437,8 @@ button.item-button-right:after {
 
 .slider-pager {
   position: absolute;
-  bottom: 20px;
+  /*bottom: 20px;*/
+  bottom: 0px;
   width: 100%;
   text-align: center;
   z-index: 1; }

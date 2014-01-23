@@ -1,14 +1,8 @@
-<slide-box style="height: 100px; background: #4A87EE">
-  <slide>
-    <!-- <div class="box blue"><h1>BLUE</h1></div> -->
-    Steps
+<slide-box style="height: 100px; background: #2F3648">
+  <slide ng-repeat="category in categories">
+    <!-- <div align="center">{{ cat | uppercase }}</div> -->
+    <div class="diffNum" style="margin-top: 15px; text-align: center">{{ diffNum | number }}</div>
+    <div style="margin-top: 15px; text-align: center">{{ category }} Differential</div>
   </slide>
-  <slide>
-    <!-- <div class="box yellow"><h1>YELLOW</h1></div> -->
-    Sleep
-  </slide>
-  <slide>
-    <!-- <div class="box pink"><h1>PINK</h1></div> -->
-    Some other activity
-  </slide>
+
 </slide-box>

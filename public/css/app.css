@@ -1,4 +1,8 @@
 /* Your app's CSS, go crazy, make it your own */
+
+/* Custom Fonts */
+@import url(http://fonts.googleapis.com/css?family=Quantico);
+
 body {
   background-color: #ccc;
 }
