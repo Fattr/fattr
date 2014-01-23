@@ -1,4 +1,4 @@
-# routes for API and DB endpoints
+# for API and DB endpoints
 helper = require './routeHelpers'
 isLoggedIn = require('./middleWare').isLoggedIn
 
