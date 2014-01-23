@@ -34,32 +34,32 @@ angular.module('fittr.controllers')
         $scope.signupLoginForm.$valid;
     };
 
-    $scope.signup = function(ngFormController) {
+    $scope.submit = function(ngFormController) {
       $scope.user.username = $scope.user.email;
-      UserService.signup($scope.user)
-        .then(function(data) {
+      var signupPromise = UserService.signup($scope.user);
+
+      signupPromise.then(function(data) {
           console.log("signup: ", data);
 
-          // clear form
-          resetForm(ngFormController);
-
-          // ask UserService to grab user details from api
-          UserService.retrieve(data._id, data._access_token)
-            .then(function(data) {
-              console.log("retrieve fulfilled: ", data);
-              // store user details in memory
-              UserService.save(data);
-              // store user details in local storage?
-              UserService.saveToLocal(data);
-              console.log("retrieve from mem: ", UserService.currentUser);
-              console.log("retrieve from local: ", UserService.retrieveFromLocal());
-            });
-          
+          resetForm(ngFormController); 
           // move to connect devices state
           $state.go('connect-devices');
         }, function(reason) {
           resetForm(ngFormController);
           console.log("reason: ", reason);
+        });
+
+      signupPromise.then(function(data) {
+        UserService.retrieve(data._id, data._access_token)
+          .then(function(data) {
+            console.log("retrieve fulfilled: ", data);
+            // store user details in memory
+            UserService.save(data);
+            // store user details in local storage?
+            UserService.saveToLocal(data);
+            console.log("retrieve from mem: ", UserService.currentUser);
+            console.log("retrieve from local: ", UserService.retrieveFromLocal());
+          });
         });
     };
   });

@@ -82,9 +82,9 @@ input[type="email"].error, input[type="password"].error {
   font-size: 24px;
 }
 
-.item {
+/*.item {
   border: 1px solid #95afc7;
-}
+}*/
 
 /* Connect Devices Pages
  * ========================================================================== */

@@ -1,6 +1,7 @@
 
 <view title="title">
   <content has-header="true" has-tabs="true" padding="true">
+    <div class="flash animate-if" ng-if="signupLoginError">{{signupLoginMessage}}</div>
     <form name="signupLoginForm" novalidate>
       <div class="list list-inset">
 
@@ -24,9 +25,9 @@
         </label>
 
         <button class="button button-block button-balanced"
-          ng-click="signup(signupLoginForm)"
+          ng-click="submit(signupLoginForm)"
           ng-disabled="!(signupLoginForm.$dirty && signupLoginForm.$valid)">
-          Sign Up / Log in
+          {{title}}
         </button>
       </div>
     </form>
