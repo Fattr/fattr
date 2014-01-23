@@ -1,14 +1,13 @@
 language: node_js
-
 before_install:
-  - 'npm install -g grunt-cli'
-  - 'npm install -g coffee-script'
-  - 'npm install -g mocha'
+- npm install -g grunt-cli
+- npm install -g coffee-script
+- npm install -g mocha
 services: mongodb
 deploy:
   provider: heroku
   api_key:
-    secure: i8uN8XrziF0vT8mM0EcD/jwvVcJs2Z3K3g4BxNZ+B9eQ2hDF/3vuyUboY7eIq6xowQr3oA4Ijuz8XyQt7fh3CK5onhBT6Dye8dgDnC/ye+UwNzk7Alrv9j08WLUEDbX/juIGuZ7W00mP9wlkkZm5+i8TtRmHI5Jye9UbgEoHIdE=
-  app: fittr-app-staging
+    secure: FC43WPPzMraEQotnwL+c62E+uq9xtm07a4NhKR5/KL2J3EkP1Phtbnf3NXPPWgKzXr6M+DlnUIiOQlrEmdQKcIh9dTdP/1vP+FJybUNbUc55VFgXZY/awrjlq75n+E0mlCcGcF/fmQuCdQ+btgg7vxprbCZq3dvF393mYGcfXGA=
+  app: fittr-staging
   on:
-    repo: Fittr/API
+    repo: Fittr/fittr

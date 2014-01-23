@@ -5,7 +5,6 @@ angular.module('fittr.services')
 
   this.$get = function($http, $q, localStorageService) {
     return {
-      // persist user details in memory
       currentUser: {},
 
       signup: function(user) {
@@ -25,29 +24,26 @@ angular.module('fittr.services')
       },
 
       login: function(user) {
-        // console.log(user, apiKey);
-        // var creatingUser = $q.defer();
-        
-        // // configure http to send app access token along with POST
-        // $http.defaults.headers.post.apikey = apiKey;
-        // $http.post(baseUrl + 'login', user)
-        //   .success(function(data, status, headers, config) {
-        //     console.log("data: ", data, "status: ", status);
-        //     creatingUser.resolve(data);
-        //     // TODO: investigate how to indicate to user that signup was successfull
-        //     // TODO: investigate how to properly move from this state to connect devices state
-        //     // - how about combining the two. indication of success is transition to 'connect devices'
-        //     // state    
-        //     // this.setUser(data);   
-            
-        //   })
-        //   .error(function(data, status, headers, config) {
-        //     creatingUser.reject(data, status);
-        //   // TODO: investigate how to indicate to user that signup was successfull
-        //   // TODO: investigate how to properly move from this state to connect devices state
-        //   });
+        var loggingInUser = $q.defer();
 
-        // return creatingUser.promise;
+        $http.post(baseUrl + 'login', user)
+          .success(function(data, status, headers, config) {
+            console.log("data: ", data, "status: ", status);
+            loggingInUser.resolve(data);
+            // TODO: investigate how to indicate to user that signup was successfull
+            // TODO: investigate how to properly move from this state to connect devices state
+            // - how about combining the two. indication of success is transition to 'connect devices'
+            // state    
+            // this.setUser(data);   
+            
+          })
+          .error(function(data, status, headers, config) {
+            loggingInUser.reject(data, status);
+          // TODO: investigate how to indicate to user that signup was successfull
+          // TODO: investigate how to properly move from this state to connect devices state
+          });
+
+        return loggingInUser.promise;
       },
 
       retrieve: function(userId, token) {
