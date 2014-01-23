@@ -75,18 +75,20 @@ angular.module('fittr.services')
       },
 
       getUserActivity: function(userId) {
-        var fetchingUserSteps = $q.defer();
+        var fetchingUserAct = $q.defer();
 
         console.log("getUserActivity: ", userId);
-        $http.get(baseUrl + "users/" + userId + "fitbit/steps")
+        $http.get(baseUrl + "users/" + userId + "/fitbit/steps")
           .success(function(data, status, headers, config) {
-            console.log("data: ", data, "status: ", status);
-            fetchingUserSteps.resolve(data);
+            // console.log("data: ", data, "status: ", status);
+            // console.log("what is this: ", this.currentUser);
+            // this.currentUser.activity = data;
+            fetchingUserAct.resolve(data);
           })
           .error(function(data, status, headers, config) {
-            fetchingUserSteps.reject(data, status);
+            fetchingUserAct.reject(data, status);
           });
-        return fetchingUserSteps.promise;
+        return fetchingUserAct.promise;
       },
 
       getAllUsers: function() {
@@ -97,6 +99,9 @@ angular.module('fittr.services')
           .success(function(data, status, headers, config) {
             console.log("data: ", data, "status: ", status);
             fetchingUsers.resolve(data);
+
+            // need logic to format the data for user stream
+            // =============================================
           })
           .error(function(data, status, headers, config) {
             fetchingUsers.reject(data, status);

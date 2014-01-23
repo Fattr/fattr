@@ -69,6 +69,13 @@ angular.module('fittr.controllers')
           UserService.saveToLocal(data);
           console.log("retrieve from mem: ", UserService.currentUser);
           console.log("retrieve from local: ", UserService.retrieveFromLocal());
+          UserService.getUserActivity(data._id)
+            .then(function(data) {
+              // reverse order of activities
+              data['activities-steps'].reverse();
+              UserService.currentUser.activity = data;
+              console.log("Activity: ", UserService.currentUser);
+            })
         });
       });
     };
