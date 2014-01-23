@@ -18,7 +18,8 @@ module.exports = (app, passport) ->
 
 ## FITBIT AUTHORIZATION ###
   app.get '/connect/fitbit', isLoggedIn ,passport.authenticate('fitbit')
-  app.get '/connect/fitbit/callback', isLoggedIn, passport.authenticate('fitbit',
+  app.get '/connect/fitbit/callback', isLoggedIn,
+  passport.authenticate('fitbit',
     failureRedirect: '/login'
     successRedirect: '#/connect-devices'
   )
