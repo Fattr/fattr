@@ -6,6 +6,7 @@ angular.module('fittr.services')
   this.$get = function($http, $q, localStorageService) {
     return {
       currentUser: {},
+      users: [],
 
       signup: function(user) {
         console.log(user);
@@ -46,7 +47,7 @@ angular.module('fittr.services')
         return loggingInUser.promise;
       },
 
-      retrieve: function(userId, token) {
+      retrieve: function(userId) {
         var retrievingUser = $q.defer();
 
         console.log("retrieve: ", userId);
@@ -71,6 +72,41 @@ angular.module('fittr.services')
       },
       retrieveFromLocal: function() {
         return localStorageService.get('currentUser');
+      },
+
+      getUserActivity: function(userId) {
+        var fetchingUserAct = $q.defer();
+
+        console.log("getUserActivity: ", userId);
+        $http.get(baseUrl + "users/" + userId + "/fitbit/steps")
+          .success(function(data, status, headers, config) {
+            // console.log("data: ", data, "status: ", status);
+            // console.log("what is this: ", this.currentUser);
+            // this.currentUser.activity = data;
+            fetchingUserAct.resolve(data);
+          })
+          .error(function(data, status, headers, config) {
+            fetchingUserAct.reject(data, status);
+          });
+        return fetchingUserAct.promise;
+      },
+
+      getAllUsers: function() {
+        var fetchingUsers = $q.defer();
+
+        console.log("retrieve: ", userId);
+        $http.get(baseUrl + "users/")
+          .success(function(data, status, headers, config) {
+            console.log("data: ", data, "status: ", status);
+            fetchingUsers.resolve(data);
+
+            // need logic to format the data for user stream
+            // =============================================
+          })
+          .error(function(data, status, headers, config) {
+            fetchingUsers.reject(data, status);
+          });
+        return fetchingUsers.promise;
       }
     };
   };
