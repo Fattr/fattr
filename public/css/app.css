@@ -9,10 +9,8 @@ body {
   height: 96px;
 }
 .pane {
-  background-color: #2f3648;
+  background-color: rgba(47, 54, 72, 1);
 }
-
-
 
 .tile {
   border: 1px solid #ccc;
@@ -82,6 +80,28 @@ input[type="email"].error, input[type="password"].error {
   font-size: 24px;
 }
 
+.flash {
+  position: fixed;
+  top:14px;
+  width: auto;
+  padding: 8px;
+  border-radius: 4px;
+
+  background-color: rgba(192, 57, 43,0.5);
+  border: 2px solid rgba(192, 57, 43,1.0);
+  /*color: rgba(192, 57, 43,1.0);*/
+  color: #fff;
+}
+.dismiss {
+  margin-left: 20px;
+  cursor: pointer;
+}
+
+
+
+
+/* Main Stream
+* ========================================================================== */
 
 /* entire container, keeps perspective */
 .flip-container {
@@ -135,6 +155,15 @@ input[type="email"].error, input[type="password"].error {
 
 /* Connect Devices Pages
 * ========================================================================== */
-
+a.item {
+  background-color: #545865;
+  border: 1px solid rgba(47, 54, 72, 1);
+}
+a.item h2 {
+  color: #fff;
+}
+a.item p {
+  color: #daeaf5;
+}
 
 
