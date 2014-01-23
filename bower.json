@@ -16,9 +16,9 @@
     "tests"
   ],
   "dependencies": {
-    "angular-facebook": "~0.2.2",
     "angular-local-storage": "*",
     "angular-mocks": "~1.2.9",
-    "oauth.io": "*"
+    "dangle": "*",
+    "d3": "~3.4.1"
   }
 }

@@ -65,7 +65,7 @@ module.exports = function(grunt) {
     },
 
     jshint: {
-      all: ['gruntfile.js', '/public/js/src/*.js', 'test/jasmine/**/*.js']
+      all: ['gruntfile.js', '/public/js/src/*.js']
     },
 
     mochaTest: {
@@ -121,7 +121,7 @@ module.exports = function(grunt) {
 
   grunt.registerTask('build', ['coffeelint', 'coffee']);
   grunt.registerTask('serve', ['build','shell:server']);
-  grunt.registerTask('default', ['watch', 'jshint']);
+  grunt.registerTask('default', ['jshint','test', 'watch']);
   grunt.registerTask('test', 'mochaTest:test');
   grunt.registerTask('travis', ['build', 'test']);
 
