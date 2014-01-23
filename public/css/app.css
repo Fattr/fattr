@@ -9,7 +9,7 @@ body {
   height: 96px;
 }
 .pane {
-  background-color: #303747;
+  background-color: #2f3648;
 }
 
 
@@ -81,6 +81,10 @@ input[type="email"].error, input[type="password"].error {
   color: rgba(192, 57, 43,1.0);
   font-size: 24px;
 }
+
+/*.item {
+  background-color: #545865;
+}*/
 
 /* Connect Devices Pages
  * ========================================================================== */
