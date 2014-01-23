@@ -14,6 +14,24 @@ UserSchema = new mongoose.Schema(
 
   salt: String
 
+  activities:
+    steps: [
+      date: Date
+      value: Number
+    ]
+    activityCalories: [
+      date: Date
+      value: Number
+    ]
+    distance: [
+      date: Date
+      value: Number
+    ]
+    minutesAsleep: [
+      date: Date
+      value: Number
+    ]
+
   createdAt:
     type: Date
     default: Date.now
@@ -31,6 +49,7 @@ UserSchema = new mongoose.Schema(
   authData:
 
     fitbit:
+      avatar: String
       access_token: String
       access_token_secret: String
 
