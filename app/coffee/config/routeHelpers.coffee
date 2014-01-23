@@ -30,15 +30,15 @@ module.exports =
   testData: (req, res) ->
     data = []
     users = [
-      'fred'
-      'scott'
+      'Fred'
+      'Scott'
       'Manning'
       'Blake Griffin'
-      'david'
-      'tony'
-      'santiago'
-      'mehul'
-      'wayne'
+      'David'
+      'Tony'
+      'Santiago'
+      'Mehul'
+      'Wayne'
       'LeBron'
       'Kobe'
     ]
@@ -48,11 +48,19 @@ module.exports =
         username: users[user]
         date: new Date Date.now()
         steps: Math.floor Math.random() * (16000 - 2200 + 1) + 2200
-      mock.isAthelete =
-        if user is 'Kobe' or 'LeBron' or 'Manning' or 'Blake Griffin'
+        calories: Math.floor Math.random() * (6000 - 1000 + 1) + 1000
+        distance: Math.floor Math.random() * (16 - 2 + 1) + 2
+        levels: Math.floor Math.random() * (60 - 2 + 1) + 2
+
+      mock.isAthlete =
+        if users[user] is 'Kobe' or
+            users[user] is 'LeBron' or
+            users[user] is 'Blake Griffin' or
+            users[user] is 'Manning'
           true
         else
           false
+
       data.push mock
       user++
     res.json data
