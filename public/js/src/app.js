@@ -58,8 +58,8 @@ angular.module('fittr', ['ionic', 'ngRoute', 'LocalStorageModule', 'dangle', 'fi
           // controller: 'CatBarController'
         },
         'topBar@': {
-          templateUrl: 'templates/topBar.html'
-          // controller: 'TopBarController'
+          templateUrl: 'templates/topBar.html',
+          controller: 'TopBarController'
         },
         'cards@': {
           templateUrl: 'templates/cards.html',

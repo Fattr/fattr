@@ -1,4 +1,9 @@
 /* Your app's CSS, go crazy, make it your own */
+
+/* Custom Fonts */
+@import url(http://fonts.googleapis.com/css?family=Quantico);
+@import url(http://fonts.googleapis.com/css?family=Pacifico);
+
 body {
   background-color: #ccc;
 }
@@ -98,7 +103,19 @@ input[type="email"].error, input[type="password"].error {
 }
 
 
+/* Top Bar */
+.diffNum {
+  color: #00FF00;
+  font-family: 'Quantico';
+  font-size: 28px;
+  font-weight: bold;
+}
 
+.catDiff {
+  color: #00FF00;
+  font-family: 'Quantico';
+  font-size: 18px;
+}
 
 /* Main Stream
 * ========================================================================== */

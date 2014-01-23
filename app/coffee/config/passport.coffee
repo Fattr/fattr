@@ -79,7 +79,7 @@ module.exports = (passport) ->
     passwordField: "password"
     passReqToCallback: true # pass back the entire request to the callback
   , (req, email, password, done) -> # callback with email/password from our form
-    
+
     # find a user whose email is the same as the forms email
     # we are checking to see if the user trying to login already exists
     User.findOne
@@ -93,15 +93,15 @@ module.exports = (passport) ->
       # all is well, return successful user
       else
         bcrypt.compare password, user.password, (err, same) ->
-            if err
-              console.error 'bcrypt.compare error ', err
-              return done err
-            else if not same
-              # password is incorrect
-              return done null, false
-            else
-              # found a user in the db
-              done null, user
+          if err
+            console.error 'bcrypt.compare error ', err
+            return done err
+          else if not same
+            # password is incorrect
+            return done null, false
+          else
+            # found a user in the db
+            done null, user
   )
 
   passport.use new FitbitStrategy(
