@@ -26,8 +26,7 @@ module.exports = (app, passport) ->
   )
 
   #### TO-DO:  FIX THIS DUMMY ROUTE BELOW ####
-  app.get '/profile', isLoggedIn, (req, res) ->
-    res.send('ok')
+  app.get '/profile', isLoggedIn, helper.testFitbit
   
   app.get '/users/:id', helper.getUser
   app.delete '/users/:id', helper.deleteUser
