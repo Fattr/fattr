@@ -125,6 +125,6 @@ module.exports = (passport) ->
 
       # save the user
       user.save (err) ->
-        throw err  if err
+        console.error err  if err
         done null, user
   )

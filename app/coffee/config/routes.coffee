@@ -1,12 +1,12 @@
 # for API and DB endpoints
 helper = require './routeHelpers'
 isLoggedIn = require('./middleWare').isLoggedIn
+alreadyLoggedOut = require('./middleWare').alreadyLoggedOut
 
 module.exports = (app, passport) ->
   app.get '/', helper.index
 
   app.get '/test/data', helper.testData
-  app.get '/users', helper.getAll
 
   app.post '/signup', passport.authenticate('local-signup'), (req, res) ->
     res.json 201, req.user
@@ -14,22 +14,19 @@ module.exports = (app, passport) ->
   app.post '/login', passport.authenticate('local-login'), (req, res) ->
     res.json req.user
 
-  app.get '/logout', (req, res) ->
-    req.logout()
-    res.redirect '/'
+  app.get '/logout', alreadyLoggedOut, helper.logout
 
 ## FITBIT AUTHORIZATION ###
   app.get '/connect/fitbit', isLoggedIn ,passport.authenticate('fitbit')
   app.get '/connect/fitbit/callback', isLoggedIn, passport.authenticate('fitbit',
     failureRedirect: '/login'
-  ), (req, res) ->
-    res.json req.user
-    # Successful authentication, redirect home.
-    # res.redirect '/'
+    successRedirect: '#/connect-devices'
+  )
 
-  #### TO-DO:  FIX THIS DUMMY ROUTE BELOW ####
-  app.get '/profile', isLoggedIn, (req, res) ->
-    res.send('ok')
-  
-  app.get '/users/:id', helper.getUser
-  app.delete '/users/:id', helper.deleteUser
+  app.get '/users', isLoggedIn, helper.getAll
+  app.get '/users/:id', isLoggedIn, helper.getUser
+  app.delete '/users/:id', isLoggedIn, helper.deleteUser
+  app.get '/users/:id/fitbit/steps', isLoggedIn, helper.fitbitSteps
+
+
+  app.post '/fitbitUpdate', helper.fitbitSubscriptionHandler
