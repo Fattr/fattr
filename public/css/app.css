@@ -129,7 +129,7 @@ input[type="email"].error, input[type="password"].error {
 
 
 /*.item {
-  background-color: #545865;
+  border: 1px solid #95afc7;
 }*/
 
 
