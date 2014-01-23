@@ -2,3 +2,5 @@ node_modules
 bower_components
 app/js
 .DS_store
+.nodemonignore
+public/scss

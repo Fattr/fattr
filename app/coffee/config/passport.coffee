@@ -1,4 +1,5 @@
 LocalStrategy = require('passport-local').Strategy
+FitbitStrategy = require('passport-fitbit').Strategy
 User    = require '../models/user'
 apiUrl  = require('./serverConfig')['url']
 bcrypt  = require 'bcrypt-nodejs'
@@ -101,4 +102,29 @@ module.exports = (passport) ->
             else
               # found a user in the db
               done null, user
+  )
+
+  passport.use new FitbitStrategy(
+    consumerKey: '6b8b28e0569a422e97a70b5ca671df32'
+    consumerSecret: 'b351c1fea45d48ed9955a518f4e30e72'
+    callbackURL: "http://localhost:3000/connect/fitbit/callback"
+    passReqToCallback : true
+  , (req, token, tokenSecret, profile, done) ->
+    # asynchronous
+    # process.nextTick () ->
+    # check if the user is already logged in
+    if not req.user
+      done null, false
+    else # user already exists and is logged in, we have to link accounts
+      user = req.user # pull the user out of the session
+
+      # update the current user's fitbit credentials
+      user.authData.fitbit.access_token = token
+      user.authData.fitbit.access_token_secret = tokenSecret
+      user.updatedAt = new Date()
+
+      # save the user
+      user.save (err) ->
+        throw err  if err
+        done null, user
   )
