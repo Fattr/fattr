@@ -82,6 +82,10 @@ input[type="email"].error, input[type="password"].error {
   font-size: 24px;
 }
 
+/*.item {
+  background-color: #545865;
+}*/
+
 /* Connect Devices Pages
  * ========================================================================== */
 
