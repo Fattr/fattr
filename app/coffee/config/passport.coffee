@@ -121,6 +121,7 @@ module.exports = (passport) ->
       # update the current user's fitbit credentials
       user.authData.fitbit.access_token = token
       user.authData.fitbit.access_token_secret = tokenSecret
+      user.authData.fitbit.avatar = profile._json.user.avatar
       user.updatedAt = new Date()
 
       # save the user
