@@ -107,7 +107,7 @@ module.exports =
 
   fitbitSteps: (req, res) ->
     id = req.params.id
-    res.send 401 if id isnt String req.user._id # only for logged-in user
+    # res.send 401 if id isnt String req.user._id # only for logged-in user
     User.findOne
       "_id": id,
       (err, user) ->

@@ -76,6 +76,13 @@ angular.module('fittr.controllers')
               UserService.currentUser.activity = data;
               console.log("Activity: ", UserService.currentUser);
             })
+          UserService.getAllUsers()
+            .then(function(data) {
+              // reverse order of activities
+              console.log(data);
+              UserService.users = data;
+              console.log("grab all users: ", UserService.users);
+            })
         });
       });
     };
