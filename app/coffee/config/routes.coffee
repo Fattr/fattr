@@ -24,10 +24,13 @@ module.exports = (app, passport) ->
     successRedirect: '#/connect-devices'
   )
 
-  app.get '/users', isLoggedIn, helper.getAll
+  ## FOR DEVELOPMENT, SHOULD MAKE USER LOG IN FOR PRODUCTION
+  app.get '/users', helper.getAll
+  app.get '/users/fitbit', helper.fitbitUsers
+  ##
+  
   app.get '/users/:id', isLoggedIn, helper.getUser
   app.delete '/users/:id', isLoggedIn, helper.deleteUser
   app.get '/users/:id/fitbit/steps', isLoggedIn, helper.fitbitSteps
-
 
   app.post '/fitbitUpdate', helper.fitbitSubscriptionHandler
