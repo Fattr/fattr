@@ -8,3 +8,12 @@ module.exports =
                 X-Requested-With'
                 # this is for CORS preflight checks
     if req.method is 'OPTIONS' then res.send 200 else next()
+
+  # route middleware to make sure a user is logged in
+  isLoggedIn: (req, res, next) ->
+    # if user is authenticated in the session, carry on 
+    return next()  if req.isAuthenticated()
+    
+    # if they aren't redirect them to the home page
+    console.log "DEBUG: User not logged in"
+    res.redirect "/"

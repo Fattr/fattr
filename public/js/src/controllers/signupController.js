@@ -43,10 +43,6 @@ angular.module('fittr.controllers')
           // clear form
           resetForm(ngFormController);
 
-          // store access_token in user object
-          UserService.setSessionToken(data._access_token);
-          console.log("session token: ", UserService.sessionToken);
-
           // ask UserService to grab user details from api
           UserService.retrieve(data._id, data._access_token)
             .then(function(data) {
@@ -55,7 +51,8 @@ angular.module('fittr.controllers')
               UserService.save(data);
               // store user details in local storage?
               UserService.saveToLocal(data);
-              console.log(UserService.currentUser);
+              console.log("retrieve from mem: ", UserService.currentUser);
+              console.log("retrieve from local: ", UserService.retrieveFromLocal());
             });
           
           // move to connect devices state
