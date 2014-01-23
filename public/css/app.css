@@ -105,14 +105,16 @@ input[type="email"].error, input[type="password"].error {
 
 /* Top Bar */
 .diffNum {
-  color: #00FF00;
+  /*color: #00FF00;*/
+  color: #0088ff;
   font-family: 'Quantico';
   font-size: 28px;
   font-weight: bold;
 }
 
 .catDiff {
-  color: #00FF00;
+  /*color: #00FF00;*/
+  color: #0088ff;
   font-family: 'Quantico';
   font-size: 18px;
 }
@@ -164,6 +166,15 @@ input[type="email"].error, input[type="password"].error {
   margin-right: 40px;
 }
 
+/* Cards */
+
+.username {
+  color: #0088ff;
+}
+
+.item-avatar {
+  background: #F5F5F5;
+}
 
 /*.item {
   border: 1px solid #95afc7;
