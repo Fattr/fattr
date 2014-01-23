@@ -22,6 +22,8 @@ UserSchema = new mongoose.Schema(
     type: Date
     default: Date.now
 
+  lastLoggedIn: Date
+
   authData:
 
     fitbit:

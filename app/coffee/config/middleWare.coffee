@@ -17,3 +17,10 @@ module.exports =
     # if they aren't redirect them to the home page
     console.log "DEBUG: User not logged in"
     res.send 401
+
+  alreadyLoggedOut: (req, res, next) ->
+    # if user is authenticated in the session, carry on
+    return next()  if req.isAuthenticated()
+
+    # if they aren't redirect them to the home page
+    res.redirect('/');
