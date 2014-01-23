@@ -1,9 +1,16 @@
 
 <view title="title">
   <content has-header="true" has-tabs="true" padding="true">
-    <div class="flash animate-if" ng-if="signupLoginError">{{signupLoginMessage}}</div>
+
     <form name="signupLoginForm" novalidate>
       <div class="list list-inset">
+
+        <!-- flash message -->
+        <div class="flash animate-if" ng-if="signupLoginError">
+          {{flashMessage}}
+          <i class="icon ion-close-round dismiss"
+            ng-click="dismiss()"></i>
+        </div>
 
         <!-- user email -->
         <label class="item item-input">

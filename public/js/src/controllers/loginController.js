@@ -38,6 +38,10 @@ angular.module('fittr.controllers')
       $scope.loginLoginForm.$valid;
   };
 
+  $scope.dismiss = function() {
+    $scope.signupLoginError = false;
+  }
+
   $scope.submit = function(ngFormController) {
     $scope.user.username = $scope.user.email;
     var loginPromise = UserService.login($scope.user);
