@@ -13,4 +13,15 @@ angular.module('fittr.controllers')
   // }
 
   // $scope.value = differential.['category']();
+
+  $scope.categories = [
+    'Calories',
+    'Steps',
+    'Levels',
+    'Distance',
+    'Sleep'
+  ];
+
+  $scope.diffNum = Math.floor( Math.random() * 10001 );
+
 });
