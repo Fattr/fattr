@@ -1,4 +1,10 @@
 <view title="'Connect your devices'">
+  <div class="bar bar-header bar-dark">
+    <a href="#/"
+    class="button button-clear 
+    icon ion-chevron-left"></a>
+    <h1 class="title">Connect your devices</h1>
+  </div>
   <content has-header="true" has-tabs="false" padding="true">
   <div class="list">
     <div class="item item-divider">
@@ -9,7 +15,7 @@
       <h2>{{device.deviceName}}</h2>
       <p>Go ahead and connect your {{device.deviceName}}</p>
     </a>
-    <div class="item item-divider">
+    <!-- <div class="item item-divider">
       Social Networks
     </div>
     <a ng-repeat="service in services" class="item item-thumbnail-left" href="#">
@@ -17,6 +23,6 @@
       <h2>{{service.serviceName}}</h2>
       <p>Go ahead and connect your {{service.serviceName}}</p>
     </a>
-  </div>
+  </div> -->
   </content>
 </view>
