@@ -31,6 +31,8 @@ angular.module('fittr.controllers')
     'Sleep': 10
   };
 
+  console.log('currslide', $scope.activeSlide);
+
   $scope.$watch('activeSlide', function() {
     var currSlide = $scope.activeSlide || 0;
 
