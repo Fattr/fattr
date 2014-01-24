@@ -29,7 +29,42 @@
   </div>
 -->
 
-  <div class="card"
+  <div class="card" ng-repeat="user in users">
+      <!-- Card Header -->
+      <div class="item item-avatar">
+        <img ng-src="user.pic">
+        <h2>{{user.username}}</h2>
+      </div>
+
+       <!-- Card Body -->
+      <div class="item item-body">
+        <list>
+            <item>
+              <span>Steps</span><span>{{user.steps}}</span>
+            </item>
+            <item>
+              <span>Cals</span><span>{{user.calories}}</span>
+            </item>
+            <item>
+              <span>Distance</span><span>{{user.distance}}</span>
+            </item>
+        </list>
+      </div>
+
+      <!-- Card Footer -->
+      <div class="item tabs tabs-secondary tabs-icon-left">
+        <a class="tab-item" href="#">
+          <i class="icon ion-thumbsup"></i>
+          Like
+        </a>
+        <a class="tab-item" href="#">
+          <i class="icon ion-chatbox"></i>
+          Comment
+        </a>
+      </div>
+    </div>
+
+  <!-- <div class="card"
        ng-repeat="user in users"
        >
     <div class="item item-avatar">
@@ -39,6 +74,7 @@
     <div class="item item-body">
       steps: {{ user.steps | number }}
     </div>
-  </div>
+  </div> -->
 
 </content>
+
