@@ -32,10 +32,10 @@ angular.module('fittr.controllers')
   };
 
   $scope.$watch('activeSlide', function() {
-    var currSlide = $scope.activeSlide;
+    var currSlide = $scope.activeSlide || 0;
 
     var multiplier;
-      if (currSlide === undefined) {
+      if (currSlide === 0) {
         // calories
         multiplier = 2500;
       } else if (currSlide === 1) {
