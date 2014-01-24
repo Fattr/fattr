@@ -15,6 +15,18 @@ describe "Web Server", ->
       expect(err).to.eql null
       do done
 
+describe "Test data", ->
+
+  it "Should send mock users", (done) ->
+    request(app).get('/test/data').expect(200).end (err, res) ->
+      expect(err).to.be null
+      expect(res.body).to.be.ok
+      expect(res.body).to.be.an 'array'
+      expect(res.body.length).to.be 11
+      expect(res.body[0]).to.be.an 'object'
+      expect(res.body[0].username).to.be.a 'string'
+      do done
+
 describe "New user signUp", (done) ->
 
   beforeEach (done) ->
