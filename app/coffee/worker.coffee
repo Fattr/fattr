@@ -1,0 +1,102 @@
+mongoose = require "mongoose"
+db = mongoose.connect "mongodb://localhost/app"
+User = require "./models/user"
+Stat = require "./models/stat"
+config = require("./config/auth").fitbit
+fitbitClient = require("fitbit-js")(config.consumerKey,
+config.consumerSecret, config.callbackURL)
+moment = require "moment"
+
+# =================================
+# get all users fibit access tokens
+# retrieve prior days info and save
+# to database
+# =================================
+yesterday = do ->
+  date = moment()
+  date = date.subtract("days", 1).format("YYYY-MM-DD")
+  date
+
+updateActivitiesDb = (userActivities) ->
+  dailyActivities = new Stat(
+    user: userActivities.id
+    date: userActivities.date
+    steps: userActivities.summary.steps
+    marginalCalories: userActivities.caloriesOut
+    sedentaryMinutes: userActivities.summary.sedentaryMinutes
+    lightActMinutes: userActivities.summary.lightlyActiveMinutes
+    fairlyActMinutes: userActivities.summary.fairlyActiveMinutes
+    veryActMinutes: userActivities.summary.veryActiveMinutes
+  )
+  dailyActivities.save (err, activities, numAffected) ->
+    unless err
+      console.log "activities", activities
+      console.log "number affected", numAffected
+
+
+getActivities = (users) ->
+  i = 0
+
+  while i < users.length
+    ((index) ->
+      user = users[index]
+      token =
+        oauth_token: user.authData.fitbit.access_token
+        oauth_token_secret: user.authData.fitbit.access_token_secret
+
+      fitbitClient.apiCall "GET", "/user/-/activities/date/"+
+      yesterday + ".json",
+        token: token
+      , (err, resp, userActivities) ->
+        unless err
+          userActivities.id = user._id
+          userActivities.date = yesterday
+          console.log "----- User ----"
+          console.log userActivities
+          updateActivitiesDb userActivities
+
+    ) i
+    i++
+
+updateProfileDb = (userProfile, user) ->
+
+  # updates displayName and profPic
+  console.log "updateProfileDb's userProfile obj", userProfile
+  query = _id: user._id
+  User.update query,
+    $set:
+      "fitbit.displayName": userProfile.user.displayName
+      "fitbit.avatar": userProfile.user.avatar
+
+  # {upsert: true},
+  , (err, numAffected, raw) ->
+    console.log err  if err
+    console.log "rows affected:", numAffected
+    console.log "mongo response:", raw
+
+
+getProfile = (users) ->
+  i = 0
+
+  while i < users.length
+    user = users[i]
+    token =
+      oauth_token: user.authData.fitbit.access_token
+      oauth_token_secret: user.authData.fitbit.access_token_secret
+
+    fitbitClient.apiCall "GET", "/user/-/profile.json",
+      token: token
+    , (err, resp, userProfile) ->
+      updateProfileDb userProfile, user  unless err
+
+    i++
+
+
+# Grab all users from DB
+User.find {}, (err, users) ->
+  if err
+    console.log "could not find users", err
+    return err
+  if users
+    getActivities users
+    getProfile users
