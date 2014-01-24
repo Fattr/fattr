@@ -47,7 +47,8 @@
     "passport": "~0.1.18",
     "passport-local": "~0.1.6",
     "passport-fitbit": "~0.1.2",
-    "bower": "~1.2.8"
+    "bower": "~1.2.8",
+    "moment": "~2.5.1"
   },
   "devDependencies": {
     "jshint": "~2.4.1",

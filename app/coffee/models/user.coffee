@@ -57,7 +57,8 @@ UserSchema = new mongoose.Schema(
       id: String
       access_token: String
       expiration_date: Date
-    
+      displayName: String
+
     twitter:
       id: String
       screen_name: String
