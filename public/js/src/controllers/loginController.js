@@ -63,28 +63,23 @@ angular.module('fittr.controllers')
       UserService.retrieve(data._id, data._access_token)
         .then(function(data) {
           console.log("retrieve fulfilled: ", data);
+
           // store user details in memory
           UserService.save(data);
+
           // store user details in local storage?
           UserService.saveToLocal(data);
           console.log("retrieve from mem: ", UserService.currentUser);
           console.log("retrieve from local: ", UserService.retrieveFromLocal());
           UserService.getUserActivity(data._id)
             .then(function(data) {
+              
               // reverse order of activities
               data['activities-steps'].reverse();
               UserService.currentUser.activity = data;
               console.log("Activity: ", UserService.currentUser);
               $state.go('main.stream');
             })
-          // UserService.getAllUsers()
-          //   .then(function(data) {
-          //     // reverse order of activities
-          //     console.log(data);
-          //     UserService.users = data;
-          //     console.log("grab all users: ", UserService.users);
-          //     $state.go('main.stream');
-          //   })
         });
       });
     };
