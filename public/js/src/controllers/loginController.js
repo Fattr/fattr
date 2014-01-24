@@ -51,7 +51,7 @@ angular.module('fittr.controllers')
 
         resetForm(ngFormController); 
         // move to connect devices state
-        $state.go('main.stream');
+        // $state.go('main.stream');
       }, function(reason) {
         resetForm(ngFormController);
         console.log("reason: ", reason);
@@ -75,7 +75,16 @@ angular.module('fittr.controllers')
               data['activities-steps'].reverse();
               UserService.currentUser.activity = data;
               console.log("Activity: ", UserService.currentUser);
+              $state.go('main.stream');
             })
+          // UserService.getAllUsers()
+          //   .then(function(data) {
+          //     // reverse order of activities
+          //     console.log(data);
+          //     UserService.users = data;
+          //     console.log("grab all users: ", UserService.users);
+          //     $state.go('main.stream');
+          //   })
         });
       });
     };

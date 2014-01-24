@@ -21,7 +21,7 @@ module.exports = (app, passport) ->
   app.get '/connect/fitbit/callback', isLoggedIn,
   passport.authenticate('fitbit',
     failureRedirect: '/login'
-    successRedirect: '#/connect-devices'
+    successRedirect: '#/main/stream'
   )
 
   ## FOR DEVELOPMENT, SHOULD MAKE USER LOG IN FOR PRODUCTION
