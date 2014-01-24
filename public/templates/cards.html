@@ -32,7 +32,7 @@
   <div class="card" ng-repeat="user in users">
       <!-- Card Header -->
       <div class="item item-avatar">
-        <img ng-src="user.pic">
+        <img ng-src={{user.pic}}>
         <h2>{{user.username}}</h2>
       </div>
 
@@ -46,7 +46,7 @@
               <span>Cals</span><span class="stats">{{user.calories}}</span>
             </item>
             <item>
-              <span>Distance</span><span class="stats">{{user.distance}}</span>
+              <span>Distance (miles)</span><span class="stats">{{user.distance}}</span>
             </item>
         </list>
       </div>
