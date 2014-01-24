@@ -27,7 +27,7 @@ describe "Test data", ->
       expect(res.body[0].username).to.be.a 'string'
       do done
 
-describe "New user signUp", (done) ->
+describe "User auth", (done) ->
 
   beforeEach (done) ->
     return done()  if mongoose.connection.db
@@ -45,6 +45,13 @@ describe "New user signUp", (done) ->
       expect(res.body).to.have.property 'password'
       do done
 
+  it "Should not let new user sign in", (done) ->
+    request(app).post('/login')
+    .send('email': 'scott3dsf3moss35@gmail', 'password': '1234')
+    .expect(401)
+    .end (err, res) ->
+      do done
+
 describe "Auth with Fitbit", (done) ->
 
   it "Should not auth with fitbit if not logged in", (done) ->
@@ -52,6 +59,13 @@ describe "Auth with Fitbit", (done) ->
     .end (err, res) ->
       expect(err).to.be null
       do done
+
+  it "Should not auth with fitbit callback", (done) ->
+    request(app).get('/connect/fitbit/callback').expect(401)
+    .end (err, res) ->
+      expect(err).to.be null
+      do done
+
 
 
 
