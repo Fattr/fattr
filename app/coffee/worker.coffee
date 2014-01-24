@@ -12,6 +12,7 @@ moment = require "moment"
 # retrieve prior days info and save
 # to database
 # =================================
+
 yesterday = do ->
   date = moment()
   date = date.subtract("days", 1).format("YYYY-MM-DD")
@@ -93,10 +94,14 @@ getProfile = (users) ->
 
 
 # Grab all users from DB
-User.find {}, (err, users) ->
-  if err
-    console.log "could not find users", err
-    return err
-  if users
-    getActivities users
-    getProfile users
+User.find {$where: () ->
+  @authData and @authData.fitbit},
+  (err, users) ->
+    if err
+      console.log "could not find users", err
+      return err
+    if users
+      getActivities users
+      getProfile users
+    if not users.length
+      console.log 'no users in your db man'

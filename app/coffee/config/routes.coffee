@@ -18,7 +18,7 @@ module.exports = (app, passport) ->
   app.post '/signup', passport.authenticate('local-signup'), (req, res) ->
     res.json 201, req.user
 
-  # # log in returning users
+  # log in returning users
   app.post '/login', passport.authenticate('local-login'), (req, res) ->
     res.json req.user
 
@@ -32,7 +32,7 @@ module.exports = (app, passport) ->
   app.delete '/users/:id', isLoggedIn, helper.deleteUser
 
   # this is no the same as the isLogged in middleware
-  # this route lets the front in know on the fly if the user is auth
+  # this route lets the front end know on the fly if the user is auth
   # the isLoggedIn middleware is to let the server know who is auth or not
   # isLoggedIn sends back an additional '401' for angular
   # to intercept if no auth
