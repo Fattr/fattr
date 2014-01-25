@@ -25,6 +25,6 @@
   },
   "resolutions": {
     "angular": "~1.2.11",
-    "nvd3#v1.1.14-beta"
+    "nvd3": "v1.1.14-beta"
   }
 }
