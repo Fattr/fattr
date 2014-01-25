@@ -1,10 +1,23 @@
 <!-- <slide-box style="height: 100px; background: #2F3648"> -->
-<slide-box style="height: 100px; background: #F5F5F5" active-slide="activeSlide">
+<!-- <slide-box style="height: 100px; background: #F5F5F5" active-slide="activeSlide">
   <slide ng-repeat="category in categories">
-    <!-- <div align="center">{{ cat | uppercase }}</div> -->
     <div class="catDiff" style="margin-top: 15px; text-align: center">{{ category }} Differential</div>
     <div class="diffNum" style="margin-top: 5px; text-align: center">{{ diffNum | number }}</div>
-    <!-- <span>current slide: {{ activeSlide }}</span> -->
   </slide>
-
-</slide-box>
+</slide-box
+ -->
+<div style="height: 100px; background: #F5F5F5; margin-top: 45px; padding: 5px">
+  <div class="row">
+    <div class="col"><img src="{{ avatar }}" /></div>
+    <div class="col" style="text-align: center">{{ steps | number }}<br />Steps</div>
+    <div class="col" style="text-align: center">{{ distance | number }}<br />Distance</div>
+    <div class="col" style="text-align: center">{{ calories | number }}<br />Calories</div>
+  </div>
+<!--   <ul style="display: inline-block; list-style-type: none; margin: 0; padding: 0">
+    <li style="display: inline-block"><img src="{{ avatar }}" /></li>
+    <li>8000<br />Steps</li>
+    <li>5.5<br />Distance</li>
+    <li>1800<br />Calories</li>
+  </ul>
+ -->
+</div>
