@@ -22,7 +22,7 @@ angular.module('fittr.controllers')
   };
 
 
-  $scope.title = "Sign Up";
+  $scope.title = "Log In";
   $scope.user = {};
 
   // Form validation

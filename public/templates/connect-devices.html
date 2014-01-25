@@ -1,19 +1,19 @@
 <view title="'Connect your devices'">
-  <div class="bar bar-header bar-dark">
+  <div class="bar bar-header bar-assertive">
     <a href="#/"
     class="button button-clear 
     icon ion-chevron-left"></a>
     <h1 class="title">Connect your devices</h1>
   </div>
   <content has-header="true" has-tabs="false" padding="true">
-  <div class="list">
+  <div class="list devices">
     <div class="item item-divider">
       Activity Trackers
     </div>
-    <a ng-repeat="device in devices" class="item item-thumbnail-left" href="{{device.apiUrl}}">
+    <a ng-repeat="device in devices" class="item item-thumbnail-left device" href="{{device.apiUrl}}">
       <img class="logo" ng-src={{device.imgUrl}}>
       <h2>{{device.deviceName}}</h2>
-      <p>Go ahead and connect your {{device.deviceName}}</p>
+      <p>Connect your {{device.deviceName}}</p>
     </a>
     <!-- <div class="item item-divider">
       Social Networks

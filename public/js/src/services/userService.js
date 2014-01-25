@@ -33,19 +33,6 @@ angular.module('fittr.services')
 
       retrieve: function(userId) {
         return httpHelper('get', "users/" + userId);
-
-        // var retrievingUser = $q.defer();
-
-        // console.log("retrieve: ", userId);
-        // $http.get(baseUrl + "users/" + userId)
-        //   .success(function(data, status, headers, config) {
-        //     console.log("data: ", data, "status: ", status);
-        //     retrievingUser.resolve(data);     
-        //   })
-        //   .error(function(data, status, headers, config) {
-        //     retrievingUser.reject(data, status);
-        //   });
-        // return retrievingUser.promise;
       },
 
       save: function(userData) {
@@ -79,7 +66,7 @@ angular.module('fittr.services')
       },
 
       getAllUsers: function() {
-        return httpHelper('get', "test/data");
+      //  return httpHelper('get', "test/data");
       //   $http.get(baseUrl + "test/data")
       //     .success(function(data, status, headers, config) {
       //       console.log("data: ", data, "status: ", status);
