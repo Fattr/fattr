@@ -17,13 +17,15 @@ angular.module('fittr', ['ionic', 'ngRoute', 'LocalStorageModule', 'nvd3ChartDir
 
 
 
-.config(function($stateProvider, $urlRouterProvider, $routeProvider) {
+.config(function($stateProvider, $urlRouterProvider, $routeProvider, $httpProvider) {
   // Ionic uses AngularUI Router which uses the concept of states
   // Learn more here: https://github.com/angular-ui/ui-router
   // Set up the various states which the app can be in.
   // Each state's controller can be found in controllers.js
 
     // ENTRY
+  $httpProvider.defaults.useXDomain = true;
+  delete $httpProvider.defaults.headers.common['X-Requested-With'];
   var checkAuth = function($q, $state, $http, $rootScope) {
     // check localStorage to see if user is already logged in
     // if not continue on.
