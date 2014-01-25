@@ -1,18 +1,13 @@
 angular.module('fittr.controllers')
 
-.controller('CardsController', function($scope, UserService) {
-  console.log("cards controller: ", UserService);
+.controller('CardsController', function($scope, differential, UserService){
 
   UserService.getAllUsers()
     .then(function(data) {
       // reverse order of activities
-      console.log(data);
       UserService.users = data;
-      console.log("grab all users: ", UserService.users);
       $scope.users = UserService.users;
-    })
+    });
 
-  $scope.back = function() {
-    
-  };
+  
 });
