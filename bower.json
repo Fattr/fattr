@@ -18,7 +18,8 @@
   "dependencies": {
     "angular-local-storage": "*",
     "angular-mocks": "~1.2.9",
-    "dangle": "*",
-    "d3": "~3.4.1"
+    "d3": "~3.4.1",
+    "nvd3": "~1.1.15-beta",
+    "angularjs-nvd3-directives": "~0.0.5-beta"
   }
 }

@@ -27,7 +27,7 @@ angular.module('fittr.controllers')
 
   // Form validation
   $scope.inputValid = ValidationService.inputValid;
-  $scope.inputInValid = ValidationService.inputInValid;
+  $scope.inputInvalid = ValidationService.inputInvalid;
   $scope.showError = ValidationService.showError;
   $scope.canSubmit = ValidationService.canSubmit;
   

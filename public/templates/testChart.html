@@ -11,7 +11,15 @@
 
      <!-- Card Body -->
     <div class="item item-body">
-      <fs-area bind="myStats" on-click="filterByDate">
+      <nvd3-stacked-area-chart
+        data="exampleData"
+          id="exampleId"
+          showXAxis="true"
+          showYAxis="true"
+          width="400"
+          height="250">
+          <svg></svg>
+        </nvd3-stacked-area-chart>
     </div>
 
     <!-- Card Footer -->

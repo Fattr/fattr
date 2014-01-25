@@ -66,7 +66,7 @@ angular.module('fittr.services')
       },
 
       getAllUsers: function() {
-      //  return httpHelper('get', "test/data");
+        return httpHelper('get', "test/data");
       //   $http.get(baseUrl + "test/data")
       //     .success(function(data, status, headers, config) {
       //       console.log("data: ", data, "status: ", status);
