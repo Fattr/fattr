@@ -12,13 +12,18 @@ findUser = (cb) ->
     cb tracy
 
 before (done) ->
+  return done()  if mongoose.connection.db
+  mongoose.connect dbUrl, done
   # Drop db
   User.collection.drop (err) ->
     # save test user
     if err then throw new err
-    User.create
+    user = new User(
       'email': 'tracy@gmail.com'
-      'password': '1234', done
+      'password': '1234'
+    )
+    user.save (err) ->
+      done err
 
 describe 'create user', ->
 

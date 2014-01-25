@@ -75,7 +75,7 @@ module.exports = function(grunt) {
           require: 'coffee-script',
           reporter: 'spec'
         },
-        src: ['app/coffee/test/route_spec.coffee','app/coffee/test/users_spec.coffee']
+        src: ['app/coffee/test/route_spec.coffee']
       }
     },
 
