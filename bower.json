@@ -16,6 +16,7 @@
     "tests"
   ],
   "dependencies": {
+    "angular": "~1.2.11",
     "angular-local-storage": "*",
     "angular-mocks": "~1.2.9",
     "d3": "~3.4.1",
