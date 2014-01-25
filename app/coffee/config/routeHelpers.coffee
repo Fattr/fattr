@@ -76,13 +76,16 @@ module.exports =
     query = user: req.user._id
     dateRange req.params.from, req.params.to, query
     console.log 'query', query
-    Stats.find(query).populate('user', 'pro username authData.fitbit.avatar')
-    .exec (err, stats) ->
+    Stats.find query, (err, stats) ->
       if err
         res.send err
       else if stats
         console.log "db data", stats
-        res.json stats
+        data =
+          email: req.user.email
+          username: req.user.username
+          stats: stats
+        res.json data
 
 
 
