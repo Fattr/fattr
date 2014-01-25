@@ -23,4 +23,7 @@
     "nvd3": "~1.1.15-beta",
     "angularjs-nvd3-directives": "~0.0.5-beta"
   }
+  "resolutions": {
+    "angular": "1.2.11"
+  }
 }
