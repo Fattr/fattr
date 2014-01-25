@@ -62,8 +62,32 @@ angular.module('fittr.services')
       },
       getFromLocal: function() {
         return localStorageService.get('currentUser');
-      }
+      },
 
+      // Helper function to retrieve user's active
+      getActivity: function(userId) {
+        var d = $q.defer();
+
+        this.get(userId)
+          .then(function(data) {
+            console.log("retrieve fulfilled: ", data);
+
+            // store user details in memory
+            this.save(data);
+
+            // store user details in local storage?
+            this.saveToLocal(data);
+            console.log("retrieve from mem: ", this.currentUser);
+            console.log("retrieve from local: ", this.getFromLocal());
+            d.resolve();
+          }, function(error) {
+            // TODO: flesh out this error handler
+            console.log("error occured during user data retrieval");
+            d.reject();
+          });
+          
+        return d.promise;
+      }
     };
   };
 });

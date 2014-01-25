@@ -2,26 +2,6 @@ angular.module('fittr.controllers')
 
 .controller('LoginController', function($scope, $state, UserService, ValidationService) {
 
-  // Helper function to retrieve user's active
-  var getUserActivity = function(userId) {
-    UserService.get(userId)
-      .then(function(data) {
-        console.log("retrieve fulfilled: ", data);
-
-        // store user details in memory
-        UserService.save(data);
-
-        // store user details in local storage?
-        UserService.saveToLocal(data);
-        console.log("retrieve from mem: ", UserService.currentUser);
-        console.log("retrieve from local: ", UserService.getFromLocal());
-      }, function(error) {
-        // TODO: flesh out this error handler
-        console.log("error occured during user data retrieval");
-      });
-  };
-
-
   $scope.title = "Log In";
   $scope.user = {};
 
@@ -47,9 +27,13 @@ angular.module('fittr.controllers')
 
         ValidationService.resetForm(ngFormController, $scope.user); 
         // retrieve user activity and store in mem and local storage
-        getUserActivity(data._id);
-        // move to connect devices state
-        $state.go('main.stream');
+        UserService.getActivity(data._id)
+          .then(function() {
+          // move to connect devices state
+          $state.go('main.stream');
+          }, function() {
+            console.log("failed in retrieving user activity");
+          })
       }, function(reason) {
         ValidationService.resetForm(ngFormController, $scope.user);
         console.log("reason: ", reason);
