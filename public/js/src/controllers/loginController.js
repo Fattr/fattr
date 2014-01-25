@@ -4,7 +4,7 @@ angular.module('fittr.controllers')
 
   // Helper function to retrieve user's active
   var getUserActivity = function(userId) {
-    UserService.retrieve(userId)
+    UserService.get(userId)
       .then(function(data) {
         console.log("retrieve fulfilled: ", data);
 
@@ -14,7 +14,7 @@ angular.module('fittr.controllers')
         // store user details in local storage?
         UserService.saveToLocal(data);
         console.log("retrieve from mem: ", UserService.currentUser);
-        console.log("retrieve from local: ", UserService.retrieveFromLocal());
+        console.log("retrieve from local: ", UserService.getFromLocal());
       }, function(error) {
         // TODO: flesh out this error handler
         console.log("error occured during user data retrieval");
@@ -45,13 +45,13 @@ angular.module('fittr.controllers')
     loginPromise.then(function(data) {
         console.log("login: ", data);
 
-        ValidationService.resetForm(ngFormController, $scope); 
+        ValidationService.resetForm(ngFormController, $scope.user); 
         // retrieve user activity and store in mem and local storage
         getUserActivity(data._id);
         // move to connect devices state
         $state.go('main.stream');
       }, function(reason) {
-        resetForm(ngFormController);
+        ValidationService.resetForm(ngFormController, $scope.user);
         console.log("reason: ", reason);
         $scope.flashMessage = "Hmmm, looks like you don't have an account";
         $scope.signupLoginError = true;

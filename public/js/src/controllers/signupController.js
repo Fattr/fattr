@@ -4,7 +4,7 @@ angular.module('fittr.controllers')
 
     // Helper function to retrieve user's active
     var getUserActivity = function(userId) {
-      UserService.retrieve(userId)
+      UserService.get(userId)
         .then(function(data) {
           console.log("retrieve fulfilled: ", data);
 
@@ -14,7 +14,7 @@ angular.module('fittr.controllers')
           // store user details in local storage?
           UserService.saveToLocal(data);
           console.log("retrieve from mem: ", UserService.currentUser);
-          console.log("retrieve from local: ", UserService.retrieveFromLocal());
+          console.log("retrieve from local: ", UserService.getFromLocal());
         }, function(error) {
           // TODO: flesh out this error handler
           console.log("error occured during user data retrieval");
