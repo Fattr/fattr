@@ -9,5 +9,4 @@ angular.module('fittr.controllers')
       $scope.users = UserService.users;
     });
 
-  
 });

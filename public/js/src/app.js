@@ -21,11 +21,10 @@ angular.module('fittr', ['ionic', 'ngRoute', 'LocalStorageModule', 'dangle', 'fi
   // Set up the various states which the app can be in.
   // Each state's controller can be found in controllers.js
 
+  /*
+   * Fittr
+   */
   $stateProvider
-    /*
-     * Fittr
-     */
-
     // ENTRY 
     .state('entry', {
       url: '/',
@@ -47,11 +46,12 @@ angular.module('fittr', ['ionic', 'ngRoute', 'LocalStorageModule', 'dangle', 'fi
     // MAIN
     .state('main', {
       url: '/main',
-      // abstract: true,
+      abstract: true,
       templateUrl: 'templates/main.html'
     })
     .state('main.stream', {
       url: '/stream',
+      // nested views for /main/stream
       views: {
         'searchBar@': {
           templateUrl: 'templates/searchBar.html'
@@ -68,6 +68,7 @@ angular.module('fittr', ['ionic', 'ngRoute', 'LocalStorageModule', 'dangle', 'fi
       }
     })
 
+    // CHARTS
     .state('charts', {
       url: '/charts',
       templateUrl: 'templates/testChart.html',
@@ -79,56 +80,6 @@ angular.module('fittr', ['ionic', 'ngRoute', 'LocalStorageModule', 'dangle', 'fi
       url: '/connect-devices',
       templateUrl: 'templates/connect-devices.html',
       controller: 'ConnectDevicesController'
-    })
-
-    /*
-     * Pets
-     */
-
-    // setup an abstract state for the tabs directive
-    .state('tab', {
-      url: "/tab",
-      abstract: true,
-      templateUrl: "templates/tabs.html"
-    })
-
-    // the pet tab has its own child nav-view and history
-    .state('tab.pet-index', {
-      url: '/pets',
-      views: {
-        'pets-tab': {
-          templateUrl: 'templates/pet-index.html',
-          controller: 'PetIndexCtrl'
-        }
-      }
-    })
-
-    .state('tab.pet-detail', {
-      url: '/pet/:petId',
-      views: {
-        'pets-tab': {
-          templateUrl: 'templates/pet-detail.html',
-          controler: 'PetDetailCtrl'
-        }
-      }
-    })
-
-    .state('tab.adopt', {
-      url: '/adopt',
-      views: {
-        'adopt-tab': {
-          templateUrl: 'templates/adopt.html'
-        }
-      }
-    })
-
-    .state('tab.about', {
-      url: '/about',
-      views: {
-        'about-tab': {
-          templateUrl: 'templates/about.html'
-        }
-      }
     });
 
   // if none of the above states are matched, use this as the fallback
@@ -136,5 +87,8 @@ angular.module('fittr', ['ionic', 'ngRoute', 'LocalStorageModule', 'dangle', 'fi
 
 });
 
+/*
+ * SETTING SERVICES
+ */
 angular.module('fittr.services', []);
 
