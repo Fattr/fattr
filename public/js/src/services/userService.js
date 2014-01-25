@@ -4,6 +4,7 @@ angular.module('fittr.services')
   this.$get = function($http, $q, localStorageService) {
     var baseUrl = "http://fittr-dev.herokuapp.com/";
 
+
     // http helper since http operations are repeated
     // several times within this service
     var httpHelper = function(verb, url, body) {
