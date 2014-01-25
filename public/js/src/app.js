@@ -81,7 +81,6 @@ angular.module('fittr', ['ionic', 'ngRoute', 'LocalStorageModule', 'nvd3ChartDir
       templateUrl: 'templates/main.html',
       loggedin: checkAuth // place this an any route you need
         //to protect and no unauth user will get to it
-      }
     })
     .state('main.stream', {
       url: '/stream',
