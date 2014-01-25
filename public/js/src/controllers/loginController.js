@@ -22,12 +22,12 @@ angular.module('fittr.controllers')
   };
 
 
-  $scope.title = "Sign Up";
+  $scope.title = "Log In";
   $scope.user = {};
 
   // Form validation
   $scope.inputValid = ValidationService.inputValid;
-  $scope.inputInValid = ValidationService.inputInValid;
+  $scope.inputInvalid = ValidationService.inputInvalid;
   $scope.showError = ValidationService.showError;
   $scope.canSubmit = ValidationService.canSubmit;
   

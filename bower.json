@@ -16,9 +16,16 @@
     "tests"
   ],
   "dependencies": {
+    "angular": "~1.2.11",
     "angular-local-storage": "*",
     "angular-mocks": "~1.2.9",
-    "dangle": "*",
+    "d3": "~3.4.1",
+    "nvd3": "~1.1.15-beta",
+    "angularjs-nvd3-directives": "~0.0.5-beta"
+  },
+  "resolutions": {
+    "angular": "~1.2.11",
+    "nvd3": "v1.1.15-beta",
     "d3": "~3.4.1"
   }
 }
