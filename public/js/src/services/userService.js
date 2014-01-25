@@ -2,7 +2,7 @@ angular.module('fittr.services')
 
 .provider('UserService', function() {
   this.$get = function($http, $q, localStorageService) {
-    var baseUrl = "'http://fast-spire-4621.herokuapp.com/";
+    var baseUrl = "http://fast-spire-4621.herokuapp.com/";
 
 
 
