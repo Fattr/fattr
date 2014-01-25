@@ -3,7 +3,7 @@
 mongoose = require 'mongoose'
 
 StatSchema = new mongoose.Schema(
-  user:
+  user: # use .populate on call time to fill in linked user info here
     type: mongoose.Schema.ObjectId
     ref: 'User'
 
@@ -11,9 +11,7 @@ StatSchema = new mongoose.Schema(
     type: mongoose.Schema.ObjectId
     ref: 'Service'
 
-  date:
-    type: Date
-    default: Date.now()
+  date: String
 
   fairlyActiveMinutes: Number
   lightlyActiveMinutes: Number

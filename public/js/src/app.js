@@ -21,7 +21,7 @@ angular.module('fittr', ['ionic', 'ngRoute', 'LocalStorageModule', 'nvd3ChartDir
   // Set up the various states which the app can be in.
   // Each state's controller can be found in controllers.js
 
-    // ENTRY 
+    // ENTRY
   var checkAuth = function($q, $state, $http, $rootScope) {
     // check localStorage to see if user is already logged in
     // if not continue on.
@@ -51,7 +51,7 @@ angular.module('fittr', ['ionic', 'ngRoute', 'LocalStorageModule', 'nvd3ChartDir
     });
     return deferred.promise;
   };
-  
+
   /*
    * Fittr
    */
