@@ -40,13 +40,13 @@
   <div class="item item-body">
     <list>
       <item>
-        <span>Steps</span><span class="stats">{{user.steps}}</span>
+        <span>Steps</span><span class="stats">{{ currentUser.steps - user.steps | number }}</span>
       </item>
       <item>
-        <span>Cals</span><span class="stats">{{user.calories}}</span>
+        <span>Distance (miles)</span><span class="stats">{{ currentUser.distance - user.distance | number }}</span>
       </item>
       <item>
-        <span>Distance (miles)</span><span class="stats">{{user.distance}}</span>
+        <span>Calories</span><span class="stats">{{ currentUser.calories - user.calories | number }}</span>
       </item>
     </list>
   </div>

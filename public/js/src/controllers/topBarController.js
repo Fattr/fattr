@@ -11,7 +11,7 @@ angular.module('fittr.controllers')
 
   // DUMMY DATA - REPLACE WITH REAL DATA
   $scope.steps = 8000;
-  $scope.distance = 5.7;
+  $scope.distance = 5.2;
   $scope.calories = 2734;
 
 });
