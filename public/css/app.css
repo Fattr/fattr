@@ -52,7 +52,7 @@ body {
 form[name="signupLoginForm"] {
   margin-top: 60px;
 }
-form[name="signupLoginForm"] i.ion-email, i.ion-locked{
+form[name="signupLoginForm"] i.ion-email, i.ion-locked, i.ion-person{
   margin-right: 10px;
   margin-left: 6px;
   font-size: 20px;

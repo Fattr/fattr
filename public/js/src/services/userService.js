@@ -92,7 +92,7 @@ angular.module('fittr.services')
       //       fetchingUsers.reject(data, status);
       //     });
       //   return fetchingUsers.promise;
-      // }
+      }
     };
   };
 });

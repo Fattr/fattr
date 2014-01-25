@@ -17,7 +17,6 @@ module.exports = function(config) {
       'js/angular-*/*.js',
       'js/ionic.js',
       'js/ionic-angular.js',
-      'bower_components/angular-facebook/lib/angular-facebook.js',
       'bower_components/angular-local-storage/angular-local-storage.js',
       'js/src/app.js',
       'js/src/services/services.js',

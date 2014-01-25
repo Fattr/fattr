@@ -3,7 +3,7 @@ angular.module('fittr.services')
 /**
  * A simple example service that returns some data.
  */
-.factory('DeviceService', function(UserService) {
+.factory('DeviceService', function() {
   // Some fake testing data
   var baseUrl = "http://localhost:3000/connect/fitbit";
   devices = [

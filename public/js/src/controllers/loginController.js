@@ -1,43 +1,39 @@
 angular.module('fittr.controllers')
 
-.controller('LoginController', function($scope, $state, UserService) {
-  
-  $scope.title = "Log In";
+.controller('LoginController', function($scope, $state, UserService, ValidationService) {
+
+  // Helper function to retrieve user's active
+  var getUserActivity = function(userId) {
+    UserService.retrieve(userId)
+      .then(function(data) {
+        console.log("retrieve fulfilled: ", data);
+
+        // store user details in memory
+        UserService.save(data);
+
+        // store user details in local storage?
+        UserService.saveToLocal(data);
+        console.log("retrieve from mem: ", UserService.currentUser);
+        console.log("retrieve from local: ", UserService.retrieveFromLocal());
+      }, function(error) {
+        // TODO: flesh out this error handler
+        console.log("error occured during user data retrieval");
+      });
+  };
+
+
+  $scope.title = "Sign Up";
   $scope.user = {};
+
+  // Form validation
+  $scope.inputValid = ValidationService.inputValid;
+  $scope.inputInValid = ValidationService.inputInValid;
+  $scope.showError = ValidationService.showError;
+  $scope.canSubmit = ValidationService.canSubmit;
+  
+  // Flash message
   $scope.signupLoginError = false;
   $scope.flashMessage = "";
-
-
-  var resetForm = function(ngFormController) {
-    $scope.user.email = "";
-    $scope.user.password = "";
-    ngFormController.$setPristine();
-  };
-
-  $scope.getCssClasses = function(ngModelController) {
-    return {
-      error: ngModelController.$invalid && ngModelController.$dirty,
-      success: ngModelController.$valid && ngModelController.$dirty
-    };
-  };
-  
-  $scope.inputValid = function(ngModelController) {
-    return ngModelController.$valid && ngModelController.$dirty
-  };
-
-  $scope.inputInvalid = function(ngModelController) {
-    return ngModelController.$invalid && ngModelController.$dirty
-  };
-
-  $scope.showError = function(ngModelController, error) {
-    return ngModelController.$error[error];
-  };
-
-  $scope.canSubmit = function() {
-    return $scope.loginLoginForm.$dirty &&
-      $scope.loginLoginForm.$valid;
-  };
-
   $scope.dismiss = function() {
     $scope.signupLoginError = false;
   }
@@ -49,39 +45,16 @@ angular.module('fittr.controllers')
     loginPromise.then(function(data) {
         console.log("login: ", data);
 
-        resetForm(ngFormController); 
+        ValidationService.resetForm(ngFormController, $scope); 
+        // retrieve user activity and store in mem and local storage
+        getUserActivity(data._id);
         // move to connect devices state
-        // $state.go('main.stream');
+        $state.go('main.stream');
       }, function(reason) {
         resetForm(ngFormController);
         console.log("reason: ", reason);
         $scope.flashMessage = "Hmmm, looks like you don't have an account";
-        $scope.signupLoginError = true
+        $scope.signupLoginError = true;
       });
-
-    loginPromise.then(function(data) {
-      UserService.retrieve(data._id, data._access_token)
-        .then(function(data) {
-          console.log("retrieve fulfilled: ", data);
-
-          // store user details in memory
-          UserService.save(data);
-
-          // store user details in local storage?
-          UserService.saveToLocal(data);
-          console.log("retrieve from mem: ", UserService.currentUser);
-          console.log("retrieve from local: ", UserService.retrieveFromLocal());
-          UserService.getUserActivity(data._id)
-            .then(function(data) {
-              
-              // reverse order of activities
-              data['activities-steps'].reverse();
-              UserService.currentUser.activity = data;
-              console.log("Activity: ", UserService.currentUser);
-              $state.go('main.stream');
-            })
-        });
-      });
-    };
-
+  };
 });
