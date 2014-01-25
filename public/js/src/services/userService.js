@@ -2,16 +2,16 @@ angular.module('fittr.services')
 
 .provider('UserService', function() {
   this.$get = function($http, $q, localStorageService) {
-    var baseUrl = "http://localhost:3000/";   
+    var baseUrl = "http://fittr-dev.herokuapp.com/";
 
     // http helper since http operations are repeated
-    // several times within this service   
+    // several times within this service
     var httpHelper = function(verb, url, body) {
       var d = $q.defer();
       $http[verb](baseUrl + url, body)
         .success(function(data, status, headers, config) {
           console.log("data: ", data, "status: ", status);
-          d.resolve(data); 
+          d.resolve(data);
         })
         .error(function(data, status, headers, config) {
           d.reject(data, status);
@@ -48,7 +48,7 @@ angular.module('fittr.services')
       },
 
       getUserActivity: function(userId) {
-        // return httpHelper('get', "users") 
+        // return httpHelper('get', "users")
         // var fetchingUserAct = $q.defer();
 
         // console.log("getUserActivity: ", userId);
