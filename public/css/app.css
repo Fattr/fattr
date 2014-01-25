@@ -1,4 +1,3 @@
-/* Your app's CSS, go crazy, make it your own */
 
 /* Custom Fonts */
 @import url(http://fonts.googleapis.com/css?family=Quantico);
@@ -22,11 +21,10 @@ body {
   border: 1px solid #ccc;
   height: 75px;
 }
+
 .mast-head {
   color: #fff;
   padding: 40px;
-}
-.mast-head {
   font-weight: bold;
   text-align: center;
 }
@@ -37,6 +35,11 @@ body {
   font-size: 20px;
   line-height: 25px;
 }
+
+.bar-fittr {
+  background-color: rgba(41, 128, 185,1.0);
+}
+
 .debug h3 {
   color: #fff;
   margin-top: 30px;
@@ -52,7 +55,7 @@ body {
 form[name="signupLoginForm"] {
   margin-top: 60px;
 }
-form[name="signupLoginForm"] i.ion-email, i.ion-locked{
+form[name="signupLoginForm"] i.ion-email, i.ion-locked, i.ion-person{
   margin-right: 10px;
   margin-left: 6px;
   font-size: 20px;
@@ -103,6 +106,24 @@ input[type="email"].error, input[type="password"].error {
   cursor: pointer;
 }
 
+/* Connect Devices Pages
+* ========================================================================== */
+.devices {
+  margin-top: 22px;
+}
+a.device {
+  background-color: rgba(52, 73, 94,1.0);
+  border: 1px solid rgba(47, 54, 72, 1);
+}
+a.device h2 {
+  color: #fff;
+}
+a.device p {
+  color: #daeaf5;
+}
+
+/* Main Stream
+* ========================================================================== */
 
 /* Top Bar */
 .diffNum {
@@ -120,8 +141,6 @@ input[type="email"].error, input[type="password"].error {
   font-size: 18px;
 }
 
-/* Main Stream
-* ========================================================================== */
 
 /* entire container, keeps perspective */
 .flip-container {
@@ -181,27 +200,13 @@ input[type="email"].error, input[type="password"].error {
   border: 1px solid #95afc7;
 }*/
 
-
-/* Connect Devices Pages
-* ========================================================================== */
-a.item {
-  background-color: #545865;
-  border: 1px solid rgba(47, 54, 72, 1);
-}
-a.item h2 {
-  color: #fff;
-}
-a.item p {
-  color: #daeaf5;
-}
-
 .stats {
   font-size: 30px;
   font-family: 'Roboto Condensed';
   margin-left: 20px;
   text-align: right;
-
 }
+
 
 
 

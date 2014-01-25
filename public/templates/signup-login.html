@@ -1,7 +1,12 @@
 
 <view title="title">
-  <content has-header="true" has-tabs="true" padding="true">
-
+  <div class="bar bar-header bar-assertive">
+    <a href="#/"
+    class="button button-clear 
+    icon ion-chevron-left"></a>
+    <h1 class="title">{{title}}</h1>
+  </div>
+  <content has-header="true" has-tabs="false" padding="true">
     <form name="signupLoginForm" novalidate>
       <div class="list list-inset">
 
@@ -11,6 +16,16 @@
           <i class="icon ion-close-round dismiss"
             ng-click="dismiss()"></i>
         </div>
+
+        <!-- user name -->
+        <!-- <label class="item item-input">
+          <i class="icon ion-person"></i>
+          <input type="text" name="" placeholder="Choose a username" required
+            ng-model="user.username"
+            ng-minlength="3">
+            <i class="icon ion-checkmark-circled success" ng-show="inputValid(signupLoginForm.username)"></i>
+            <i class="icon ion-close-circled error" ng-show="inputInvalid(signupLoginForm.username)"></i>
+        </label> -->
 
         <!-- user email -->
         <label class="item item-input">

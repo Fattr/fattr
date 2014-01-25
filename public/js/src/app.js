@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'fittr.services' is found in services.js
 // 'fittr.controllers' is found in controllers.js
-angular.module('fittr', ['ionic', 'ngRoute', 'LocalStorageModule', 'dangle', 'fittr.services', 'fittr.controllers'])
+angular.module('fittr', ['ionic', 'ngRoute', 'LocalStorageModule', 'nvd3ChartDirectives', 'fittr.services', 'fittr.controllers'])
 .config(function(UserServiceProvider) {
   // UserServiceProvider.setApiKey('myKey');
 })
@@ -21,11 +21,42 @@ angular.module('fittr', ['ionic', 'ngRoute', 'LocalStorageModule', 'dangle', 'fi
   // Set up the various states which the app can be in.
   // Each state's controller can be found in controllers.js
 
+    // ENTRY 
+  var checkAuth = function($q, $state, $http, $rootScope) {
+    // check localStorage to see if user is already logged in
+    // if not continue on.
+
+    var User = null;
+    $rootScope.isAuth = function() {
+      return user; // might come in handy to show and hide links based on if the user is auth
+      // example is show sign in/ log in if no user is auth and hide logout
+      // vice versa if user is logged in. Just do a ng-if='$rootScope.isAuth()'
+      // if it doesn't work, then the User variable might need to be a $root variable
+    };
+    var deferred = $q.defer();
+    // Promise for ajax call to check if user is logged in the sever
+    // use on any state / template to prevent access
+
+    $http.get('/loggedin').success(function(user) {
+      if(user !== '0') { // if no user is logged in, the server will send back '0'
+        // $rootScope.User = user; could come in handy but you don't wanna set $rootScope stuff
+        deferred.resolve(); // if it's not '0' then the user is auth with thes server, we may resolve
+      } else {
+        // $rootScope.error_message = 'You must be logged in'; again, may come in handy here
+        deferred.reject(); // user is not auth with server, so redirect that clown
+
+        $state.go('login'); //where ever the sign up page will be, right now it's '/' but that will
+        //be a splash soon and the signup/sign in will prob be someting like '#/signup' duh :)
+      }
+    });
+    return deferred.promise;
+  };
+  
   /*
    * Fittr
    */
   $stateProvider
-    // ENTRY 
+
     .state('entry', {
       url: '/',
       templateUrl: 'templates/entry.html',
@@ -48,6 +79,9 @@ angular.module('fittr', ['ionic', 'ngRoute', 'LocalStorageModule', 'dangle', 'fi
       url: '/main',
       abstract: true,
       templateUrl: 'templates/main.html'
+      loggedin: checkAuth // place this an any route you need
+        //to protect and no unauth user will get to it
+      }
     })
     .state('main.stream', {
       url: '/stream',
@@ -72,15 +106,21 @@ angular.module('fittr', ['ionic', 'ngRoute', 'LocalStorageModule', 'dangle', 'fi
     .state('charts', {
       url: '/charts',
       templateUrl: 'templates/testChart.html',
-      controller: 'ChartController'
+      controller: 'ChartController',
+      resolve: {
+        loggedin: checkAuth
+      }
     })
 
     // User will connect their devices/services here
     .state('connect-devices', {
       url: '/connect-devices',
       templateUrl: 'templates/connect-devices.html',
-      controller: 'ConnectDevicesController'
-    });
+      controller: 'ConnectDevicesController',
+      resolve: {
+        loggedin: checkAuth
+      }
+    })
 
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/');
