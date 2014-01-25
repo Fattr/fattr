@@ -1,5 +1,12 @@
 'use strict';
 
+/* global describe: false */
+/* global module: false */
+/* global beforeEach: false */
+/* global inject: false */
+/* global expect: false */
+/* global it: false */
+
 /* jasmine specs for services go here */
 
 describe('User Service Specs', function() {
@@ -28,6 +35,17 @@ describe('User Service Specs', function() {
     });
   });
 
+  describe('login method', function() {
+
+    // do i test the http request?
+    it('should return a promise object when invoked', function() {
+      var promise = UserService.login();
+
+      expect(typeof promise).toEqual('object');
+      expect(typeof promise.then).toEqual('function');
+    });
+  });
+
   describe('retrieve method', function() {
 
     // do i test the http request?
@@ -46,7 +64,6 @@ describe('User Service Specs', function() {
       user = {
         'email':'karl@gmail.com',
         '_id':'007',
-        'following':[],
         'services':[],
         'updatedAt':'2014-01-20T20:06:43.598Z',
         'createdAt':'2014-01-20T20:06:43.598Z'
@@ -63,17 +80,17 @@ describe('User Service Specs', function() {
       });
     });
 
-    xdescribe('saveToLocal', function() {
+    describe('save and setrieve from local', function() {
       it('should save user details to localStorage', function() {
         var userFromLocal;
 
         UserService.saveToLocal(user);
         userFromLocal = UserService.retrieveFromLocal();
 
-        expect(userFromLocal).toEqual('object');
+        expect(typeof userFromLocal).toEqual('object');
         expect(userFromLocal.email).toEqual('karl@gmail.com');
         expect(userFromLocal._id).toEqual('007');
-        expect(userFromLocal.services).toEqual('[]');
+        expect(userFromLocal.services.length).toEqual(0);
       });
     });
   });

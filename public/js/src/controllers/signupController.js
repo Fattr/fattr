@@ -26,7 +26,7 @@ angular.module('fittr.controllers')
 
     // Form validation
     $scope.inputValid = ValidationService.inputValid;
-    $scope.inputInValid = ValidationService.inputInValid;
+    $scope.inputInvalid = ValidationService.inputInvalid;
     $scope.showError = ValidationService.showError;
     $scope.canSubmit = ValidationService.canSubmit;
     
@@ -44,7 +44,7 @@ angular.module('fittr.controllers')
       signupPromise.then(function(data) {
 
           // console.log("signup: ", data);
-          ValidationService.resetForm(ngFormController, $scope);
+          ValidationService.resetForm(ngFormController, $scope.user);
 
           // get user activity data and store in mem and local storage
           getUserActivity(data._id);
@@ -52,7 +52,7 @@ angular.module('fittr.controllers')
           // move to connect devices state
           $state.go('connect-devices');
         }, function(reason) {
-          ValidationService.resetForm(ngFormController);
+          ValidationService.resetForm(ngFormController, $scope.user);
           console.log("reason: ", reason);
 
           // Display a flash message indicating error

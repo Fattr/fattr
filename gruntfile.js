@@ -58,11 +58,11 @@ module.exports = function(grunt) {
         options: {
           livereload: true
         }
-      },
-      karma: {
-        files: ['public/js/src/**/*.js', 'test/jasmine/**/*.js'],
-        tasks: ['karma:unit:run']
-      }
+      } //,
+      // karma: {
+      //   files: ['public/js/src/**/*.js', 'test/jasmine/**/*.js'],
+      //   tasks: ['karma:unit:run']
+      // }
     },
 
     jshint: {
@@ -88,7 +88,7 @@ module.exports = function(grunt) {
     // Karma will run our Jasmine tests for us
     karma: {
       unit: {
-        configFile: 'test/karma/karma.conf.js'
+        configFile: 'public/test/karma/karma.conf.js'
       }
     },
 
@@ -122,14 +122,15 @@ module.exports = function(grunt) {
 
   grunt.registerTask('build', ['coffeelint', 'coffee']);
   grunt.registerTask('serve', ['build','shell:server']);
-  grunt.registerTask('default', ['jshint','test', 'watch']);
-  grunt.registerTask('test', 'mochaTest:test');
+  grunt.registerTask('test', ['mochaTest:test', 'karma:unit']);
   grunt.registerTask('travis', ['build', 'test']);
 
   // client side tasks
-  grunt.registerTask('karma', ['env:test', 'karma:unit']);
+  // grunt.option('force', true);
+  grunt.registerTask('testClient', ['env:test', 'karma:unit']);
   grunt.registerTask('sass', ['sass']);
 
+  grunt.registerTask('default', ['jshint','test', 'watch']);
 
   // client side
   // ==========================================================================
