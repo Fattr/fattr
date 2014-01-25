@@ -20,7 +20,17 @@ angular.module('fittr.services')
     };
 
     return {
-      currentUser: {},
+      // currentUser: {},
+
+      // THIS IS DUMMY DATA
+      currentUser: {
+        username: 'Marty McFly',
+        steps: 8000,
+        distance: 5.2,
+        calories: 2734 
+      },
+      // DUMMY DATA END
+
       users: [],
 
       signup: function(user) {
