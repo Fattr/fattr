@@ -5,6 +5,7 @@ angular.module('fittr.services')
     var baseUrl = "http://fittr-dev.herokuapp.com/";
 
 
+
     // http helper since http operations are repeated
     // several times within this service
     var httpHelper = function(verb, url, body) {
