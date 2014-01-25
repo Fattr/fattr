@@ -81,17 +81,17 @@ angular.module('fittr', ['ionic', 'ngRoute', 'LocalStorageModule', 'nvd3ChartDir
       templateUrl: 'templates/main.html',
       resolve: {
         loggedin: checkAuth // place this an any route you need
+          //to protect and no unauth user will get to it
       }
-        //to protect and no unauth user will get to it
     })
     .state('main.stream', {
       url: '/stream',
       // nested views for /main/stream
       views: {
-        'searchBar@': {
-          templateUrl: 'templates/searchBar.html'
-          // controller: 'CatBarController'
-        },
+      //   'searchBar@': {
+      //     templateUrl: 'templates/searchBar.html',
+          // controller: 'searchBarController'
+      // },
         'topBar@': {
           templateUrl: 'templates/topBar.html',
           controller: 'TopBarController'
