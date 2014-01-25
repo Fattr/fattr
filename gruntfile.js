@@ -101,7 +101,6 @@ module.exports = function(grunt) {
       }
     },
 
-
   });
 
   // Server side plugins

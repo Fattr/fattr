@@ -49,12 +49,41 @@ module.exports =
         res.json user
 
   # get all users here for streams
-  getAll: (req, res) ->
-    User.find (err, users) ->
+  allUsersActivity: (req, res) ->
+    # define query for search
+    query = {}
+
+    # check for from and to dates and add to query
+    dateRange req.params.from, req.params.to, query
+
+    # use .populate(), its fucking magic!
+    # http://mongoosejs.com/docs/populate.html
+    Stats.find(query).populate('user', 'pro username authData.fitbit.avatar')
+    .exec (err, stats) ->
       if err
-        console.error 'User.find error', err
+        console.log 'err users stream', err
         res.send 500
-      res.json users
+      else if stats
+        console.log 'stats', stats
+        res.json stats
+
+
+  # ===========================
+  # query DB to get single user
+  # steps
+  # ===========================
+  userActivity: (req, res) ->
+    query = user: req.user._id
+    dateRange req.params.from, req.params.to, query
+    console.log 'query', query
+    Stats.find query, (err, stats) ->
+      if err
+        res.send err
+      else if stats
+        console.log "db data", stats
+        res.json stats
+
+
 
   # helper to delete current user
   deleteUser: (req, res) ->
@@ -161,3 +190,18 @@ module.exports =
       data.push mock
       user++
     res.json data
+
+dateRange = (dateFrom, dateTo, query) ->
+  dateFrom = (if (dateFrom is "-") then undefined else dateFrom)
+  dateTo = (if (dateTo is "-") then undefined else dateTo)
+  if dateFrom isnt undefined and dateTo isnt undefined
+    query.date =
+      $gte: dateFrom
+      $lte: dateTo
+  else
+    query.date = $gte: dateFrom  if dateFrom isnt undefined
+    query.date = $lte: dateTo  if dateTo isnt undefined
+
+
+
+
