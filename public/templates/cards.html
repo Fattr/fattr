@@ -29,52 +29,40 @@
   </div>
 -->
 
-  <div class="card" ng-repeat="user in users">
-      <!-- Card Header -->
-      <div class="item item-avatar">
-        <img ng-src={{user.pic}}>
-        <h2>{{user.username}}</h2>
-      </div>
+<div class="card" ng-repeat="user in users" sticky>
+  <!-- Card Header -->
+  <div class="item item-avatar">
+    <img ng-src={{ user.pic }}>
+    <h2>{{user.username}}</h2>
+  </div>
 
-       <!-- Card Body -->
-      <div class="item item-body">
-        <list>
-            <item>
-              <span>Steps</span><span class="stats">{{user.steps}}</span>
-            </item>
-            <item>
-              <span>Cals</span><span class="stats">{{user.calories}}</span>
-            </item>
-            <item>
-              <span>Distance (miles)</span><span class="stats">{{user.distance}}</span>
-            </item>
-        </list>
-      </div>
+  <!-- Card Body -->
+  <div class="item item-body">
+    <list>
+      <item>
+        <span>Steps</span><span class="stats">{{user.steps}}</span>
+      </item>
+      <item>
+        <span>Cals</span><span class="stats">{{user.calories}}</span>
+      </item>
+      <item>
+        <span>Distance (miles)</span><span class="stats">{{user.distance}}</span>
+      </item>
+    </list>
+  </div>
 
-      <!-- Card Footer -->
-      <div class="item tabs tabs-secondary tabs-icon-left">
-        <a class="tab-item" href="#">
-          <i class="icon ion-thumbsup"></i>
-          Like
-        </a>
-        <a class="tab-item" href="#">
-          <i class="icon ion-chatbox"></i>
-          Comment
-        </a>
-      </div>
-    </div>
-
-  <!-- <div class="card"
-       ng-repeat="user in users"
-       >
-    <div class="item item-avatar">
-      <img src="http://placekitten.com/64/64">
-      <h2 class="username">{{user.name}}</h2>
-    </div>
-    <div class="item item-body">
-      steps: {{ user.steps | number }}
-    </div>
-  </div> -->
+  <!-- Card Footer -->
+  <div class="item tabs tabs-secondary tabs-icon-left">
+    <a class="tab-item" href="#">
+      <i class="icon ion-thumbsup"></i>
+      Like
+    </a>
+    <a class="tab-item" href="#">
+      <i class="icon ion-chatbox"></i>
+      Comment
+    </a>
+  </div>
+</div>
 
 </content>
 

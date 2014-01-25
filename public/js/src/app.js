@@ -21,6 +21,7 @@ angular.module('fittr', ['ionic', 'ngRoute', 'LocalStorageModule', 'nvd3ChartDir
   // Set up the various states which the app can be in.
   // Each state's controller can be found in controllers.js
 
+    // ENTRY
   var checkAuth = function($q, $state, $http, $rootScope) {
     // check localStorage to see if user is already logged in
     // if not continue on.
@@ -51,12 +52,11 @@ angular.module('fittr', ['ionic', 'ngRoute', 'LocalStorageModule', 'nvd3ChartDir
     return deferred.promise;
   };
 
+  /*
+   * Fittr
+   */
   $stateProvider
-    /*
-     * Fittr
-     */
 
-    // ENTRY
     .state('entry', {
       url: '/',
       templateUrl: 'templates/entry.html',
@@ -77,15 +77,16 @@ angular.module('fittr', ['ionic', 'ngRoute', 'LocalStorageModule', 'nvd3ChartDir
     // MAIN
     .state('main', {
       url: '/main',
-      // abstract: true,
+      abstract: true,
       templateUrl: 'templates/main.html',
       resolve: {
         loggedin: checkAuth // place this an any route you need
-        //to protect and no unauth user will get to it
       }
+        //to protect and no unauth user will get to it
     })
     .state('main.stream', {
       url: '/stream',
+      // nested views for /main/stream
       views: {
         'searchBar@': {
           templateUrl: 'templates/searchBar.html'
@@ -102,6 +103,7 @@ angular.module('fittr', ['ionic', 'ngRoute', 'LocalStorageModule', 'nvd3ChartDir
       }
     })
 
+    // CHARTS
     .state('charts', {
       url: '/charts',
       templateUrl: 'templates/testChart.html',
@@ -126,5 +128,8 @@ angular.module('fittr', ['ionic', 'ngRoute', 'LocalStorageModule', 'nvd3ChartDir
 
 });
 
+/*
+ * SETTING SERVICES
+ */
 angular.module('fittr.services', []);
 

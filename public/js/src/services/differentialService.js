@@ -1,23 +1,33 @@
 angular.module('fittr.services')
 
-.factory('differential', function() {
+.factory('differential', function($http, $q, UserService) {
+
+
   // pull public feed of all users 
   // return json blob of all differentials
-  var me = {
-    steps: 12000,
-    sleep: 8.2,
-    levels: 12
-  };
+  var findMySteps = $q.defer();
 
-  var opp = {
-    steps: 8723,
-    sleep: 10.5,
-    levels: 7
-  };
+  $http({
+    method: 'GET',
+    url: ''
+  })
+  .success(function(data, status, headers, config) {
+    findMySteps.resolve(data);
+  })
+  .error(function(data, status, headers, config) {
+    findMysteps.reject(status);
+  });
 
   return {
+    currentUser: UserService.currentUser,
+    currentCardUser: 'dunno yet',
+
+    calories: function() {
+      return me.calories - friend.calories;
+    },
+
     steps: function() {
-      return me.steps - opp.steps;
+      return findMySteps.promise;
     },
 
     sleep: function() {

@@ -19,19 +19,20 @@ yesterday = do ->
   date
 
 updateActivitiesDb = (userActivities) ->
+  console.log 'act', userActivities
+  console.log '---DATE---', userActivities.date
   dailyActivities = new Stat(
     user: userActivities.id
     date: userActivities.date
     steps: userActivities.summary.steps
-    marginalCalories: userActivities.caloriesOut
+    marginalCalories: userActivities.summary.marginalCalories
     sedentaryMinutes: userActivities.summary.sedentaryMinutes
-    lightActMinutes: userActivities.summary.lightlyActiveMinutes
-    fairlyActMinutes: userActivities.summary.fairlyActiveMinutes
-    veryActMinutes: userActivities.summary.veryActiveMinutes
+    lightActiveMinutes: userActivities.summary.lightlyActiveMinutes
+    fairlyActiveMinutes: userActivities.summary.fairlyActiveMinutes
+    veryActiveMinutes: userActivities.summary.veryActiveMinutes
   )
   dailyActivities.save (err, activities, numAffected) ->
     unless err
-      console.log "activities", activities
       console.log "number affected", numAffected
 
 
@@ -52,8 +53,6 @@ getActivities = (users) ->
         unless err
           userActivities.id = user._id
           userActivities.date = yesterday
-          console.log "----- User ----"
-          console.log userActivities
           updateActivitiesDb userActivities
 
     ) i
@@ -62,7 +61,6 @@ getActivities = (users) ->
 updateProfileDb = (userProfile, user) ->
 
   # updates displayName and profPic
-  console.log "updateProfileDb's userProfile obj", userProfile
   query = _id: user._id
   User.update query,
     $set:
@@ -73,7 +71,6 @@ updateProfileDb = (userProfile, user) ->
   , (err, numAffected, raw) ->
     console.log err  if err
     console.log "rows affected:", numAffected
-    console.log "mongo response:", raw
 
 
 getProfile = (users) ->

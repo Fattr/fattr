@@ -31,13 +31,19 @@ module.exports = (app, passport) ->
   # delete user out from app and DB, no comming back
   app.delete '/users/:id', isLoggedIn, helper.deleteUser
 
+  # users stream route
+  app.get '/api/users/:from?/:to?', isLoggedIn, helper.allUsersActivity
+
+  # get current users stats
+  app.get '/api/user/:from?/:to?', isLoggedIn, helper.userActivity
+
   # this is no the same as the isLogged in middleware
   # this route lets the front end know on the fly if the user is auth
   # the isLoggedIn middleware is to let the server know who is auth or not
   # isLoggedIn sends back an additional '401' for angular
   # to intercept if no auth
   app.get '/loggedin', helper.loggedIn
-
+  # /api/user/2014-01-20
   #================================
   # fitbit api here
   #================================
