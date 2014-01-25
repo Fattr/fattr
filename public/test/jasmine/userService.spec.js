@@ -46,11 +46,11 @@ describe('User Service Specs', function() {
     });
   });
 
-  describe('retrieve method', function() {
+  describe('get method', function() {
 
     // do i test the http request?
     it('should return a promise object when invoked', function() {
-      var promise = UserService.retrieve();
+      var promise = UserService.get();
 
       expect(typeof promise).toEqual('object');
       expect(typeof promise.then).toEqual('function');
@@ -85,7 +85,7 @@ describe('User Service Specs', function() {
         var userFromLocal;
 
         UserService.saveToLocal(user);
-        userFromLocal = UserService.retrieveFromLocal();
+        userFromLocal = UserService.getFromLocal();
 
         expect(typeof userFromLocal).toEqual('object');
         expect(userFromLocal.email).toEqual('karl@gmail.com');

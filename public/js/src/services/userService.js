@@ -31,41 +31,12 @@ angular.module('fittr.services')
         return httpHelper('post', 'login', user);
       },
 
-      retrieve: function(userId) {
-        return httpHelper('get', "users/" + userId);
+      get: function(userId) {
+        //return httpHelper('get', "users/" + userId);
+        return httpHelper('get', "user/");
       },
 
-      save: function(userData) {
-        this.currentUser = userData;
-      },
-
-      saveToLocal: function(userData) {
-        console.log("saving user into localStorage");
-        localStorageService.add('currentUser', userData);
-      },
-      retrieveFromLocal: function() {
-        return localStorageService.get('currentUser');
-      },
-
-      getUserActivity: function(userId) {
-        // return httpHelper('get', "users") 
-        // var fetchingUserAct = $q.defer();
-
-        // console.log("getUserActivity: ", userId);
-        // $http.get(baseUrl + "users/" + userId + "/fitbit/steps")
-        //   .success(function(data, status, headers, config) {
-        //     // console.log("data: ", data, "status: ", status);
-        //     // console.log("what is this: ", this.currentUser);
-        //     // this.currentUser.activity = data;
-        //     fetchingUserAct.resolve(data);
-        //   })
-        //   .error(function(data, status, headers, config) {
-        //     fetchingUserAct.reject(data, status);
-        //   });
-        // return fetchingUserAct.promise;
-      },
-
-      getAllUsers: function() {
+      getAll: function() {
         return httpHelper('get', "test/data");
       //   $http.get(baseUrl + "test/data")
       //     .success(function(data, status, headers, config) {
@@ -79,6 +50,43 @@ angular.module('fittr.services')
       //       fetchingUsers.reject(data, status);
       //     });
       //   return fetchingUsers.promise;
+      },
+
+      save: function(userData) {
+        this.currentUser = userData;
+      },
+
+      saveToLocal: function(userData) {
+        console.log("saving user into localStorage");
+        localStorageService.add('currentUser', userData);
+      },
+      getFromLocal: function() {
+        return localStorageService.get('currentUser');
+      },
+
+      // Helper function to retrieve user's active
+      getActivity: function(userId) {
+        var d = $q.defer();
+
+        this.get(userId)
+          .then(function(data) {
+            console.log("retrieve fulfilled: ", data);
+
+            // store user details in memory
+            this.save(data);
+
+            // store user details in local storage?
+            this.saveToLocal(data);
+            console.log("retrieve from mem: ", this.currentUser);
+            console.log("retrieve from local: ", this.getFromLocal());
+            d.resolve();
+          }, function(error) {
+            // TODO: flesh out this error handler
+            console.log("error occured during user data retrieval");
+            d.reject();
+          });
+          
+        return d.promise;
       }
     };
   };
