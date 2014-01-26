@@ -54,8 +54,9 @@ module.exports = (app, passport) ->
   # fitbit call back route/ authorize not authenticate here, small diff
   # must use (req, res) callback here for this to work prop with authorize
   app.get '/connect/fitbit/callback', isLoggedIn,
-  passport.authorize('fitbit', failureRedirect: '/login'),
-  helper.getFitbit
+  passport.authorize('fitbit', failureRedirect: '/login'), (req, res) ->
+    console.log 'heeeeree'
+    res.redirect '#/main/stream'
 
 
 
