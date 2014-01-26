@@ -41,5 +41,5 @@ angular.module('fittr.controllers')
       };
     };
 
-    $scope.exampleData = buildSampleData();
+    $scope.stepsData = buildSampleData();
   });

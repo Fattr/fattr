@@ -229,6 +229,9 @@ a.device p {
 .chart h3 {
   margin: 8px 0;
 }
+.chart .slider {
+  height: 240px;
+}
 
 
 
