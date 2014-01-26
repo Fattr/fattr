@@ -40,13 +40,31 @@
   <div class="item item-body">
     <list>
       <item>
-        <span>Steps</span><span class="stats">{{user.steps}}</span>
+        <span>Steps</span>
+        <span class="stats">
+          {{ user.steps }} | 
+          <span ng-class="{true: 'winning', false: 'losing'}[currentUser.steps - user.steps > 0]">
+            {{ currentUser.steps - user.steps > 0 ? '+' : ''}}{{ currentUser.steps - user.steps | number }}
+          </span>
+        </span>
       </item>
       <item>
-        <span>Cals</span><span class="stats">{{user.calories}}</span>
+        <span>Distance (miles)</span>
+        <span class="stats">
+          {{ user.distance }} | 
+          <span ng-class="{true: 'winning', false: 'losing'}[currentUser.distance - user.distance > 0]">
+            {{ currentUser.distance - user.distance > 0 ? '+' : ''}}{{ currentUser.distance - user.distance | number }}
+          </span>
+        </span>
       </item>
       <item>
-        <span>Distance (miles)</span><span class="stats">{{user.distance}}</span>
+        <span>Calories</span>
+        <span class="stats">
+          {{ user.calories }} | 
+          <span ng-class="{true: 'winning', false: 'losing'}[currentUser.calories - user.calories > 0]">
+            {{ currentUser.calories - user.calories > 0 ? '+' : ''}}{{ currentUser.calories - user.calories | number }}
+          </span>
+        </span>
       </item>
     </list>
   </div>

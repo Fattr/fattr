@@ -9,9 +9,4 @@ angular.module('fittr.controllers')
     $scope.avatar = 'http://ionicframework.com/img/docs/mcfly.jpg';
   }
 
-  // DUMMY DATA - REPLACE WITH REAL DATA
-  $scope.steps = 8000;
-  $scope.distance = 5.7;
-  $scope.calories = 2734;
-
 });
