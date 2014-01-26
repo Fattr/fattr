@@ -1,19 +1,12 @@
 angular.module('fittr.controllers')
 
-.controller('TopBarController', function($scope, differential, categories) {
+.controller('TopBarController', function($scope, UserService) {
 
-  /*
-   * SLIDE (category)
-   */
-  $scope.categories = categories;
-  var activeSlide = $scope.activeSlide;
-
-  var slideMap = {
-
-  };
-
-  // diff for current category
-  // and current active card
-  $scope.differential = 0;
+  $scope.currentUser = UserService.currentUser;
+  if ($scope.currentUser.authData && $scope.currentUser.authData.fitbit) {
+    $scope.avatar = $scope.currentUser.authData.fitbit.avatar;
+  } else {
+    $scope.avatar = 'http://ionicframework.com/img/docs/mcfly.jpg';
+  }
 
 });

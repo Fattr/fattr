@@ -27,17 +27,37 @@ angular.module('fittr', ['ionic', 'ngRoute', 'LocalStorageModule', 'nvd3ChartDir
   // Each state's controller can be found in controllers.js
 
     // ENTRY
+  var checkEntry = function($q, $state, $http, $rootScope) {
+    // check localStorage to see if user is already logged in
+    // if not continue on.
+
+    var user = null;
+
+    var deferred = $q.defer();
+    $http.get('/loggedin').success(function(user) {
+      if(user !== '0') {
+        deferred.resolve();
+        $state.go('main.stream');
+      } else {
+        deferred.resolve();
+      }
+    });
+    return deferred.promise;
+  };
+
+
   var checkAuth = function($q, $state, $http, $rootScope) {
     // check localStorage to see if user is already logged in
     // if not continue on.
 
-    var User = null;
+    var user = null;
     $rootScope.isAuth = function() {
       return user; // might come in handy to show and hide links based on if the user is auth
       // example is show sign in/ log in if no user is auth and hide logout
       // vice versa if user is logged in. Just do a ng-if='$rootScope.isAuth()'
       // if it doesn't work, then the User variable might need to be a $root variable
     };
+
     var deferred = $q.defer();
     // Promise for ajax call to check if user is logged in the sever
     // use on any state / template to prevent access
@@ -57,6 +77,7 @@ angular.module('fittr', ['ionic', 'ngRoute', 'LocalStorageModule', 'nvd3ChartDir
     return deferred.promise;
   };
 
+
   /*
    * Fittr
    */
@@ -65,6 +86,9 @@ angular.module('fittr', ['ionic', 'ngRoute', 'LocalStorageModule', 'nvd3ChartDir
     .state('entry', {
       url: '/',
       templateUrl: 'templates/entry.html',
+      resolve: {
+        loggedin: checkEntry
+      }
     })
 
     .state('signup', {
@@ -86,17 +110,17 @@ angular.module('fittr', ['ionic', 'ngRoute', 'LocalStorageModule', 'nvd3ChartDir
       templateUrl: 'templates/main.html',
       resolve: {
         loggedin: checkAuth // place this an any route you need
+          //to protect and no unauth user will get to it
       }
-        //to protect and no unauth user will get to it
     })
     .state('main.stream', {
       url: '/stream',
       // nested views for /main/stream
       views: {
-        'searchBar@': {
-          templateUrl: 'templates/searchBar.html'
-          // controller: 'CatBarController'
-        },
+      //   'searchBar@': {
+      //     templateUrl: 'templates/searchBar.html',
+          // controller: 'searchBarController'
+      // },
         'topBar@': {
           templateUrl: 'templates/topBar.html',
           controller: 'TopBarController'
