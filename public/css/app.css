@@ -142,6 +142,16 @@ a.device p {
 }
 
 
+/* Cards */
+
+.winning {
+  color: green;
+}
+
+.losing {
+  color: red;
+}
+
 /* entire container, keeps perspective */
 .flip-container {
   -webkit-perspective: 1000;
@@ -201,10 +211,26 @@ a.device p {
 }*/
 
 .stats {
-  font-size: 30px;
+  /*font-size: 30px;*/
+  font-size: 20px;
   font-family: 'Roboto Condensed';
   margin-left: 20px;
   text-align: right;
+}
+
+/* Chart Styles
+* ========================================================================== */
+.nv-x text {
+  font-size: 11px;
+}
+.nv-y text {
+  font-size: 11px;
+}
+.chart h3 {
+  margin: 8px 0;
+}
+.chart .slider {
+  height: 240px;
 }
 
 
