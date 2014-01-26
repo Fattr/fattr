@@ -46,7 +46,7 @@ angular.module('fittr', ['ionic', 'ngRoute', 'LocalStorageModule', 'nvd3ChartDir
   };
 
 
->>>>>>> b4737aa5b4c9846113fff60e8aae0482c0c7ae5a
+
   var checkAuth = function($q, $state, $http, $rootScope) {
     // check localStorage to see if user is already logged in
     // if not continue on.
