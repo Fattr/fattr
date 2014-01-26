@@ -1,10 +1,45 @@
 angular.module('fittr.controllers')
 
   .controller('ChartController', function($scope) {
+    
+    var buildSampleData = function() {
+      var data = [];
+      var values = [];
+      var today = new Date();
+      var day = 86400000;
+      var rand = function() {
+        return Math.floor(Math.random() * 10000);
+      };
+      var buildForOneUser = function(user) {
+        for (var i = 0; i < 7; i++) {
+          var dayStats = [];
+          dayStats[0] = today.getTime() - (i * day);
+          dayStats[1] = rand();
+          values.push(dayStats);
+        }
+        data.push({key: user, values: values});
+        values = [];
+      };
+      
+      buildForOneUser("Lebron James");
+      buildForOneUser("me");
+      return data;
+    };
 
-    $scope.exampleData = [{
-      "key": "Me",
-      "values": [[1, 1000], [2, 2000], [3, 50], [4, 3000], [5, 4789], [6, 567], [7, 10384]]
-    }    
-   ];
+    $scope.xAxisTickFormat = function() {
+      return function(d) {
+        console.log(d);
+        return d3.time.format('%m/%e')(new Date(d)); 
+      }
+    };
+
+    var colorArray = ['#27ae60', '#c0392b'];
+
+    $scope.colorFunction = function() {
+      return function(d, i) {
+        return colorArray[i];
+      };
+    };
+
+    $scope.exampleData = buildSampleData();
   });

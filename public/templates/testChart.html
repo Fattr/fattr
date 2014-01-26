@@ -11,15 +11,20 @@
 
      <!-- Card Body -->
     <div class="item item-body">
-      <nvd3-stacked-area-chart
+      <nvd3-line-chart
         data="exampleData"
-          id="exampleId"
-          showXAxis="true"
-          showYAxis="true"
-          width="400"
-          height="250">
-          <svg></svg>
-        </nvd3-stacked-area-chart>
+        id="interpolateExampleBasis"
+        width="312"
+        height="190"
+        showXAxis="true"
+        showYAxis="true"
+        xAxisTickFormat="xAxisTickFormat()"
+        interpolate="basis"
+        margin="{left:36,top:30,bottom:30,right:20}"
+        showLegend="true"
+        isArea="true">
+        <svg></svg>
+      </nvd3-line-chart>
     </div>
 
     <!-- Card Footer -->
