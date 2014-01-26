@@ -49,7 +49,7 @@ module.exports = (app, passport) ->
   #================================
 
   # auth with fitbit
-  app.get '/connect/fitbit', isLoggedIn, passport.authorize('fitbit')
+  app.get '/connect/fitbit', isLoggedIn, passport.authorize 'fitbit'
 
   # fitbit call back route/ authorize not authenticate here, small diff
   # must use (req, res) callback here for this to work prop with authorize
