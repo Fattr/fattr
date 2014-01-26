@@ -15,6 +15,11 @@ angular.module('fittr', ['ionic', 'ngRoute', 'LocalStorageModule', 'nvd3ChartDir
   localStorageServiceProvider.setPrefix('Fittr');
 })
 
+.config(['$httpProvider', function ($httpProvider) {
+  $httpProvider.defaults.useXDomain = true;
+  delete $httpProvider.defaults.headers.common['X-Requested-With'];
+}])
+
 .config(function($stateProvider, $urlRouterProvider, $routeProvider) {
   // Ionic uses AngularUI Router which uses the concept of states
   // Learn more here: https://github.com/angular-ui/ui-router
