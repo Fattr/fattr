@@ -20,7 +20,7 @@ module.exports = (app, passport) ->
 
   # log in returning users
   app.post '/login', passport.authenticate('local-login'), (req, res) ->
-    res.redirect '#/main/stream'
+    res.json req.user
 
   # log current user out the session
   app.get '/logout', alreadyLoggedOut, helper.logout
@@ -55,8 +55,8 @@ module.exports = (app, passport) ->
   # must use (req, res) callback here for this to work prop with authorize
   app.get '/connect/fitbit/callback', isLoggedIn,
   passport.authorize('fitbit', failureRedirect: '/login'), (req, res) ->
-    console.log 'heeeeree'
-    res.redirect '#/main/stream'
+    console.log 'heeeer'
+    res.redirect '#/main/streams'
 
 
 

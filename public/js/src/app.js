@@ -39,7 +39,7 @@ angular.module('fittr', ['ionic', 'ngRoute', 'LocalStorageModule', 'nvd3ChartDir
         deferred.resolve();
         $state.go('main.stream');
       } else {
-        deferred.reject();
+        deferred.resolve();
       }
     });
     return deferred.promise;
