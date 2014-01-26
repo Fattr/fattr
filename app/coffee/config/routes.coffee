@@ -20,7 +20,7 @@ module.exports = (app, passport) ->
 
   # log in returning users
   app.post '/login', passport.authenticate('local-login'), (req, res) ->
-    res.json req.user
+    res.redirect '#/main/stream'
 
   # log current user out the session
   app.get '/logout', alreadyLoggedOut, helper.logout
