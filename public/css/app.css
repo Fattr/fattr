@@ -207,6 +207,18 @@ a.device p {
   text-align: right;
 }
 
+/* Chart Styles
+* ========================================================================== */
+.nv-x text {
+  font-size: 11px;
+}
+.nv-y text {
+  font-size: 11px;
+}
+.chart h3 {
+  margin: 8px 0;
+}
+
 
 
 
