@@ -18,7 +18,7 @@ angular.module('fittr.controllers')
     };
 
     $scope.submit = function(ngFormController) {
-      $scope.user.username = $scope.user.email;
+      // $scope.user.username = $scope.user.email;
 
       UserService.signup($scope.user)
         .then(function(data) {
