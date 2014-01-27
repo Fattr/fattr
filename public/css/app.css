@@ -61,16 +61,10 @@ form[name="signupLoginForm"] i.ion-email, i.ion-locked, i.ion-person{
   font-size: 20px;
   color: #999;
 }
-input[type="email"], input[type="password"] {
+input[type="email"], input[type="password"], input[type="text"] {
   padding: 6px;
   font-size: 18px;
   line-height: 27px;
-}
-input[type="email"].success, input[type="password"].success {
-  border: 2px solid green;
-}
-input[type="email"].error, input[type="password"].error {
-  border: 2px solid red;
 }
 
 /* set the same as the .pane background-color */
