@@ -88,18 +88,21 @@ module.exports =
     yesterday + '.json',
       'token': token
     , (err, resp, userActivity) ->
-      unless err
-        stat = new Stats()
-        stat.user = req.user._id
-        stat.date = yesterday
-        stat.steps = userActivity.summary.steps
-        stat.marginalCalories = userActivity.summary.marginalCalories
-        stat.veryActiveMinutes = userActivity.summary.veryActiveMinutes
+      console.log 'here inside fitbit'
+      if err
+        console.log 'err getting data', err
 
-        stat.save (err) ->
-          if err
-            console.log 'error getting new users fitbit', err
-            res.send 500
+      stat = new Stats()
+      stat.user = req.user._id
+      stat.date = yesterday
+      stat.steps = userActivity.summary.steps
+      stat.marginalCalories = userActivity.summary.marginalCalories
+      stat.veryActiveMinutes = userActivity.summary.veryActiveMinutes
+
+      stat.save (err) ->
+        if err
+          console.log 'error getting new users fitbit', err
+          res.send 500
 
 
 
