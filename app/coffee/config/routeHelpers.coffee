@@ -79,6 +79,8 @@ module.exports =
     token =
       'oauth_token': req.user.authData.fitbit.access_token
       'oauth_token_secret': req.user.authData.fitbit.access_token_secret
+    console.log 'token', token
+    console.log 'req user ====== ', req.user
 
     fitbitClient.apiCall "GET", 'user/-/activities/date'+
     yesterday + '.json',
