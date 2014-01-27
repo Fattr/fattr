@@ -84,8 +84,8 @@ describe('User Service Specs', function() {
       it('should save user details to localStorage', function() {
         var userFromLocal;
 
-        UserService.saveToLocal(user);
-        userFromLocal = UserService.getFromLocal();
+        UserService.saveToLocal('007', user);
+        userFromLocal = UserService.getFromLocal('007');
 
         expect(typeof userFromLocal).toEqual('object');
         expect(userFromLocal.email).toEqual('karl@gmail.com');
