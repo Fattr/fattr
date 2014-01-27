@@ -150,6 +150,13 @@ angular.module('fittr', ['ionic', 'ngRoute', 'LocalStorageModule', 'nvd3ChartDir
       resolve: {
         loggedin: checkAuth
       }
+    })
+
+    // FLIPPING CARDS
+    .state('flip', {
+      url: '/flip',
+      templateUrl: 'templates/cardsFlip.html',
+      controller: 'ChartController'
     });
 
   // if none of the above states are matched, use this as the fallback

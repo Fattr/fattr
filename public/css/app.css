@@ -191,13 +191,14 @@ a.device p {
 * ========================================================================== */
 
 .flipcardContainer { 
-  width: 95%;
+  margin-left: 0;
+  margin-right: 0;
   height: 329px;
   position: relative;
   perspective: 800px;
 }
 
-.card {
+/*.card {
   width: 100%;
   height: 100%;
   -webkit-transition: -webkit-transform 1s;
@@ -222,6 +223,7 @@ a.device p {
 }
 
 .card .cardBack {
+  background-color: blue;
   -webkit-transform: rotateY( 180deg );
   -moz-transform: rotateY( 180deg );
   -o-transform: rotateY( 180deg );
@@ -233,6 +235,111 @@ a.device p {
   -moz-transform: rotateY( 180deg );
   -o-transform: rotateY( 180deg );
   transform: rotateY( 180deg );
+}*/
+
+/*.card.flipped figure {
+  -webkit-backface-visibility: visible;
+  -moz-backface-visibility: visible;
+  -o-backface-visibility: visible;
+  backface-visibility: visible;
+}
+
+.card.flipped .cardFront {
+  display: none;
+}*/
+
+/*Fliptest*/
+.myCard {
+  margin: 20px 10px;
+  border-radius: 10px;
+  -webkit-transition: -webkit-transform 1s;
+  -moz-transition: -moz-transform 1s;
+  -o-transition: -o-transform 1s;
+  transition: transform 1s;
+  -webkit-transform-style: preserve-3d;
+  -moz-transform-style: preserve-3d;
+  -o-transform-style: preserve-3d;
+  transform-style: preserve-3d;
+}
+
+.myCard figure {
+  display: block;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  -webkit-backface-visibility: hidden;
+  -moz-backface-visibility: hidden;
+  -o-backface-visibility: hidden;
+  /*backface-visibility: hidden;*/
+}
+
+.myCard .cardBack {
+  -webkit-transform: rotateY( 180deg );
+  -moz-transform: rotateY( 180deg );
+  -o-transform: rotateY( 180deg );
+  transform: rotateY( 180deg );
+}
+
+.myCard.flipped {
+  -webkit-transform: rotateY( 180deg );
+  -moz-transform: rotateY( 180deg );
+  -o-transform: rotateY( 180deg );
+  transform: rotateY( 180deg );
+}
+
+
+.partial {
+  border: 1px solid #dddddd;
+  background-color: white;
+  color: #444444;
+  font-size: 16px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  position: relative;
+}
+
+.partial.partial-avatar {
+  background: #F5F5F5;
+  padding-left: 70px;
+  min-height: 70px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+
+.partial-avatar img:first-child, .partial-avatar .partial-img {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  max-width: 40px;
+  max-height: 40px;
+  width: 100%;
+  border-radius: 4px; 
+}
+
+.partial h2 {
+  font-size: 16px;
+  margin-top: 17px;
+  margin-bottom: 3px;
+}
+
+.partial p {
+  color: #666;
+  font-size: 14px;
+}
+
+.cardBodyFront {
+  height: 272px;
+  padding-left: 4px;
+}
+
+.cardBodyBack {
+  height: 272px;
+  padding-left: 4px;
+}
+
+.cardBodyBack h3{
+  font-size: 14px;
 }
 
 
