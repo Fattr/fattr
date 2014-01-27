@@ -40,7 +40,7 @@ angular.module('fittr.controllers')
         // Display a flash message indicating error
         // TODO: would be cool to send back to the user the 
         // email address they used to sign up
-        $scope.flashMessage = 'Hmmm, looks like you already have an account.';  //TODO:
+        $scope.flashMessage = 'Hmmm, you must be using the wrong credentials';  //TODO:
         $scope.signupLoginError = true;
     });
   };
