@@ -141,7 +141,6 @@ module.exports = (passport) ->
 
         # save the user
 
-        console.log 'new user here', user
         user.save (err) ->
           console.error err  if err
           done null, user
