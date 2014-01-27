@@ -71,32 +71,32 @@ module.exports =
         console.log 'stats', stats
         res.json stats
 
-    getFitbit: (req, res) ->
-      yesterday = do ->
-        date = moment()
-        date = date.subtract("days", 1).format("YYYY-MM-DD")
-        date
-      token =
-        'oauth_token': req.user.authData.fitbit.access_token
-        'oauth_token_secret': req.user.authData.fitbit.access_token_secret
+  getFitbit: (req, res) ->
+    yesterday = do ->
+      date = moment()
+      date = date.subtract("days", 1).format("YYYY-MM-DD")
+      date
+    token =
+      'oauth_token': req.user.authData.fitbit.access_token
+      'oauth_token_secret': req.user.authData.fitbit.access_token_secret
 
-      fitbitClient.apiCall "GET", 'user/-/activities/date'+
-      yesterday + '.json',
-        'token': token
-      , (err, resp, userActivity) ->
-        unless err
-          stat = new Stats()
-          stat.user = req.user._id
-          stat.date = yesterday
-          stat.steps = userActivity.summary.steps
-          stat.marginalCalories = userActivity.summary.marginalCalories
-          stat.veryActiveMinutes = userActivity.summary.veryActiveMinutes
+    fitbitClient.apiCall "GET", 'user/-/activities/date'+
+    yesterday + '.json',
+      'token': token
+    , (err, resp, userActivity) ->
+      unless err
+        stat = new Stats()
+        stat.user = req.user._id
+        stat.date = yesterday
+        stat.steps = userActivity.summary.steps
+        stat.marginalCalories = userActivity.summary.marginalCalories
+        stat.veryActiveMinutes = userActivity.summary.veryActiveMinutes
 
-          stat.save (err) ->
-            if err
-              console.log 'error getting new users fitbit', err
-              res.send 500
-            res.redirect '#/main/stream'
+        stat.save (err) ->
+          if err
+            console.log 'error getting new users fitbit', err
+            res.send 500
+          res.redirect '#/main/stream'
 
 
 
