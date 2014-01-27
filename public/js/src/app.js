@@ -103,6 +103,16 @@ angular.module('fittr', ['ionic', 'ngRoute', 'LocalStorageModule', 'nvd3ChartDir
       controller: 'LoginController'
     })
 
+    // User will connect their devices/services here
+    .state('connect-devices', {
+      url: '/connect-devices',
+      templateUrl: 'templates/connect-devices.html',
+      controller: 'ConnectDevicesController',
+      resolve: {
+        loggedin: checkAuth
+      }
+    })
+
     // MAIN
     .state('main', {
       url: '/main',
@@ -140,17 +150,7 @@ angular.module('fittr', ['ionic', 'ngRoute', 'LocalStorageModule', 'nvd3ChartDir
       resolve: {
         loggedin: checkAuth
       }
-    })
-
-    // User will connect their devices/services here
-    .state('connect-devices', {
-      url: '/connect-devices',
-      templateUrl: 'templates/connect-devices.html',
-      controller: 'ConnectDevicesController',
-      resolve: {
-        loggedin: checkAuth
-      }
-    })
+    });
 
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/');

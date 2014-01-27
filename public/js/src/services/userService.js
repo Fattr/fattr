@@ -4,21 +4,6 @@ angular.module('fittr.services')
   this.$get = function($http, $q, localStorageService) {
     var baseUrl = "http://localhost:3000/";   
 
-    // http helper since http operations are repeated
-    // several times within this service   
-    var httpHelper = function(verb, url, body) {
-      var d = $q.defer();
-      $http[verb](baseUrl + url, body)
-        .success(function(data, status, headers, config) {
-          console.log("data: ", data, "status: ", status);
-          d.resolve(data); 
-        })
-        .error(function(data, status, headers, config) {
-          d.reject(data, status);
-        });
-      return d.promise;
-    };
-
     return {
       // currentUser: {},
 
@@ -33,21 +18,38 @@ angular.module('fittr.services')
 
       users: [],
 
+      // http helper since http operations are repeated
+      // several times within this service.
+      // The "context" parameter is optional and used in the case
+      // where one needs a reference to the UserService   
+      _httpHelper: function(verb, url, body) { 
+        var d = $q.defer();
+        $http[verb](baseUrl + url, body)
+          .success(function(data, status, headers, config) {
+            console.log("data: ", data, "status: ", status);
+            d.resolve(data); 
+          })
+          .error(function(data, status, headers, config) {
+            d.reject(data, status);
+          });
+        return d.promise;
+      },
+
       signup: function(user) {
-        return httpHelper('post', 'signup', user);
+        return this._httpHelper('post', 'signup', user);
       },
 
       login: function(user) {
-        return httpHelper('post', 'login', user);
+        return this._httpHelper('post', 'login', user);
       },
 
       get: function(userId) {
-        //return httpHelper('get', "users/" + userId);
-        return httpHelper('get', "user/");
+        return this._httpHelper('get', "users/" + userId, this);
+        // return this._httpHelper('get', "user/");
       },
 
       getAll: function() {
-        return httpHelper('get', "test/data");
+        return this._httpHelper('get', "test/data");
       //   $http.get(baseUrl + "test/data")
       //     .success(function(data, status, headers, config) {
       //       console.log("data: ", data, "status: ", status);
@@ -63,40 +65,45 @@ angular.module('fittr.services')
       },
 
       save: function(userData) {
+        delete userData.__v;
+        delete userData.password;
+        delete userData.salt;
         this.currentUser = userData;
+        this.saveToLocal(userData._id, userData);
+
+        console.log("currentUser: ", this.currentUser);
       },
 
-      saveToLocal: function(userData) {
-        console.log("saving user into localStorage");
-        localStorageService.add('currentUser', userData);
+      saveToLocal: function(id, userData) {
+        // debugger;
+        localStorageService.add(id, userData);
+        localStorageService.add('currentUser', userData);   // maybe this can be optimized
       },
-      getFromLocal: function() {
-        return localStorageService.get('currentUser');
+      getFromLocal: function(userId) {
+        if (userId) {
+          return localStorageService.get(userId);
+        } else {
+          return localStorageService.get('currentUser');
+        }
       },
 
-      // Helper function to retrieve user's active
-      getActivity: function(userId) {
-        var d = $q.defer();
+      // Helper function to retrieve user's activity
+      getActivity: function(userId, numOfDays) {
+        var calculateDates = function(numOfDays) {
+          var today = new Date();
+          var fromDate = new Date(today - (numOfDays * 86400000)); 
+          return fromDate.toISOString().slice(0, 10) + "/" + today.toISOString().slice(0, 10);
+        };
 
-        this.get(userId)
-          .then(function(data) {
-            console.log("retrieve fulfilled: ", data);
+        return this._httpHelper("get", "api/user/" + calculateDates(numOfDays));
+      },
 
-            // store user details in memory
-            this.save(data);
+      saveActivity: function(userId, activities) {
+        var user = this.getFromLocal(userId);
 
-            // store user details in local storage?
-            this.saveToLocal(data);
-            console.log("retrieve from mem: ", this.currentUser);
-            console.log("retrieve from local: ", this.getFromLocal());
-            d.resolve();
-          }, function(error) {
-            // TODO: flesh out this error handler
-            console.log("error occured during user data retrieval");
-            d.reject();
-          });
-          
-        return d.promise;
+        this.currentUser.activities = activities;
+        user.activities = activities;
+        this.saveToLocal(userId, user);
       }
     };
   };
