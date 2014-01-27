@@ -4,9 +4,6 @@ angular.module('fittr.services')
   this.$get = function($http, $q, localStorageService) {
     var baseUrl = "http://fast-spire-4621.herokuapp.com/";
 
-
-
-
     return {
       // currentUser: {},
 

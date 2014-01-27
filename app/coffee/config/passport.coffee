@@ -58,6 +58,7 @@ module.exports = (passport) ->
         # if there is no user with that email, create new user
         newUser = new User()
         newUser.username = username
+        newUser.email = req.body.email
         # generate password salt
         bcrypt.genSalt 10, (err, salt) ->
           if err
