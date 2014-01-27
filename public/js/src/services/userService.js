@@ -41,6 +41,7 @@ angular.module('fittr.services')
       },
 
       signup: function(user) {
+        console.log('signup', user);
         return this._httpHelper('post', 'signup', user);
       },
 
