@@ -11,12 +11,14 @@ angular.module('fittr.services')
       // currentUser: {},
 
       // THIS IS DUMMY DATA
-      currentUser: {
-        username: 'Marty McFly',
-        steps: 8000,
-        distance: 5.2,
-        calories: 2734
-      },
+
+      // currentUser: {
+      //   username: 'Marty McFly',
+      //   steps: 8000,
+      //   distance: 5.2,
+      //   calories: 2734
+      // },
+
       // DUMMY DATA END
 
       users: [],
@@ -108,6 +110,13 @@ angular.module('fittr.services')
         this.currentUser.activities = activities;
         user.activities = activities;
         this.saveToLocal(userId, user);
+      },
+
+      // populate the currentUser object from the most recent currentUser stored
+      // in localStorage. This ensures that the currentUser always has valid
+      // data when the app reloads.  Will be called during the app's run phase
+      loadCurrentUser: function() {
+        this.currentUser = this.getFromLocal();
       }
     };
   };
