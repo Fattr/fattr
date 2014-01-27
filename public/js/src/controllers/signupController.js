@@ -1,6 +1,6 @@
 angular.module('fittr.controllers')
 
-  .controller('SignupController', function($scope, $http, $state, UserService, ValidationService) {
+  .controller('SignupController', function($scope, $http, $state, $ionicLoading, UserService, ValidationService) {
     $scope.title = "Sign Up";
     $scope.user = {};
 
@@ -17,11 +17,33 @@ angular.module('fittr.controllers')
       $scope.signupLoginError = false;
     };
 
+    // Trigger the loading indicator
+    $scope.show = function() {
+
+      // Show the loading overlay and text
+      $scope.loading = $ionicLoading.show({
+        content: 'Loading...',
+        animation: 'fade-in',
+        showBackdrop: true,
+        maxWidth: 200,
+        showDelay: 500
+      });
+    };
+
+    // Hide the loading indicator
+    $scope.hide = function(){
+      $scope.loading.hide();
+    };
+
     $scope.submit = function(ngFormController) {
-      $scope.user.username = $scope.user.email;
+      // activate the loading spinner
+      $scope.show();
 
       UserService.signup($scope.user)
         .then(function(data) {
+
+        // deactiviate the loading spinner
+        $scope.hide();
 
         console.log("response from /signup: ", data);
         ValidationService.resetForm(ngFormController, $scope.user);
@@ -34,6 +56,9 @@ angular.module('fittr.controllers')
          
       }, function(reason) {
           ValidationService.resetForm(ngFormController, $scope.user);
+          // deactiviate the loading spinner
+          $scope.hide();
+          
           console.log("reason: ", reason);
 
           // Display a flash message indicating error

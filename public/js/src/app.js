@@ -5,7 +5,8 @@
 // the 2nd parameter is an array of 'requires'
 // 'fittr.services' is found in services.js
 // 'fittr.controllers' is found in controllers.js
-angular.module('fittr', ['ionic', 'ngRoute', 'LocalStorageModule', 'nvd3ChartDirectives', 'fittr.services', 'fittr.controllers'])
+angular.module('fittr', ['ionic', 'ngRoute', 'LocalStorageModule', 'nvd3ChartDirectives', 
+  'fittr.services', 'fittr.controllers'])
 .config(function(UserServiceProvider) {
   // UserServiceProvider.setApiKey('myKey');
 })
@@ -150,11 +151,22 @@ angular.module('fittr', ['ionic', 'ngRoute', 'LocalStorageModule', 'nvd3ChartDir
       resolve: {
         loggedin: checkAuth
       }
+    })
+
+    // FLIPPING CARDS
+    .state('flip', {
+      url: '/flip',
+      templateUrl: 'templates/cardsFlip.html',
+      controller: 'ChartController'
     });
 
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/');
 
+})
+// to load the currentUser object from local storage
+.run(function(UserService) {
+  UserService.loadCurrentUser();
 });
 
 /*
