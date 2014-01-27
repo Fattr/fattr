@@ -30,7 +30,7 @@ angular.module('fittr.controllers')
       return function(d) {
         console.log(d);
         return d3.time.format('%m/%e')(new Date(d)); 
-      }
+      };
     };
 
     var colorArray = ['#27ae60', '#c0392b'];
