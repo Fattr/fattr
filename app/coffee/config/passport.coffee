@@ -87,7 +87,7 @@ module.exports = (passport) ->
     usernameField: "username"
     passwordField: "password"
     passReqToCallback: true # pass back the entire request to the callback
-  , (req, username, password, done) -> # callback with email/password from our form
+  , (req, username, password, done) ->
 
     # find a user whose email is the same as the forms email
     # we are checking to see if the user trying to login already exists
