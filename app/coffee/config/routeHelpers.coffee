@@ -72,15 +72,17 @@ module.exports =
         res.json stats
 
   getFitbit: (req, res) ->
+    $req = req
+    res.redirect '#/main/stream'
     yesterday = do ->
       date = moment()
       date = date.subtract("days", 1).format("YYYY-MM-DD")
       date
     token =
-      'oauth_token': req.user.authData.fitbit.access_token
-      'oauth_token_secret': req.user.authData.fitbit.access_token_secret
+      'oauth_token': $req.user.authData.fitbit.access_token
+      'oauth_token_secret': $req.user.authData.fitbit.access_token_secret
     console.log 'token', token
-    console.log 'req user ====== ', req.user
+    console.log 'req user ====== ', $req.user
 
     fitbitClient.apiCall "GET", 'user/-/activities/date'+
     yesterday + '.json',
@@ -98,7 +100,7 @@ module.exports =
           if err
             console.log 'error getting new users fitbit', err
             res.send 500
-          res.redirect '#/main/stream'
+
 
 
 
