@@ -27,7 +27,7 @@ angular.module('fittr')
       });
     }
   };
-}])
+}]);
 
 // directive watching the scroll event on the cardtop directive
 // this directive will be applied to topbar

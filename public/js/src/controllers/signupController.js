@@ -19,22 +19,20 @@ angular.module('fittr.controllers')
 
     $scope.submit = function(ngFormController) {
       $scope.user.username = $scope.user.email;
-      var signupPromise = UserService.signup($scope.user);
 
-      signupPromise.then(function(data) {
+      UserService.signup($scope.user)
+        .then(function(data) {
 
-          // console.log("signup: ", data);
-          ValidationService.resetForm(ngFormController, $scope.user);
+        console.log("response from /signup: ", data);
+        ValidationService.resetForm(ngFormController, $scope.user);
 
-          // get user activity data and store in mem and local storage
-          UserService.getActivity(data._id)
-            .then(function() {
-            // move to connect devices state
-            $state.go('main.stream');
-            }, function() {
-              console.log("failed in retrieving user activity");
-            })
-        }, function(reason) {
+        // save user profile data and store in mem and local storage
+        UserService.save(data);
+
+        // move to connect devices state
+        $state.go('connect-devices');
+         
+      }, function(reason) {
           ValidationService.resetForm(ngFormController, $scope.user);
           console.log("reason: ", reason);
 
@@ -43,6 +41,6 @@ angular.module('fittr.controllers')
           // email address they used to sign up
           $scope.flashMessage = 'Hmmm, looks like you already have an account.';  //TODO:
           $scope.signupLoginError = true;
-        });
+      });
     };
   });
