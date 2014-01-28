@@ -21,7 +21,12 @@ angular.module('fittr.controllers')
   /*
    * USER AVATAR
    */
-
+  if (!UserService.currentUser.authData) {
+    UserService.get(UserService.currentUser._id).then(function(userData){
+      UserService.save(userData);
+      $scope.me = UserService.currentUser;
+    });
+  }
   if (UserService.currentUser.authData && UserService.currentUser.authData.fitbit) {
     $scope.avatar = UserService.currentUser.authData.fitbit.avatar;
   } else {

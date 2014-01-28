@@ -52,8 +52,12 @@ angular.module('fittr.controllers')
       // save user profile data and store in mem and local storage
       UserService.save(data);
 
-      // move to connect devices state
-      $state.go('main.stream');
+      if (!data.authData){
+        $state.go('connect-devices');
+      } else {
+        // move to connect devices state
+        $state.go('main.stream');
+      }
 
     }, function(reason) {
         ValidationService.resetForm(ngFormController, $scope.user);
