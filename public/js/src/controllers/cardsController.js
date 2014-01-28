@@ -90,6 +90,14 @@ angular.module('fittr.controllers')
     };
   };
 
-  $scope.stepsData = buildSampleData();
+  var datum = buildSampleData();
+  // $scope.Miles = buildSampleData();
+  // $scope['Active Minutes'] = buildSampleData();
+
+  $scope.statCategories = {
+    'Steps':datum,
+    'Miles':datum,
+    'Active':datum
+  };
 
 });
