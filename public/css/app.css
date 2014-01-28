@@ -210,10 +210,9 @@ a.device p {
 }
 
 .statrow {
-  /*box-shadow: 0 -2px 5px #ccc;*/
-  -webkit-box-shadow: 0px -5px 16px -6px #888;
-     -moz-box-shadow: 0px -5px 16px -6px #888;
-          box-shadow: 0px -5px 16px -6px #888;
+  -webkit-box-shadow: 0 -5px 16px -6px #888;
+     -moz-box-shadow: 0 -5px 16px -6px #888;
+          box-shadow: 0 -5px 16px -6px #888;
 }
 
 .card {
@@ -228,16 +227,21 @@ a.device p {
 }
 
 .card-bar-container {
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
   background-color: rgba(0, 0, 0, 0);
   width:100%;
   /*border: 1px solid #222;*/
 }
 
 .card-bar {
-  /*color: white;*/
-  /*box-shadow: 1px -1px 5px #555;*/
+  border-top-right-radius: 10px; 
   height: 100%;
   padding: 15px;
+}
+
+.col {
+  padding: 0;
 }
 
 
