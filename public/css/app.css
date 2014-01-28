@@ -139,11 +139,11 @@ a.device p {
 /* Cards */
 
 .winning {
-  color: green;
+  background-color: green;
 }
 
 .losing {
-  color: red;
+  background-color: #c0392b;
 }
 
 .username {
@@ -203,6 +203,16 @@ a.device p {
   position: absolute;
 }
 
+.card-bar-container {
+  width:100%;
+  border: 1px solid #ccc;
+}
+
+.card-bar {
+  color: white;
+  height: 100%;
+  padding: 15px;
+}
 
 
 
