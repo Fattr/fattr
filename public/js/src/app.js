@@ -141,24 +141,10 @@ angular.module('fittr', ['ionic', 'ngRoute', 'LocalStorageModule', 'nvd3ChartDir
           controller: 'CardsController'
         }
       }
-    })
-
-    // CHARTS
-    .state('charts', {
-      url: '/charts',
-      templateUrl: 'templates/testChart.html',
-      controller: 'ChartController',
-      resolve: {
-        loggedin: checkAuth
-      }
-    })
-
-    // FLIPPING CARDS
-    .state('flip', {
-      url: '/flip',
-      templateUrl: 'templates/cardsFlip.html',
-      controller: 'CardsController'
     });
+
+  
+    
 
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/');
