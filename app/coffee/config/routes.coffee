@@ -25,11 +25,8 @@ module.exports = (app, passport) ->
   # log current user out the session
   app.get '/logout', alreadyLoggedOut, helper.logout
 
-  # get current user info
-  app.get '/users/:id', isLoggedIn, helper.getUser
-
   # delete user out from app and DB, no comming back
-  app.delete '/users/:id', isLoggedIn, helper.deleteUser
+  app.delete '/users/delete', isLoggedIn, helper.deleteUser
 
   # users stream route
   app.get '/api/users/:from?/:to?', isLoggedIn, helper.allUsersActivity
