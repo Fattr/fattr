@@ -78,7 +78,7 @@ module.exports =
   # ===========================
 
   userActivity: (req, res) ->
-    do fitbitDays
+    fitbitDays(req, res)
 
   graphData: (req, res) ->
     currentUserId = req.user._id
@@ -203,7 +203,7 @@ dateRange = (dateFrom, dateTo, query) ->
     query.date = $gte: dateFrom  if dateFrom isnt undefined
     query.date = $lte: dateTo  if dateTo isnt undefined
 
-fitbitDays = () ->
+fitbitDays = (req, res) ->
   query = user: req.user._id
   token =
     oauth_token: req.user.authData.fitbit.access_token
