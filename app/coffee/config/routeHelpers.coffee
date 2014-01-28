@@ -223,7 +223,7 @@ fitbitDays = (req, res) ->
       toDay = moment req.params.to
       while fromDay <= toDay
         ((day) ->
-          fitbit.fitbitClient.apiCall 'GET', '/user/-/activities/date/'+
+          fitbitClient.apiCall 'GET', '/user/-/activities/date/'+
           day + '.json', 'token': token,
           (err, resp, userActivity) ->
             if error
