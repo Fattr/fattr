@@ -49,15 +49,6 @@ body {
   padding: 30px 40px;
 }
 
-/* Top Bar
-* ========================================================================== */
-.topbar {
-  height: 100px;
-  background: #F5F5F5;
-  margin-top: 45px;
-  padding: 5px
-}
-
 /* Signup Form
 * ========================================================================== */
 
@@ -129,6 +120,17 @@ a.device p {
 * ========================================================================== */
 
 /* Top Bar */
+.topbar {
+  height: 100px;
+  background: rgba(227, 227, 227, 0.95);
+  box-shadow: 0 0 15px #000;
+  margin-top: 44px;
+  padding: 5px;
+  position: absolute;
+  width: 100%;
+  z-index: 10;
+}
+
 .diffNum {
   /*color: #00FF00;*/
   color: #0088ff;
@@ -146,6 +148,11 @@ a.device p {
 
 
 /* Cards */
+.cards-contain {
+  height: 100%;
+  padding-top: 145px;
+  width: 100%;
+}
 
 .winning {
   background-color: green;
