@@ -84,7 +84,7 @@ module.exports =
     Stats.find query, (err, stats) ->
       if err
         res.send err
-      else if stats
+      else if stats.length
         console.log "db data", stats
         data =
           email: req.user.email
@@ -109,7 +109,11 @@ module.exports =
 
           stat.save (err) ->
             console.log 'err saving stat here', err if err
-            console.log 'saved it!!!!!'
+            data =
+              username: req.user.username
+              email: req.user.email
+              stats: stat
+            res.json stat
 
 
 
