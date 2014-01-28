@@ -1,48 +1,66 @@
-<content padding="true" style="margin-top: 145px; background: #2F3648">
+<content padding="true" style="background: #2F3648">
 
-  <div class="flipcardContainer">
-    <div class="list card" ng-repeat="user in users">
+  <div class="cards-contain">
 
-      <figure class="cardFront">
+    <div class="flipcardContainer">
+      <div class="list card" ng-repeat="user in users">
 
-        <!-- Card Header -->
-          <div class="item item-avatar">
-            <img ng-src={{user.pic}} ng-click="backShown=!backShown">
-            <h2>{{user.username}}</h2>
-          </div>
+        <figure class="cardFront">
 
-          <!-- Card FRONT Body -->
-          <div class="item item-body animate toggle" ng-if="!backShown" style="height:272px">
-            <ul class="list">
-              <li class="card-bar-container" style="border-top-left-radius: 5px; border-top-right-radius: 5px;">
-                <div class="card-bar" ng-class="{true: 'winning', false: 'losing'}[currentUser.steps - user.steps > 0]" style="width: {{percentage.steps}}%;">
+            <!-- Card Header -->
+            <div class="item item-avatar">
+              <div class="row">
+                <div class="col">
+                  <img ng-src={{user.pic}} >
+                  <h2>{{user.username}}</h2>
                 </div>
-                <div class="row">
-                  <div class="col" style="padding: 0">Steps</div>
-                  <div class="col stats" style="padding: 0">{{ user.steps }}</div>
-                  <div class="col stats" style="padding: 0">{{ currentUser.steps - user.steps > 0 ? '+' : ''}}{{ currentUser.steps - user.steps | number:0 }}</div>
+                <div class="col">
+                  <i class="fa fa-bar-chart-o fa-2x" 
+                     ng-click="backShown=!backShown"
+                     style="color: #0088ff; float: right"></i>
                 </div>
-              </li>
-              <li class="card-bar-container">
-                <div class="card-bar" ng-class="{true: 'winning', false: 'losing'}[currentUser.steps - user.steps > 0]" style="width: {{percentage.distance}}%;">
-                </div>
-                <div class="row">
-                  <div class="col" style="padding: 0">Miles</div>
-                  <div class="col stats" style="padding: 0">{{ user.distance }}</div>
-                  <div class="col stats" style="padding: 0">{{ currentUser.distance - user.distance > 0 ? '+' : ''}}{{ currentUser.distance - user.distance | number:1 }}</div>
-                </div>
-              </li>
-              <li class="card-bar-container" style="border-bottom-left-radius: 5px; border-bottom-right-radius: 5px;">
-                <div class="card-bar" ng-class="{true: 'winning', false: 'losing'}[currentUser.steps - user.steps > 0]" style="width: {{percentage.calories}}%;">
-                </div>
-                <div class="row">
-                  <div class="col" style="padding: 0">Calories</div>
-                  <div class="col stats" style="padding: 0">{{ user.calories }}</div>
-                  <div class="col stats" style="padding: 0">{{ currentUser.calories - user.calories > 0 ? '+' : ''}}{{ currentUser.calories - user.calories | number:0 }}</div>
-                </div>
-              </li>
-            </ul>
-          </div>
+              </div>
+            </div>
+
+            <!-- Card FRONT Body -->
+            <div class="item item-body animate toggle" ng-if="!backShown" style="height:272px">
+              <ul class="list">
+                <li class="card-bar-container">
+                  <div class="card-bar" ng-class="{true: 'winning', false: 'losing'}[currentUser.steps - user.steps > 0]" style="width: {{percentage.steps}}%;">
+                  </div>
+                  <div class="row statrow">
+                    <div class="col">Steps</div>
+                    <div class="col stats">{{ user.steps }}</div>
+                    <div class="col stats">
+                      {{ currentUser.steps - user.steps > 0 ? '+' : ''}}{{ currentUser.steps - user.steps | number:0 }}
+                    </div>
+                  </div>
+                </li>
+                <li class="card-bar-container">
+                  <div class="card-bar" ng-class="{true: 'winning', false: 'losing'}[currentUser.steps - user.steps > 0]" style="border-top-right-radius: 10px; width: {{percentage.distance}}%;">
+                  </div>
+                  <div class="row statrow">
+                    <div class="col">Miles</div>
+                    <div class="col stats">{{ user.distance }}</div>
+                    <div class="col stats">{{ currentUser.distance - user.distance > 0 ? '+' : ''}}{{ currentUser.distance - user.distance | number:1 }}</div>
+                  </div>
+                </li>
+                <li class="card-bar-container">
+                  <div class="card-bar" ng-class="{true: 'winning', false: 'losing'}[currentUser.steps - user.steps > 0]" style="border-top-right-radius: 10px; width: {{percentage.calories}}%;">
+                  </div>
+                  <div class="row statrow">
+                    <div class="col">Calories</div>
+                    <div class="col stats">{{ user.calories }}</div>
+                    <div class="col stats">{{ currentUser.calories - user.calories > 0 ? '+' : ''}}{{ currentUser.calories - user.calories | number:0 }}</div>
+                  </div>
+                  <div class="row" style="border-top: 1px dashed #c0c0c0; margin-top: 5px">
+                    <div class="col" style="color: #0088FF; font-size: 10px">Category</div>
+                    <div class="col" style="color: #0088FF; font-size: 10px; text-align: right">Quantity</div>
+                    <div class="col" style="color: #0088FF; font-size: 10px; text-align: right">Difference</div>
+                  </div>
+                </li>
+              </ul>
+            </div>
 
 
           <div class="item item-body chart animate toggle" ng-if="backShown">
@@ -67,11 +85,8 @@
             </slide-box>
           </div>
 
-      </figure>
-
-
-
-
+        </figure>
+      </div>
     </div>
   </div>
 

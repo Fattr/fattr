@@ -120,6 +120,17 @@ a.device p {
 * ========================================================================== */
 
 /* Top Bar */
+.topbar {
+  height: 100px;
+  background: rgba(227, 227, 227, 0.95);
+  box-shadow: 0 0 15px #000;
+  margin-top: 44px;
+  padding: 5px;
+  position: absolute;
+  width: 100%;
+  z-index: 10;
+}
+
 .diffNum {
   /*color: #00FF00;*/
   color: #0088ff;
@@ -137,13 +148,19 @@ a.device p {
 
 
 /* Cards */
+.cards-contain {
+  height: 100%;
+  padding-top: 145px;
+  width: 100%;
+}
 
 .winning {
   background-color: green;
 }
 
 .losing {
-  background-color: #c0392b;
+  /*background-color: #c0392b;*/
+  background-color: #E74C3C;
 }
 
 .username {
@@ -192,6 +209,12 @@ a.device p {
   perspective: 800px;
 }
 
+.statrow {
+  -webkit-box-shadow: 0 -5px 16px -6px #888;
+     -moz-box-shadow: 0 -5px 16px -6px #888;
+          box-shadow: 0 -5px 16px -6px #888;
+}
+
 .card {
   height: 339px;
 }
@@ -204,14 +227,21 @@ a.device p {
 }
 
 .card-bar-container {
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  background-color: rgba(0, 0, 0, 0);
   width:100%;
-  border: 1px solid #ccc;
+  /*border: 1px solid #222;*/
 }
 
 .card-bar {
-  color: white;
+  border-top-right-radius: 10px; 
   height: 100%;
   padding: 15px;
+}
+
+.col {
+  padding: 0;
 }
 
 
