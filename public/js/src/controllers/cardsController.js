@@ -32,20 +32,22 @@ angular.module('fittr.controllers')
 
   // // Retrieve current user's activity for the past 7 days
   // // and store in memory and localStorage
-  // UserService.currentUser = UserService.getFromLocal();
+  UserService.currentUser = UserService.getFromLocal();
 
-  // UserService.getActivity(UserService.currentUser._id, 7)
-  //   .then(function(data) {
-  //     console.log("response from get activity: ", data);
-  //     // debugger;
-  //     UserService.saveActivity(UserService.currentUser._id, data);
-  //     $scope.currentUser = UserService.currentUser;
-  //   }, function(data) {
-  //     console.log("an error occured (get activity)");
-  //   });
+  UserService.getActivity(UserService.currentUser._id, 7)
+    .then(function(data) {
+      console.log("response from get activity: ", data);
+      // debugger;
+      UserService.saveActivity(UserService.currentUser._id, data);
+      $scope.currentUser = UserService.currentUser;
+    }, function(data) {
+      console.log("an error occured (get activity)");
+    });
 
   $scope.currentUser = UserService.currentUser;
   $scope.users = users;
+
+  $scope.percentage = {steps: 82, distance: 35, calories: 95};
 
 
   // CHART SAMPLE DATA BELOW
