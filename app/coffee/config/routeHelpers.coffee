@@ -115,7 +115,7 @@ module.exports =
               username: req.user.username
               email: req.user.email
               stats: stat
-            res.json stat
+            res.json data
 
 
 
