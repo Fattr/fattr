@@ -14,10 +14,12 @@ module.exports = (passport) ->
   # passport needs ability to serialize and unserialize users out of session
 
   # used to serialize the user for the session
+
   passport.serializeUser (user, done) ->
     done null, user._id
 
   # used to deserialize the user
+
   passport.deserializeUser (id, done) ->
     User.findById id, (err, user) ->
       # don't send the entire user here
@@ -28,18 +30,22 @@ module.exports = (passport) ->
   # =========================================================================
   # Using named strategies since we have one for login and one for signup
   # by default, if there was no name, it would just be called 'local'
+
   passport.use "local-signup", new LocalStrategy(
 
     # by default, local strategy uses username/password, override with email
-    usernameField: "email"
+
+    usernameField: "username"
     passwordField: "password"
     passReqToCallback: true # pass back the entire req to the callback
-  , (req, email, password, done) ->
+
+  , (req, username, password, done) ->
 
     # find a user whose email is the same as the forms email
     # we are checking to see if the user trying to login already exists
+
     User.findOne
-      "email": email
+      "username": username
     , (err, user) ->
 
       # if there are any errors, return the error
@@ -51,7 +57,8 @@ module.exports = (passport) ->
       else
         # if there is no user with that email, create new user
         newUser = new User()
-        newUser.email = email
+        newUser.username = username
+        newUser.email = req.body.email
         # generate password salt
         bcrypt.genSalt 10, (err, salt) ->
           if err
@@ -76,16 +83,18 @@ module.exports = (passport) ->
   # =========================================================================
   # we are using named strategies since we have one for login and one for signup
   # by default, if there was no name, it would just be called 'local'
+
   passport.use "local-login", new LocalStrategy(
-    usernameField: "email"
+    usernameField: "username"
     passwordField: "password"
     passReqToCallback: true # pass back the entire request to the callback
-  , (req, email, password, done) -> # callback with email/password from our form
+  , (req, username, password, done) ->
 
     # find a user whose email is the same as the forms email
     # we are checking to see if the user trying to login already exists
+
     User.findOne
-      "email": email
+      "username": username
     , (err, user) ->
       if err
         return done err
@@ -112,9 +121,11 @@ module.exports = (passport) ->
     callbackURL: config.callbackURL
     passReqToCallback : true
   , (req, token, tokenSecret, profile, done) ->
+
     # asynchronous
     # process.nextTick () ->
     # check if the user is already logged in
+
     process.nextTick () ->
       if not req.user
         done null, false
@@ -122,13 +133,14 @@ module.exports = (passport) ->
         user = req.user # pull the user out of the session
 
         # update the current user's fitbit credentials
+
         user.authData.fitbit.access_token = token
         user.authData.fitbit.access_token_secret = tokenSecret
         user.authData.fitbit.avatar = profile._json.user.avatar
         user.updatedAt = new Date()
 
         # save the user
-        console.log 'new user here', user
+
         user.save (err) ->
           console.error err  if err
           done null, user

@@ -1,5 +1,6 @@
 mongoose = require "mongoose"
-db = mongoose.connect "mongodb://localhost/app"
+{url} = require './config/dbconfig'
+db = mongoose.connect url
 User = require "./models/user"
 Stat = require "./models/stat"
 config = require("./config/auth").fitbit

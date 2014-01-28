@@ -1874,7 +1874,7 @@ angular.module('ionic.ui.sideMenu', ['ionic.service.gesture'])
               return;
             }
             isDragging = true;
-            sideMenuCtrl._handleDrag(e);
+            // sideMenuCtrl._handleDrag(e);
             e.gesture.srcEvent.preventDefault();
           }
         };

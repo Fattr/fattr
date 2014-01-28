@@ -1,23 +1,30 @@
 angular.module('fittr.controllers')
 
-.controller('TopBarController', function($scope, UserService) {
+.controller('TopBarController', function($q, $scope, UserService) {
 
-  // Retrieve current user's activity for the past 7 days
-  // and store in memory and localStorage
+  /*
+   * USER ACTIVITY RETRIEVAL
+   */
+  var gettingActs = $q.defer();
   UserService.getActivity(UserService.currentUser._id, 7)
     .then(function(data) {
-      console.log("response from get activity: ", data);
+      console.log("UserService.getActivity()", data);
+      // resolve promise
+      gettingActs.resolve(data);
+      // save to local storage
       UserService.saveActivity(UserService.currentUser._id, data);
-      $scope.currentUser = UserService.currentUser;
+      $scope.currentUser = data[0]; 
     }, function(data) {
       console.log("an error occured (get activity)");
     });
 
-  $scope.currentUser = UserService.currentUser;
-  if ($scope.currentUser.authData && $scope.currentUser.authData.fitbit) {
-    $scope.avatar = $scope.currentUser.authData.fitbit.avatar;
-  } else {
-    $scope.avatar = 'http://ionicframework.com/img/docs/mcfly.jpg';
-  }
+  /*
+   * USER AVATAR
+   */
+  // if ($scope.currentUser.authData && $scope.currentUser.authData.fitbit) {
+  //   $scope.avatar = $scope.currentUser.authData.fitbit.avatar;
+  // } else {
+  //   $scope.avatar = 'http://ionicframework.com/img/docs/mcfly.jpg';
+  // }
 
 });
