@@ -8,14 +8,12 @@ angular.module('fittr.services')
       // currentUser: {},
 
       // THIS IS DUMMY DATA
-
       // currentUser: {
       //   username: 'Marty McFly',
       //   steps: 8000,
       //   distance: 5.2,
       //   calories: 2734
       // },
-
       // DUMMY DATA END
 
       users: [],
@@ -38,14 +36,12 @@ angular.module('fittr.services')
       },
 
       signup: function(user) {
-        console.log('signup', user);
         return this._httpHelper('post', 'signup', user);
       },
 
       login: function(user) {
         return this._httpHelper('post', 'login', user);
       },
-
 
       get: function(userId) {
         return this._httpHelper('get', "users/" + userId, this);

@@ -71,6 +71,7 @@ module.exports =
         console.log 'stats', stats
         res.json stats
 
+
   # ===========================
   # query DB to get single user
   # steps
@@ -235,8 +236,8 @@ dateRange = (dateFrom, dateTo, query) ->
     query.date = $gte: dateFrom  if dateFrom isnt undefined
     query.date = $lte: dateTo  if dateTo isnt undefined
 
-fitbitDays = (days) ->
 
+fitbitDays = (days) ->
 
 
 
