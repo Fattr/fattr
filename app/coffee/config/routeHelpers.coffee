@@ -103,12 +103,8 @@ module.exports =
           stat.user = query.user
           stat.date = query.from
           stat.steps = userActivity.summary.steps
-          stat.marginalCalories = userActivity.summary.marginalCalories
-          stat.sedentaryMinutes = userActivity.summary.sedentaryMinutes
-          stat.lightActivieMinutes = userActivity.lightActivieMinutes
-          stat.fairlyActiveMinutes = userActivity.fairlyActiveMinutes
-          stat.veryActiveMinties = userActivity.veryActiveMinties
-
+          stat.distance = userActivity.summary.distances[0].distance
+          stat.veryActiveMinties = userActivity.summary.veryActiveMinties
           stat.save (err) ->
             console.log 'err saving stat here', err if err
             data =
