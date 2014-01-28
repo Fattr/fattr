@@ -6,11 +6,20 @@
       <div class="list card" ng-repeat="user in users">
 
         <figure class="cardFront">
-          
+
             <!-- Card Header -->
             <div class="item item-avatar">
-              <img ng-src={{user.pic}} ng-click="backShown=!backShown">
-              <h2>{{user.username}}</h2>
+              <div class="row">
+                <div class="col">
+                  <img ng-src={{user.pic}} >
+                  <h2>{{user.username}}</h2>
+                </div>
+                <div class="col">
+                  <i class="fa fa-bar-chart-o fa-2x" 
+                     ng-click="backShown=!backShown"
+                     style="color: #0088ff; float: right"></i>
+                </div>
+              </div>
             </div>
 
             <!-- Card FRONT Body -->
