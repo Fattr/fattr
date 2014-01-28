@@ -225,7 +225,7 @@ fitbitDays = (req, res) ->
         ((day) ->
           fitbitClient.apiCall 'GET', '/user/-/activities/date/'+
           day + '.json', 'token': token,
-          (err, resp, userActivity) ->
+          (error, resp, userActivity) ->
             if error
               console.log 'error getting fitbit data', error
               res.send 500
