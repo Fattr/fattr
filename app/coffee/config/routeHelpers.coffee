@@ -85,31 +85,32 @@ module.exports =
       if err
         res.send err
       else if stats.length
-        console.log "db data", stats
         data =
-          email: req.user.email
           username: req.user.username
-          stats: stats
+          pic: req.user.authData.fitbit.avatar
+          stats: stats[0]
         res.json data
       else if !stats.length
-        console.log 'token', token, 'date', req.params.from
+
         fitbitClient.apiCall 'GET', '/user/-/activities/date/'+
         req.params.from + '.json', 'token': token,
         (error, resp, userActivity) ->
           if error
             console.log "FITBIT err", error
             res.send 500
+          console.log 'summary', userActivity.summary
           stat = new Stats()
           stat.user = query.user
-          stat.date = query.from
+          stat.date = req.params.from
           stat.steps = userActivity.summary.steps
           stat.distance = userActivity.summary.distances[0].distance
-          stat.veryActiveMinties = userActivity.summary.veryActiveMinties
+          stat.veryActiveMinutes = userActivity.summary.veryActiveMinutes
           stat.save (err) ->
             console.log 'err saving stat here', err if err
+            console.log 'user here ==== ', req.user.authData.fitbit.avatar
             data =
               username: req.user.username
-              email: req.user.email
+              pic: req.user.authData.fitbit.avatar
               stats: stat
             res.json data
 
@@ -233,9 +234,6 @@ dateRange = (dateFrom, dateTo, query) ->
 
 fitbitDays = (days) ->
 
-
-
-fitbitDays = (days) ->
 
 
 

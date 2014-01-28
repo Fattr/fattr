@@ -48,7 +48,7 @@ describe "User auth", (done) ->
 
   it "Should not let new user sign in", (done) ->
     request(app).post('/login')
-    .send('username': 'scott', 'password': '1234')
+    .send('username': 'dookey', 'password': '1234')
     .end (err, res) ->
       expect(res.status).to.be 401
       do done

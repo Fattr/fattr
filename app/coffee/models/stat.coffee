@@ -13,12 +13,9 @@ StatSchema = new mongoose.Schema(
 
   date: String
 
-  fairlyActiveMinutes: Number
-  lightlyActiveMinutes: Number
-  marginalCalories: Number
-  sedentaryMinutes: Number
   steps: Number
   veryActiveMinutes: Number
+  distance: Number
 )
 
 module.exports = mongoose.model 'Stat', StatSchema
