@@ -2,6 +2,8 @@
 module.exports = function(grunt) {
   'use strict';
   // Project configuration.
+  var clientSideJavascriptFiles = "public/js/src/**/*.js";
+
   grunt.initConfig({
 
     pkg: grunt.file.readJSON('package.json'),
@@ -41,7 +43,7 @@ module.exports = function(grunt) {
         tasks: ['coffeelint','coffee']
       },
       js: {
-        files: ['public/js/src/**/*.js'],
+        files: [clientSideJavascriptFiles],
         tasks: ['jshint'],
         options: {
           livereload: true,
@@ -58,15 +60,15 @@ module.exports = function(grunt) {
         options: {
           livereload: true
         }
-      } //,
-      // karma: {
-      //   files: ['public/js/src/**/*.js', 'test/jasmine/**/*.js'],
-      //   tasks: ['karma:unit:run']
-      // }
+      },
+      karma: {
+        files: [clientSideJavascriptFiles, 'test/jasmine/**/*.js'],
+        tasks: ['karma:unit:run']
+      }
     },
 
     jshint: {
-      all: ['gruntfile.js', '/public/js/src/*.js']
+      all: ['gruntfile.js', clientSideJavascriptFiles]
     },
 
     mochaTest: {
@@ -100,7 +102,6 @@ module.exports = function(grunt) {
         command: 'nodemon app/coffee/app.coffee'
       }
     },
-
 
   });
 

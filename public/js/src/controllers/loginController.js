@@ -1,60 +1,72 @@
 angular.module('fittr.controllers')
 
-.controller('LoginController', function($scope, $state, UserService, ValidationService) {
-
-  // Helper function to retrieve user's active
-  var getUserActivity = function(userId) {
-    UserService.retrieve(userId)
-      .then(function(data) {
-        console.log("retrieve fulfilled: ", data);
-
-        // store user details in memory
-        UserService.save(data);
-
-        // store user details in local storage?
-        UserService.saveToLocal(data);
-        console.log("retrieve from mem: ", UserService.currentUser);
-        console.log("retrieve from local: ", UserService.retrieveFromLocal());
-      }, function(error) {
-        // TODO: flesh out this error handler
-        console.log("error occured during user data retrieval");
-      });
-  };
-
+.controller('LoginController', function($scope, $state, $ionicLoading, UserService, ValidationService) {
 
   $scope.title = "Log In";
   $scope.user = {};
 
-  // Form validation
+  // Form validation is handled by the ValidationSerice
   $scope.inputValid = ValidationService.inputValid;
   $scope.inputInvalid = ValidationService.inputInvalid;
   $scope.showError = ValidationService.showError;
   $scope.canSubmit = ValidationService.canSubmit;
   
-  // Flash message
+  // Flash message.  Used to indicate error messages to the user
   $scope.signupLoginError = false;
   $scope.flashMessage = "";
   $scope.dismiss = function() {
     $scope.signupLoginError = false;
-  }
+  };
+
+  // Trigger the loading indicator
+    $scope.show = function() {
+
+      // Show the loading overlay and text
+      $scope.loading = $ionicLoading.show({
+        content: 'Loading...',
+        animation: 'fade-in',
+        showBackdrop: true,
+        maxWidth: 200,
+        showDelay: 500
+      });
+    };
+
+  // Hide the loading indicator
+  $scope.hide = function(){
+    $scope.loading.hide();
+  };
 
   $scope.submit = function(ngFormController) {
-    $scope.user.username = $scope.user.email;
-    var loginPromise = UserService.login($scope.user);
+    // activate the loading spinner
+    $scope.show();
+  
+    UserService.login($scope.user)
+      .then(function(data) {
 
-    loginPromise.then(function(data) {
-        console.log("login: ", data);
+      // deactiviate the loading spinner
+      $scope.hide();
 
-        ValidationService.resetForm(ngFormController, $scope); 
-        // retrieve user activity and store in mem and local storage
-        getUserActivity(data._id);
-        // move to connect devices state
-        $state.go('main.stream');
-      }, function(reason) {
-        resetForm(ngFormController);
+      console.log("response from /login: ", data);
+      ValidationService.resetForm(ngFormController, $scope.user); 
+
+      // save user profile data and store in mem and local storage
+      UserService.save(data);
+
+      // move to connect devices state
+      $state.go('main.stream');
+
+    }, function(reason) {
+        ValidationService.resetForm(ngFormController, $scope.user);
+        // deactiviate the loading spinner
+        $scope.hide();
+
         console.log("reason: ", reason);
-        $scope.flashMessage = "Hmmm, looks like you don't have an account";
+
+        // Display a flash message indicating error
+        // TODO: would be cool to send back to the user the 
+        // email address they used to sign up
+        $scope.flashMessage = 'Hmmm, you must be using the wrong credentials';  //TODO:
         $scope.signupLoginError = true;
-      });
+    });
   };
 });

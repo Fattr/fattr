@@ -2,71 +2,58 @@ angular.module('fittr.services')
 
 .provider('UserService', function() {
   this.$get = function($http, $q, localStorageService) {
-    var baseUrl = "http://localhost:3000/";   
-
-    // http helper since http operations are repeated
-    // several times within this service   
-    var httpHelper = function(verb, url, body) {
-      var d = $q.defer();
-      $http[verb](baseUrl + url, body)
-        .success(function(data, status, headers, config) {
-          console.log("data: ", data, "status: ", status);
-          d.resolve(data); 
-        })
-        .error(function(data, status, headers, config) {
-          d.reject(data, status);
-        });
-      return d.promise;
-    };
+    var baseUrl = "http://localhost:3000/";
 
     return {
-      currentUser: {},
+      // currentUser: {},
+
+      // THIS IS DUMMY DATA
+
+      // currentUser: {
+      //   username: 'Marty McFly',
+      //   steps: 8000,
+      //   distance: 5.2,
+      //   calories: 2734
+      // },
+
+      // DUMMY DATA END
+
       users: [],
 
+      // http helper since http operations are repeated
+      // several times within this service.
+      // The "context" parameter is optional and used in the case
+      // where one needs a reference to the UserService
+      _httpHelper: function(verb, url, body) {
+        var d = $q.defer();
+        $http[verb](baseUrl + url, body)
+          .success(function(data, status, headers, config) {
+            console.log("data: ", data, "status: ", status);
+            d.resolve(data);
+          })
+          .error(function(data, status, headers, config) {
+            d.reject(data, status);
+          });
+        return d.promise;
+      },
+
       signup: function(user) {
-        return httpHelper('post', 'signup', user);
+        console.log('signup', user);
+        return this._httpHelper('post', 'signup', user);
       },
 
       login: function(user) {
-        return httpHelper('post', 'login', user);
+        return this._httpHelper('post', 'login', user);
       },
 
-      retrieve: function(userId) {
-        return httpHelper('get', "users/" + userId);
+
+      get: function(userId) {
+        return this._httpHelper('get', "users/" + userId, this);
+        // return this._httpHelper('get', "user/");
       },
 
-      save: function(userData) {
-        this.currentUser = userData;
-      },
-
-      saveToLocal: function(userData) {
-        console.log("saving user into localStorage");
-        localStorageService.add('currentUser', userData);
-      },
-      retrieveFromLocal: function() {
-        return localStorageService.get('currentUser');
-      },
-
-      getUserActivity: function(userId) {
-        // return httpHelper('get', "users") 
-        // var fetchingUserAct = $q.defer();
-
-        // console.log("getUserActivity: ", userId);
-        // $http.get(baseUrl + "users/" + userId + "/fitbit/steps")
-        //   .success(function(data, status, headers, config) {
-        //     // console.log("data: ", data, "status: ", status);
-        //     // console.log("what is this: ", this.currentUser);
-        //     // this.currentUser.activity = data;
-        //     fetchingUserAct.resolve(data);
-        //   })
-        //   .error(function(data, status, headers, config) {
-        //     fetchingUserAct.reject(data, status);
-        //   });
-        // return fetchingUserAct.promise;
-      },
-
-      getAllUsers: function() {
-        return httpHelper('get', "test/data");
+      getAll: function() {
+        return this._httpHelper('get', "test/data");
       //   $http.get(baseUrl + "test/data")
       //     .success(function(data, status, headers, config) {
       //       console.log("data: ", data, "status: ", status);
@@ -79,6 +66,55 @@ angular.module('fittr.services')
       //       fetchingUsers.reject(data, status);
       //     });
       //   return fetchingUsers.promise;
+      },
+
+      save: function(userData) {
+        delete userData.__v;
+        delete userData.password;
+        delete userData.salt;
+        this.currentUser = userData;
+        this.saveToLocal(userData._id, userData);
+
+        console.log("currentUser: ", this.currentUser);
+      },
+
+      saveToLocal: function(id, userData) {
+        // debugger;
+        localStorageService.add(id, userData);
+        localStorageService.add('currentUser', userData);   // maybe this can be optimized
+      },
+      getFromLocal: function(userId) {
+        if (userId) {
+          return localStorageService.get(userId);
+        } else {
+          return localStorageService.get('currentUser');
+        }
+      },
+
+      // Helper function to retrieve user's activity
+      getActivity: function(userId, numOfDays) {
+        var calculateDates = function(numOfDays) {
+          var today = new Date();
+          var fromDate = new Date(today - (numOfDays * 86400000));
+          return fromDate.toISOString().slice(0, 10) + "/" + today.toISOString().slice(0, 10);
+        };
+
+        return this._httpHelper("get", "api/user/" + calculateDates(numOfDays));
+      },
+
+      saveActivity: function(userId, activities) {
+        var user = this.getFromLocal(userId);
+
+        this.currentUser.activities = activities;
+        user.activities = activities;
+        this.saveToLocal(userId, user);
+      },
+
+      // populate the currentUser object from the most recent currentUser stored
+      // in localStorage. This ensures that the currentUser always has valid
+      // data when the app reloads.  Will be called during the app's run phase
+      loadCurrentUser: function() {
+        this.currentUser = this.getFromLocal();
       }
     };
   };

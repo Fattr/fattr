@@ -1,68 +1,76 @@
-<content padding="true" style="margin-top: 190px; background: #2F3648">
+<content padding="true" style="margin-top: 145px; background: #2F3648">
 
-  <!-- Card containter that loops through users -->
-  <!--
-  <div class="flip-container"
-       ng-touch="this.classlist.toggle('hover');"
-       ng-repeat="user in users"
-       >
-    <div class="flipper">
-      <div class="front card">
-        <div class="item item-avatar">
-          <img src="http://placekitten.com/64/64">
-          <h2>{{user.name}}</h2>
-        </div>
-        <div class="item item-body">
-          steps: {{ user.steps | number }}
-        </div>
-      </div>
-      <div class="back card">
-        <div class="item item-avatar">
-          <img src="http://placekitten.com/g/64/64">
-          <h2>awww snap son!</h2>
-        </div>
-        <div class="item item-body">
-          charts go here on the back!
-        </div>
-      </div>
+  <div class="flipcardContainer">
+    <div class="list card" ng-class="{flipped:flipme}" ng-repeat="user in users">
+      <figure class="cardFront">
+
+        <!-- Card Header -->
+          <div class="item item-avatar">
+            <img ng-src={{user.pic}}>
+            <h2>{{user.username}}</h2>
+          </div>
+
+          <!-- Card Body -->
+          <div class="item item-body">
+            <list>
+              <item>
+                <span>Steps</span>
+                <span class="stats">
+                  {{ user.steps }} | 
+                  <span ng-class="{true: 'winning', false: 'losing'}[currentUser.steps - user.steps > 0]">
+                    {{ currentUser.steps - user.steps > 0 ? '+' : ''}}{{ currentUser.steps - user.steps | number:0 }}
+                  </span>
+                </span>
+              </item>
+              <item>
+                <span>Distance (miles)</span>
+                <span class="stats">
+                  {{ user.distance }} | 
+                  <span ng-class="{true: 'winning', false: 'losing'}[currentUser.distance - user.distance > 0]">
+                    {{ currentUser.distance - user.distance > 0 ? '+' : ''}}{{ currentUser.distance - user.distance | number:1 }}
+                  </span>
+                </span>
+              </item>
+              <item>
+                <span>Calories</span>
+                <span class="stats">
+                  {{ user.calories }} | 
+                  <span ng-class="{true: 'winning', false: 'losing'}[currentUser.calories - user.calories > 0]">
+                    {{ currentUser.calories - user.calories > 0 ? '+' : ''}}{{ currentUser.calories - user.calories | number:0 }}
+                  </span>
+                </span>
+              </item>
+            </list>
+          </div>
+
+          <!-- Card Footer -->
+          <div class="item tabs tabs-secondary tabs-icon-left">
+            <a class="tab-item" href="">
+              <i class="icon ion-thumbsup"></i>
+              Like
+            </a>
+            <a class="tab-item" href="">
+              <i class="icon ion-chatbox"></i>
+              Comment
+            </a>
+            <a class="tab-item" href="" ng-click="flipme=!flipme;">
+              <i class="icon ion-share"></i>
+              Flip
+            </a>
+          </div>
+
+      </figure>
+
+
+      <!-- Back of card -->
+      <figure class="cardBack">
+        BACK
+        <button ng-click="flipme=!flipme;">FLIP ME</button>
+      </figure>
+
+
     </div>
   </div>
--->
-
-<div class="card" ng-repeat="user in users" sticky>
-  <!-- Card Header -->
-  <div class="item item-avatar">
-    <img ng-src={{ user.pic }}>
-    <h2>{{user.username}}</h2>
-  </div>
-
-  <!-- Card Body -->
-  <div class="item item-body">
-    <list>
-      <item>
-        <span>Steps</span><span class="stats">{{user.steps}}</span>
-      </item>
-      <item>
-        <span>Cals</span><span class="stats">{{user.calories}}</span>
-      </item>
-      <item>
-        <span>Distance (miles)</span><span class="stats">{{user.distance}}</span>
-      </item>
-    </list>
-  </div>
-
-  <!-- Card Footer -->
-  <div class="item tabs tabs-secondary tabs-icon-left">
-    <a class="tab-item" href="#">
-      <i class="icon ion-thumbsup"></i>
-      Like
-    </a>
-    <a class="tab-item" href="#">
-      <i class="icon ion-chatbox"></i>
-      Comment
-    </a>
-  </div>
-</div>
 
 </content>
 

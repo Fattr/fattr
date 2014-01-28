@@ -1,26 +1,6 @@
 angular.module('fittr.controllers')
 
-  .controller('SignupController', function($scope, $http, $state, UserService, ValidationService) {
-
-    // Helper function to retrieve user's active
-    var getUserActivity = function(userId) {
-      UserService.retrieve(userId)
-        .then(function(data) {
-          console.log("retrieve fulfilled: ", data);
-
-          // store user details in memory
-          UserService.save(data);
-
-          // store user details in local storage?
-          UserService.saveToLocal(data);
-          console.log("retrieve from mem: ", UserService.currentUser);
-          console.log("retrieve from local: ", UserService.retrieveFromLocal());
-        }, function(error) {
-          // TODO: flesh out this error handler
-          console.log("error occured during user data retrieval");
-        });
-    };
-
+  .controller('SignupController', function($scope, $http, $state, $ionicLoading, UserService, ValidationService) {
     $scope.title = "Sign Up";
     $scope.user = {};
 
@@ -37,22 +17,48 @@ angular.module('fittr.controllers')
       $scope.signupLoginError = false;
     };
 
+    // Trigger the loading indicator
+    $scope.show = function() {
+
+      // Show the loading overlay and text
+      $scope.loading = $ionicLoading.show({
+        content: 'Loading...',
+        animation: 'fade-in',
+        showBackdrop: true,
+        maxWidth: 200,
+        showDelay: 500
+      });
+    };
+
+    // Hide the loading indicator
+    $scope.hide = function(){
+      $scope.loading.hide();
+    };
+
     $scope.submit = function(ngFormController) {
-      $scope.user.username = $scope.user.email;
-      var signupPromise = UserService.signup($scope.user);
+      // activate the loading spinner
+      $scope.show();
 
-      signupPromise.then(function(data) {
+      UserService.signup($scope.user)
+        .then(function(data) {
 
-          // console.log("signup: ", data);
+        // deactiviate the loading spinner
+        $scope.hide();
+
+        console.log("response from /signup: ", data);
+        ValidationService.resetForm(ngFormController, $scope.user);
+
+        // save user profile data and store in mem and local storage
+        UserService.save(data);
+
+        // move to connect devices state
+        $state.go('connect-devices');
+         
+      }, function(reason) {
           ValidationService.resetForm(ngFormController, $scope.user);
-
-          // get user activity data and store in mem and local storage
-          getUserActivity(data._id);
-
-          // move to connect devices state
-          $state.go('connect-devices');
-        }, function(reason) {
-          ValidationService.resetForm(ngFormController, $scope.user);
+          // deactiviate the loading spinner
+          $scope.hide();
+          
           console.log("reason: ", reason);
 
           // Display a flash message indicating error
@@ -60,6 +66,6 @@ angular.module('fittr.controllers')
           // email address they used to sign up
           $scope.flashMessage = 'Hmmm, looks like you already have an account.';  //TODO:
           $scope.signupLoginError = true;
-        });
+      });
     };
   });
