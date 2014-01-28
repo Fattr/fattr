@@ -239,5 +239,8 @@ fitbitDays = (days) ->
 
 
 
+fitbitDays = (days) ->
+
+
 
 

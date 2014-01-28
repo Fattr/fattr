@@ -48,7 +48,7 @@ describe "User auth", (done) ->
 
   it "Should not let new user sign in", (done) ->
     request(app).post('/login')
-    .send('email': 'scott3dsf3moss35@gmail', 'password': '1234')
+    .send('username': 'scott', 'password': '1234')
     .end (err, res) ->
       expect(res.status).to.be 401
       do done
@@ -72,7 +72,3 @@ describe "Auth with Fitbit", (done) ->
       expect(res.status).to.be 401
       expect(err).to.be null
       do done
-
-
-
-
