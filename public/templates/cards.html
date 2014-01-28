@@ -1,76 +1,112 @@
 <content padding="true" style="margin-top: 145px; background: #2F3648">
 
   <div class="flipcardContainer">
-    <div class="list card" ng-class="{flipped:flipme}" ng-repeat="user in users">
+    <div class="list card" ng-repeat="user in users">
+
       <figure class="cardFront">
 
         <!-- Card Header -->
           <div class="item item-avatar">
-            <img ng-src={{user.pic}}>
+            <img ng-src={{user.pic}} ng-click="backShown=!backShown">
             <h2>{{user.username}}</h2>
           </div>
 
-          <!-- Card Body -->
-          <div class="item item-body">
-            <list>
-              <item>
-                <span>Steps</span>
-                <span class="stats">
-                  {{ user.steps }} | 
-                  <span ng-class="{true: 'winning', false: 'losing'}[currentUser.steps - user.steps > 0]">
-                    {{ currentUser.steps - user.steps > 0 ? '+' : ''}}{{ currentUser.steps - user.steps | number:0 }}
-                  </span>
-                </span>
-              </item>
-              <item>
-                <span>Distance (miles)</span>
-                <span class="stats">
-                  {{ user.distance }} | 
-                  <span ng-class="{true: 'winning', false: 'losing'}[currentUser.distance - user.distance > 0]">
-                    {{ currentUser.distance - user.distance > 0 ? '+' : ''}}{{ currentUser.distance - user.distance | number:1 }}
-                  </span>
-                </span>
-              </item>
-              <item>
-                <span>Calories</span>
-                <span class="stats">
-                  {{ user.calories }} | 
-                  <span ng-class="{true: 'winning', false: 'losing'}[currentUser.calories - user.calories > 0]">
-                    {{ currentUser.calories - user.calories > 0 ? '+' : ''}}{{ currentUser.calories - user.calories | number:0 }}
-                  </span>
-                </span>
-              </item>
-            </list>
+          <!-- Card FRONT Body -->
+          <div class="item item-body animate toggle" ng-if="!backShown" style="height:272px">
+            <ul class="list">
+              <li class="card-bar-container" style="border-top-left-radius: 5px; border-top-right-radius: 5px;">
+                <div class="card-bar" ng-class="{true: 'winning', false: 'losing'}[currentUser.steps - user.steps > 0]" style="width: {{percentage.steps}}%;">
+                </div>
+                <div class="row">
+                  <div class="col" style="padding: 0">Steps</div>
+                  <div class="col stats" style="padding: 0">{{ user.steps }}</div>
+                  <div class="col stats" style="padding: 0">{{ currentUser.steps - user.steps > 0 ? '+' : ''}}{{ currentUser.steps - user.steps | number:0 }}</div>
+                </div>
+              </li>
+              <li class="card-bar-container">
+                <div class="card-bar" ng-class="{true: 'winning', false: 'losing'}[currentUser.steps - user.steps > 0]" style="width: {{percentage.distance}}%;">
+                </div>
+                <div class="row">
+                  <div class="col" style="padding: 0">Miles</div>
+                  <div class="col stats" style="padding: 0">{{ user.distance }}</div>
+                  <div class="col stats" style="padding: 0">{{ currentUser.distance - user.distance > 0 ? '+' : ''}}{{ currentUser.distance - user.distance | number:1 }}</div>
+                </div>
+              </li>
+              <li class="card-bar-container" style="border-bottom-left-radius: 5px; border-bottom-right-radius: 5px;">
+                <div class="card-bar" ng-class="{true: 'winning', false: 'losing'}[currentUser.steps - user.steps > 0]" style="width: {{percentage.calories}}%;">
+                </div>
+                <div class="row">
+                  <div class="col" style="padding: 0">Calories</div>
+                  <div class="col stats" style="padding: 0">{{ user.calories }}</div>
+                  <div class="col stats" style="padding: 0">{{ currentUser.calories - user.calories > 0 ? '+' : ''}}{{ currentUser.calories - user.calories | number:0 }}</div>
+                </div>
+              </li>
+            </ul>
           </div>
 
-          <!-- Card Footer -->
-          <div class="item tabs tabs-secondary tabs-icon-left">
-            <a class="tab-item" href="">
-              <i class="icon ion-thumbsup"></i>
-              Like
-            </a>
-            <a class="tab-item" href="">
-              <i class="icon ion-chatbox"></i>
-              Comment
-            </a>
-            <a class="tab-item" href="" ng-click="flipme=!flipme;">
-              <i class="icon ion-share"></i>
-              Flip
-            </a>
+
+          <div class="item item-body chart animate toggle" ng-if="backShown">
+            <slide-box>
+              <slide>
+                <h3>Steps</h3>
+                <nvd3-line-chart
+                  data="stepsData"
+                  id="stepsChart"
+                  width="312"
+                  height="190"
+                  showXAxis="true"
+                  showYAxis="true"
+                  xAxisTickFormat="xAxisTickFormat()"
+                  interpolate="basis"
+                  margin="{left:30,top:30,bottom:24,right:14}"
+                  showLegend="true"
+                  isArea="true">
+                  <svg></svg>
+                </nvd3-line-chart>
+              </slide>
+              <slide>
+                <h3>Floors</h3>
+                <nvd3-line-chart
+                  data="stepsData"
+                  id="floorsChart"
+                  width="312"
+                  height="190"
+                  showXAxis="true"
+                  showYAxis="true"
+                  xAxisTickFormat="xAxisTickFormat()"
+                  interpolate="basis"
+                  margin="{left:30,top:30,bottom:24,right:14}"
+                  showLegend="true"
+                  isArea="true">
+                  <svg></svg>
+                </nvd3-line-chart>
+              </slide>
+              <slide>
+                <h3>Distance</h3>
+                <nvd3-line-chart
+                  data="stepsData"
+                  id="distanceChart"
+                  width="312"
+                  height="190"
+                  showXAxis="true"
+                  showYAxis="true"
+                  xAxisTickFormat="xAxisTickFormat()"
+                  interpolate="basis"
+                  margin="{left:30,top:30,bottom:24,right:14}"
+                  showLegend="true"
+                  isArea="true">
+                  <svg></svg>
+                </nvd3-line-chart>
+              </slide>
+            </slide-box>
           </div>
 
       </figure>
 
 
-      <!-- Back of card -->
-      <figure class="cardBack">
-        BACK
-        <button ng-click="flipme=!flipme;">FLIP ME</button>
-      </figure>
 
 
     </div>
   </div>
 
 </content>
-

@@ -118,10 +118,6 @@ module.exports =
             res.json data
 
 
-
-
-
-
   # helper to delete current user
   deleteUser: (req, res) ->
     id = req.params.id
@@ -238,6 +234,9 @@ dateRange = (dateFrom, dateTo, query) ->
   else
     query.date = $gte: dateFrom  if dateFrom isnt undefined
     query.date = $lte: dateTo  if dateTo isnt undefined
+
+fitbitDays = (days) ->
+
 
 
 

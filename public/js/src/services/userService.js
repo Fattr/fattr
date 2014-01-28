@@ -8,14 +8,12 @@ angular.module('fittr.services')
       // currentUser: {},
 
       // THIS IS DUMMY DATA
-
       // currentUser: {
       //   username: 'Marty McFly',
       //   steps: 8000,
       //   distance: 5.2,
       //   calories: 2734
       // },
-
       // DUMMY DATA END
 
       users: [],
@@ -28,7 +26,7 @@ angular.module('fittr.services')
         var d = $q.defer();
         $http[verb](baseUrl + url, body)
           .success(function(data, status, headers, config) {
-            console.log("data: ", data, "status: ", status);
+            // console.log("data: ", data, "status: ", status);
             d.resolve(data);
           })
           .error(function(data, status, headers, config) {
@@ -38,14 +36,12 @@ angular.module('fittr.services')
       },
 
       signup: function(user) {
-        console.log('signup', user);
         return this._httpHelper('post', 'signup', user);
       },
 
       login: function(user) {
         return this._httpHelper('post', 'login', user);
       },
-
 
       get: function(userId) {
         return this._httpHelper('get', "users/" + userId, this);
@@ -75,7 +71,7 @@ angular.module('fittr.services')
         this.currentUser = userData;
         this.saveToLocal(userData._id, userData);
 
-        console.log("currentUser: ", this.currentUser);
+        // console.log("currentUser: ", this.currentUser);
       },
 
       saveToLocal: function(id, userData) {
