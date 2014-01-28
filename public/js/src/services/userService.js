@@ -3,6 +3,13 @@ angular.module('fittr.services')
 .provider('UserService', function() {
   this.$get = function($http, $q, localStorageService) {
     var baseUrl = "http://fittrapp.herokuapp.com/";
+
+    var calculateDates = function(numOfDays) {
+      var today = new Date();
+      var fromDate = new Date(today - (numOfDays * 86400000));
+      return "/" + fromDate.toISOString().slice(0, 10) + "/" + today.toISOString().slice(0, 10);
+    };
+
     return {
       // currentUser: {},
 
@@ -35,32 +42,21 @@ angular.module('fittr.services')
       },
 
       signup: function(user) {
-        return this._httpHelper('post', 'signup', user);
+        return this._httpHelper('post', '/signup', user);
       },
 
       login: function(user) {
-        return this._httpHelper('post', 'login', user);
+        return this._httpHelper('post', '/login', user);
       },
 
       get: function(userId) {
-        return this._httpHelper('get', "users/" + userId, this);
+        return this._httpHelper('get', "/users" + userId, this);
         // return this._httpHelper('get', "user/");
       },
 
-      getAll: function() {
-        return this._httpHelper('get', "test/data");
-      //   $http.get(baseUrl + "test/data")
-      //     .success(function(data, status, headers, config) {
-      //       console.log("data: ", data, "status: ", status);
-      //       fetchingUsers.resolve(data);
-
-      //       // need logic to format the data for user stream
-      //       // =============================================
-      //     })
-      //     .error(function(data, status, headers, config) {
-      //       fetchingUsers.reject(data, status);
-      //     });
-      //   return fetchingUsers.promise;
+      getAll: function(numOfDays) {
+        if (!numOfDays) return this._httpHelper("get", "/api/users");
+        return this._httpHelper('get', "/api/users"+ calculateDates(numOfDays));
       },
 
       save: function(userData) {
@@ -87,14 +83,9 @@ angular.module('fittr.services')
       },
 
       // Helper function to retrieve user's activity
-      getActivity: function(userId, numOfDays) {
-        var calculateDates = function(numOfDays) {
-          var today = new Date();
-          var fromDate = new Date(today - (numOfDays * 86400000));
-          return fromDate.toISOString().slice(0, 10) + "/" + today.toISOString().slice(0, 10);
-        };
-
-        return this._httpHelper("get", "api/user/" + calculateDates(numOfDays));
+      getActivity: function(numOfDays) {
+        if (!numOfDays) return this._httpHelper("get", "/api/user");
+        return this._httpHelper("get", "/api/user" + calculateDates(numOfDays));
       },
 
       saveActivity: function(userId, activities) {
