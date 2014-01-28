@@ -17,30 +17,37 @@
             <div class="item item-body animate toggle" ng-if="!backShown" style="height:272px">
               <ul class="list">
                 <li class="card-bar-container" style="border-top-left-radius: 5px; border-top-right-radius: 5px;">
-                  <div class="card-bar" ng-class="{true: 'winning', false: 'losing'}[currentUser.steps - user.steps > 0]" style="width: {{percentage.steps}}%;">
+                  <div class="card-bar" ng-class="{true: 'winning', false: 'losing'}[currentUser.steps - user.steps > 0]" style="border-top-right-radius: 10px; width: {{percentage.steps}}%;">
                   </div>
-                  <div class="row">
+                  <div class="row statrow">
                     <div class="col" style="padding: 0">Steps</div>
                     <div class="col stats" style="padding: 0">{{ user.steps }}</div>
-                    <div class="col stats" style="padding: 0">{{ currentUser.steps - user.steps > 0 ? '+' : ''}}{{ currentUser.steps - user.steps | number:0 }}</div>
+                    <div class="col stats" style="padding: 0">
+                      {{ currentUser.steps - user.steps > 0 ? '+' : ''}}{{ currentUser.steps - user.steps | number:0 }}
+                    </div>
                   </div>
                 </li>
                 <li class="card-bar-container">
-                  <div class="card-bar" ng-class="{true: 'winning', false: 'losing'}[currentUser.steps - user.steps > 0]" style="width: {{percentage.distance}}%;">
+                  <div class="card-bar" ng-class="{true: 'winning', false: 'losing'}[currentUser.steps - user.steps > 0]" style="border-top-right-radius: 10px; width: {{percentage.distance}}%;">
                   </div>
-                  <div class="row">
+                  <div class="row statrow">
                     <div class="col" style="padding: 0">Miles</div>
                     <div class="col stats" style="padding: 0">{{ user.distance }}</div>
                     <div class="col stats" style="padding: 0">{{ currentUser.distance - user.distance > 0 ? '+' : ''}}{{ currentUser.distance - user.distance | number:1 }}</div>
                   </div>
                 </li>
                 <li class="card-bar-container" style="border-bottom-left-radius: 5px; border-bottom-right-radius: 5px;">
-                  <div class="card-bar" ng-class="{true: 'winning', false: 'losing'}[currentUser.steps - user.steps > 0]" style="width: {{percentage.calories}}%;">
+                  <div class="card-bar" ng-class="{true: 'winning', false: 'losing'}[currentUser.steps - user.steps > 0]" style="border-top-right-radius: 10px; width: {{percentage.calories}}%;">
                   </div>
-                  <div class="row">
+                  <div class="row statrow">
                     <div class="col" style="padding: 0">Calories</div>
                     <div class="col stats" style="padding: 0">{{ user.calories }}</div>
                     <div class="col stats" style="padding: 0">{{ currentUser.calories - user.calories > 0 ? '+' : ''}}{{ currentUser.calories - user.calories | number:0 }}</div>
+                  </div>
+                  <div class="row" style="border-top: 1px dashed #c0c0c0; margin-top: 5px">
+                    <div class="col" style="color: #0088FF; font-size: 10px">Category</div>
+                    <div class="col" style="color: #0088FF; font-size: 10px; text-align: right">Quantity</div>
+                    <div class="col" style="color: #0088FF; font-size: 10px; text-align: right">Difference</div>
                   </div>
                 </li>
               </ul>

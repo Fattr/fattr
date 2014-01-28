@@ -159,7 +159,8 @@ a.device p {
 }
 
 .losing {
-  background-color: #c0392b;
+  /*background-color: #c0392b;*/
+  background-color: #E74C3C;
 }
 
 .username {
@@ -208,6 +209,13 @@ a.device p {
   perspective: 800px;
 }
 
+.statrow {
+  /*box-shadow: 0 -2px 5px #ccc;*/
+  -webkit-box-shadow: -5px -8px 6px -6px #888;
+     -moz-box-shadow: -5px -8px 6px -6px #888;
+          box-shadow: -5px -8px 6px -6px #888;
+}
+
 .card {
   height: 339px;
 }
@@ -220,12 +228,14 @@ a.device p {
 }
 
 .card-bar-container {
+  background-color: rgba(0, 0, 0, 0);
   width:100%;
-  border: 1px solid #ccc;
+  /*border: 1px solid #222;*/
 }
 
 .card-bar {
-  color: white;
+  /*color: white;*/
+  /*box-shadow: 1px -1px 5px #555;*/
   height: 100%;
   padding: 15px;
 }
