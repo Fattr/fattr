@@ -2,6 +2,10 @@
 
 User    = require '../models/user'
 Stats   = require '../models/stat'
+{fitbit}  = require './auth'
+fitbitClient = require("fitbit-js")(fitbit.consumerKey,
+fitbit.consumerSecret, fitbit.callbackURL)
+moment = require 'moment'
 
 
 module.exports =
@@ -74,15 +78,45 @@ module.exports =
   # ===========================
   userActivity: (req, res) ->
     query = user: req.user._id
+    token =
+      oauth_token: req.user.authData.fitbit.access_token
+      oauth_token_secret: req.user.authData.fitbit.access_token_secret
     dateRange req.params.from, req.params.to, query
-    console.log 'query', query
     Stats.find query, (err, stats) ->
       if err
         res.send err
-      else if stats
+      else if stats.length
         console.log "db data", stats
-        res.json stats
+        data =
+          email: req.user.email
+          username: req.user.username
+          stats: stats
+        res.json data
+      else if !stats.length
+        console.log 'token', token, 'date', req.params.from
+        fitbitClient.apiCall 'GET', '/user/-/activities/date/'+
+        req.params.from + '.json', 'token': token,
+        (error, resp, userActivity) ->
+          if error
+            console.log "FITBIT err", error
+            res.send 500
+          stat = new Stats()
+          stat.user = query.user
+          stat.date = query.from
+          stat.steps = userActivity.summary.steps
+          stat.marginalCalories = userActivity.summary.marginalCalories
+          stat.sedentaryMinutes = userActivity.summary.sedentaryMinutes
+          stat.lightActivieMinutes = userActivity.lightActivieMinutes
+          stat.fairlyActiveMinutes = userActivity.fairlyActiveMinutes
+          stat.veryActiveMinties = userActivity.veryActiveMinties
 
+          stat.save (err) ->
+            console.log 'err saving stat here', err if err
+            data =
+              username: req.user.username
+              email: req.user.email
+              stats: stat
+            res.json data
 
 
   # helper to delete current user
@@ -201,6 +235,9 @@ dateRange = (dateFrom, dateTo, query) ->
   else
     query.date = $gte: dateFrom  if dateFrom isnt undefined
     query.date = $lte: dateTo  if dateTo isnt undefined
+
+
+fitbitDays = (days) ->
 
 
 

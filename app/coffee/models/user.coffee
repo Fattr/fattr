@@ -4,7 +4,9 @@ mongoose = require 'mongoose'
 
 UserSchema = new mongoose.Schema(
 
-  username: String
+  username:
+    type: String
+    unique: true
 
   email:
     type: String

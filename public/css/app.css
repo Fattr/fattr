@@ -184,7 +184,7 @@ a.device p {
 /* CARD FLIP
 * ========================================================================== */
 
-.flipcardContainer { 
+.flipcardContainer {
   margin-left: 0;
   margin-right: 0;
   height: 375px;
@@ -213,6 +213,5 @@ a.device p {
   height: 100%;
   padding: 15px;
 }
-
 
 

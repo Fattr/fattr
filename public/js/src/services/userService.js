@@ -2,7 +2,7 @@ angular.module('fittr.services')
 
 .provider('UserService', function() {
   this.$get = function($http, $q, localStorageService) {
-    var baseUrl = "http://localhost:3000/";   
+    var baseUrl = "http://localhost:3000/";
 
     return {
       // currentUser: {},
@@ -12,7 +12,7 @@ angular.module('fittr.services')
       //   username: 'Marty McFly',
       //   steps: 8000,
       //   distance: 5.2,
-      //   calories: 2734 
+      //   calories: 2734
       // },
       // DUMMY DATA END
 
@@ -21,13 +21,13 @@ angular.module('fittr.services')
       // http helper since http operations are repeated
       // several times within this service.
       // The "context" parameter is optional and used in the case
-      // where one needs a reference to the UserService   
-      _httpHelper: function(verb, url, body) { 
+      // where one needs a reference to the UserService
+      _httpHelper: function(verb, url, body) {
         var d = $q.defer();
         $http[verb](baseUrl + url, body)
           .success(function(data, status, headers, config) {
             // console.log("data: ", data, "status: ", status);
-            d.resolve(data); 
+            d.resolve(data);
           })
           .error(function(data, status, headers, config) {
             d.reject(data, status);
@@ -91,7 +91,7 @@ angular.module('fittr.services')
       getActivity: function(userId, numOfDays) {
         var calculateDates = function(numOfDays) {
           var today = new Date();
-          var fromDate = new Date(today - (numOfDays * 86400000)); 
+          var fromDate = new Date(today - (numOfDays * 86400000));
           return fromDate.toISOString().slice(0, 10) + "/" + today.toISOString().slice(0, 10);
         };
 

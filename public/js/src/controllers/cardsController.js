@@ -69,7 +69,7 @@ angular.module('fittr.controllers')
     data.push({key: user, values: values});
     values = [];
     };
-    
+
     buildForOneUser("Lebron James");
     buildForOneUser("me");
     return data;
@@ -78,7 +78,7 @@ angular.module('fittr.controllers')
   $scope.xAxisTickFormat = function() {
     return function(d) {
       console.log(d);
-      return d3.time.format('%m/%e')(new Date(d)); 
+      return d3.time.format('%m/%e')(new Date(d));
     };
   };
 

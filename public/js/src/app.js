@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'fittr.services' is found in services.js
 // 'fittr.controllers' is found in controllers.js
-angular.module('fittr', ['ionic', 'ngRoute', 'LocalStorageModule', 'nvd3ChartDirectives', 
+angular.module('fittr', ['ionic', 'ngRoute', 'LocalStorageModule', 'nvd3ChartDirectives',
   'fittr.services', 'fittr.controllers'])
 .config(function(UserServiceProvider) {
   // UserServiceProvider.setApiKey('myKey');
@@ -173,4 +173,3 @@ angular.module('fittr', ['ionic', 'ngRoute', 'LocalStorageModule', 'nvd3ChartDir
  * SETTING SERVICES
  */
 angular.module('fittr.services', []);
-
