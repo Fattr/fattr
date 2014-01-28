@@ -71,52 +71,16 @@ module.exports =
         console.log 'stats', stats
         res.json stats
 
-  getFitbit: (req, res) ->
-    $req = req
-    res.redirect '#/main/stream'
-    yesterday = do ->
-      date = moment()
-      date = date.subtract("days", 1).format("YYYY-MM-DD")
-      date
-    token =
-      'oauth_token': $req.user.authData.fitbit.access_token
-      'oauth_token_secret': $req.user.authData.fitbit.access_token_secret
-    console.log 'token', token
-    console.log 'req user ====== ', $req.user
-
-    fitbitClient.apiCall "GET", 'user/-/activities/date'+
-    yesterday + '.json',
-      'token': token
-    , (err, resp, userActivity) ->
-      console.log 'here inside fitbit'
-      if err
-        console.log 'err getting data', err
-
-      stat = new Stats()
-      stat.user = req.user._id
-      stat.date = yesterday
-      stat.steps = userActivity.summary.steps
-      stat.marginalCalories = userActivity.summary.marginalCalories
-      stat.veryActiveMinutes = userActivity.summary.veryActiveMinutes
-
-      stat.save (err) ->
-        if err
-          console.log 'error getting new users fitbit', err
-          res.send 500
-
-
-
-
-
-
   # ===========================
   # query DB to get single user
   # steps
   # ===========================
   userActivity: (req, res) ->
     query = user: req.user._id
+    token =
+      oauth_token: req.user.authData.fitbit.access_token
+      oauth_token_secret: req.user.authData.fitbit.access_token_secret
     dateRange req.params.from, req.params.to, query
-    console.log 'query', query
     Stats.find query, (err, stats) ->
       if err
         res.send err
@@ -127,6 +91,28 @@ module.exports =
           username: req.user.username
           stats: stats
         res.json data
+      else if !stats
+        fitbitClient.apiCall 'GET', '/user/-/activities/date/'+
+        query.from + '.json', 'token': token, (err, resp, userActivity) ->
+          if err
+            console.log 'FITBIT err'
+            res.send 500
+          stat = new Stat()
+          stat.user = query.user
+          stat.date = query.from
+          stat.steps = userActivity.summary.steps
+          stat.marginalCalories = userActivity.summary.marginalCalories
+          stat.sedentaryMinutes = userActivity.summary.sedentaryMinutes
+          stat.lightActivieMinutes = userActivity.lightActivieMinutes
+          stat.fairlyActiveMinutes = userActivity.fairlyActiveMinutes
+          stat.veryActiveMinties = userActivity.veryActiveMinties
+
+          stat.save (err) ->
+            console.log 'err saving stat here', err if err
+            console.log 'saved it!!!!!'
+
+
+
 
 
 
