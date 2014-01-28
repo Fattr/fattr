@@ -46,7 +46,7 @@ angular.module('fittr.controllers')
       // deactiviate the loading spinner
       $scope.hide();
 
-      console.log("response from /login: ", data);
+      // console.log("response from /login: ", data);
       ValidationService.resetForm(ngFormController, $scope.user); 
 
       // save user profile data and store in mem and local storage
