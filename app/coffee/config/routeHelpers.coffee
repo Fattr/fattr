@@ -91,7 +91,7 @@ module.exports =
           username: req.user.username
           stats: stats
         res.json data
-      else if !stats
+      else if !stats.length
         fitbitClient.apiCall 'GET', '/user/-/activities/date/'+
         query.from + '.json', 'token': token, (err, resp, userActivity) ->
           if err
