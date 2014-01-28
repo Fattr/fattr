@@ -26,7 +26,7 @@ angular.module('fittr.services')
         var d = $q.defer();
         $http[verb](baseUrl + url, body)
           .success(function(data, status, headers, config) {
-            console.log("data: ", data, "status: ", status);
+            // console.log("data: ", data, "status: ", status);
             d.resolve(data);
           })
           .error(function(data, status, headers, config) {
@@ -71,7 +71,7 @@ angular.module('fittr.services')
         this.currentUser = userData;
         this.saveToLocal(userData._id, userData);
 
-        console.log("currentUser: ", this.currentUser);
+        // console.log("currentUser: ", this.currentUser);
       },
 
       saveToLocal: function(id, userData) {

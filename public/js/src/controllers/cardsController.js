@@ -36,7 +36,7 @@ angular.module('fittr.controllers')
 
   UserService.getActivity(UserService.currentUser._id, 7)
     .then(function(data) {
-      console.log("response from get activity: ", data);
+      // console.log("response from get activity: ", data);
       // debugger;
       UserService.saveActivity(UserService.currentUser._id, data);
       $scope.currentUser = UserService.currentUser;
