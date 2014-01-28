@@ -36,7 +36,7 @@ describe "User auth", (done) ->
 
   it "Should sing up new user", (done) ->
     request(app).post('/signup')
-    .send('username': 'scott', 'password': '1234', 'email': 'doo@doo')
+    .send('username': 'scott', 'password': '1234')
     .end (err, res) ->
       expect(err).to.be null
       expect(res.status).to.be 201
@@ -48,7 +48,7 @@ describe "User auth", (done) ->
 
   it "Should not let new user sign in", (done) ->
     request(app).post('/login')
-    .send('email': 'scott3dsf3moss35@gmail', 'password': '1234')
+    .send('username': 'dookey', 'password': '1234')
     .end (err, res) ->
       expect(res.status).to.be 401
       do done
