@@ -92,10 +92,11 @@ module.exports =
           stats: stats
         res.json data
       else if !stats.length
+        console.log 'token', token, 'date', query.from
         fitbitClient.apiCall 'GET', '/user/-/activities/date/'+
         query.from + '.json', 'token': token, (error, resp, userActivity) ->
           if error
-            console.log "FITBIT err #{error}"
+            console.log "FITBIT err", error
             res.send 500
           stat = new Stats()
           stat.user = query.user
