@@ -19,17 +19,17 @@ angular.module('fittr.controllers')
   };
 
   // Trigger the loading indicator
-    $scope.show = function() {
+  $scope.show = function() {
 
-      // Show the loading overlay and text
-      $scope.loading = $ionicLoading.show({
-        content: 'Loading...',
-        animation: 'fade-in',
-        showBackdrop: true,
-        maxWidth: 200,
-        showDelay: 500
-      });
-    };
+    // Show the loading overlay and text
+    $scope.loading = $ionicLoading.show({
+      content: 'Loading...',
+      animation: 'fade-in',
+      showBackdrop: true,
+      maxWidth: 200,
+      showDelay: 500
+    });
+  };
 
   // Hide the loading indicator
   $scope.hide = function(){
