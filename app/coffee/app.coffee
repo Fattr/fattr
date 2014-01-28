@@ -1,5 +1,5 @@
 app   = require './server'
-port  = require('./config/serverConfig')['port']
+{port}  = require './config/serverConfig'
 
 app.listen port
 
