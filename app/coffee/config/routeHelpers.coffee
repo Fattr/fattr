@@ -13,6 +13,7 @@ module.exports =
   #==========================
   # static assets
   #==========================
+
   index: (req, res) ->
     # by default express will send index.html on  GET '/'
     # so this is just optional
@@ -75,50 +76,21 @@ module.exports =
   # query DB to get single user
   # steps
   # ===========================
-  userActivity: (req, res) ->
-    query = user: req.user._id
-    token =
-      oauth_token: req.user.authData.fitbit.access_token
-      oauth_token_secret: req.user.authData.fitbit.access_token_secret
-    dateRange req.params.from, req.params.to, query
-    Stats.find query, (err, stats) ->
-      if err
-        res.send err
-      else if stats.length
-        data =
-          username: req.user.username
-          pic: req.user.authData.fitbit.avatar
-          stats: stats[0]
-        res.json data
-      else if !stats.length
 
-        fitbitClient.apiCall 'GET', '/user/-/activities/date/'+
-        req.params.from + '.json', 'token': token,
-        (error, resp, userActivity) ->
-          if error
-            console.log "FITBIT err", error
-            res.send 500
-          console.log 'summary', userActivity.summary
-          stat = new Stats()
-          stat.user = query.user
-          stat.date = req.params.from
-          stat.steps = userActivity.summary.steps
-          stat.distance = userActivity.summary.distances[0].distance
-          stat.veryActiveMinutes = userActivity.summary.veryActiveMinutes
-          stat.save (err) ->
-            console.log 'err saving stat here', err if err
-            console.log 'user here ==== ', req.user.authData.fitbit.avatar
-            data =
-              username: req.user.username
-              pic: req.user.authData.fitbit.avatar
-              stats: stat
-            res.json data
+  userActivity: (req, res) ->
+    do fitbitDays
+
+  graphData: (req, res) ->
+    currentUserId = req.user._id
+    compareUser = req.params.user
+
+
 
 
   # helper to delete current user
+
   deleteUser: (req, res) ->
-    id = req.params.id
-    res.send 401 if id isnt String req.user._id # only delete logged-in user
+    id = req.user._id
     User.findById id, (err, user) ->
       if err
         console.error 'User.findOne error', err
@@ -144,7 +116,6 @@ module.exports =
 
   # mock data for quick developing on front end
   testData: (req, res) ->
-    console.log 'user',req.user
     data = []
     users = [
       'Fred'
@@ -232,7 +203,48 @@ dateRange = (dateFrom, dateTo, query) ->
     query.date = $gte: dateFrom  if dateFrom isnt undefined
     query.date = $lte: dateTo  if dateTo isnt undefined
 
-fitbitDays = (days) ->
+fitbitDays = () ->
+  query = user: req.user._id
+  token =
+    oauth_token: req.user.authData.fitbit.access_token
+    oauth_token_secret: req.user.authData.fitbit.access_token_secret
+  dateRange req.params.from, req.params.to, query
+  Stats.find query, (err, stats) ->
+    if err
+      res.send err
+    else if stats.length
+      data =
+        username: req.user.username
+        pic: req.user.authData.fitbit.avatar
+        stats: stats[0]
+      res.json data
+    else if !stats.length
+      fromDay = moment req.params.from
+      toDay = moment req.params.to
+      while fromDay <= toDay
+        ((day) ->
+          fitbit.fitbitClient.apiCall 'GET', '/user/-/activities/date/'+
+          day + '.json', 'token': token,
+          (err, resp, userActivity) ->
+            if error
+              console.log 'error getting fitbit data', error
+              res.send 500
+            stat = new Stats()
+            stat.user = query.user
+            stat.date = day
+            stat.steps = userActivity.summary.steps
+            stat.distance = userActivity.summary.distances[0].distance
+            stat.veryActiveMinutes = userActivity.summary.veryActiveMinutes
+
+            stat.save (errs) ->
+              if errs
+                console.log 'error saving fitbit data', errs
+                res.send 500
+              console.log 'stat here', stat
+
+        ) fromDay
+        fromDay = fromDay.add 'days', 1
+      res.send 200
 
 
 
