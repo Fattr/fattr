@@ -14,14 +14,4 @@ angular.module('fittr.controllers')
     console.log('trying to go back');
     window.history.back();
   };
-
-  // $scope.authFitBit = function() {
-  //   $http.get($scope.devices[0].apiUrl)
-  //     .success(function(data) {
-  //       console.log(data);
-  //     })
-  //     .error(function(reason) {
-  //       console.log(reason);
-  //     });
-  // };
 });
