@@ -255,5 +255,5 @@ saveStats = (stat) ->
   stat.save (err) ->
     if err
       console.log 'error savnig stats', err
-    if stat.date = moment().subtract('days', 1).format "YYYY-MM-DD"
+    if stat.date is moment().subtract('days', 1).format "YYYY-MM-DD"
       current = stat
