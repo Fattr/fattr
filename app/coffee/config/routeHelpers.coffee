@@ -7,6 +7,8 @@ fitbitClient = require("fitbit-js")(fitbit.consumerKey,
 fitbit.consumerSecret, fitbit.callbackURL)
 moment = require 'moment'
 
+# fixme: refactor to use promises or async library here
+# ASYNC hell down below!!!!!!!
 
 module.exports =
 
@@ -84,12 +86,15 @@ module.exports =
       if err
         res.send err
       else if stats.length
+      # if stats, send back reqested range of stats along with user data
         data =
           username: req.user.username
           pic: req.user.authData.fitbit.avatar
           stats: stats
         res.json data
       else if !stats.length
+        # if no stats in db, go to fitbit and get 7 days
+        # worth of stats and save to db
         date = moment(req.params.from) or
         moment().subtract('days', 8)
 
@@ -98,11 +103,15 @@ module.exports =
           'user': req.user._id
           'date': toDate.format 'YYYY-MM-DD'
 
+
         while date <= toDate
+          # helper function that goes to fitbit and gets a weeks data set
           getDailyActivities req, res, date.format('YYYY-MM-DD'), saveStats
           date = date.add 'days', 1
-          console.log "date #{date.format 'YYYY-MM-DD'}",
-          "toDate #{toDate.format 'YYYY-MM-DD'}"
+
+          # change this to somethig else, this is horrbile, but
+          # front end will be looking for null right now
+        res.json null
 
   compare: (req, res) ->
     compareUser = req.params.userid
@@ -114,7 +123,7 @@ module.exports =
     dateRange from, to, query
 
     returnJSON = []
-
+    # get current users weeky data set
     Stats.find query, (err, stat) ->
       if err
         console.log 'error gettig logged in user to compare', err
