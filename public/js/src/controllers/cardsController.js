@@ -40,6 +40,7 @@ angular.module('fittr.controllers')
     UserService.getWeekly(userId)
       .then(function(data) {
         console.log("7 days worth: ", data);
+
       }, function(status) {
         console.log("An error occured during the call to get" + status);
       });
@@ -94,3 +95,92 @@ angular.module('fittr.controllers')
   };
 
 });
+
+var buildChartData = function(data) {
+  var currentUser;
+
+  // format user data
+  for (var i = 0; i < data[0].stat.length; i++) {
+    currentUser.push([data[0].stat[i]]);
+  }
+
+};
+
+
+
+// [
+// {
+//   username: "zooose",
+//   stat: 
+//   [
+//   {
+//     distance: 4.22,
+//     veryActiveMinutes: 9,
+//     steps: 5884,
+//     date: "2014-01-26",
+//     user: "52e97cef52dee34b1d8a3353",
+//     _id: "52e97d0352dee34b1d8a3354",
+//     __v: 0
+//   },
+//   {
+//     distance: 5.64,
+//     veryActiveMinutes: 22,
+//     steps: 7868,
+//     date: "2014-01-27",
+//     user: "52e97cef52dee34b1d8a3353",
+//     _id: "52e97d0352dee34b1d8a3355",
+//     __v: 0
+//   },
+//   {
+//     distance: 4.58,
+//     veryActiveMinutes: 20,
+//     steps: 6390,
+//     date: "2014-01-28",
+//     user: "52e97cef52dee34b1d8a3353",
+//     _id: "52e97d0352dee34b1d8a3356",
+//     __v: 0
+//   }
+//   ]
+// },
+// [
+// {
+//   distance: 4.58,
+//   veryActiveMinutes: 20,
+//   steps: 6390,
+//   date: "2014-01-28",
+//   user: 
+//   {
+//     _id: "52e97b7fb59349651b452fa1",
+//     username: "sdfnlewhtle"
+//   },
+//   _id: "52e97b84b59349651b452fa2",
+//   __v: 0
+// },
+// {
+//   distance: 5.64,
+//   veryActiveMinutes: 22,
+//   steps: 7868,
+//   date: "2014-01-27",
+//   user: 
+//   {
+//     _id: "52e97b7fb59349651b452fa1",
+//     username: "sdfnlewhtle"
+//   },
+//   _id: "52e97b84b59349651b452fa3",
+//   __v: 0
+// },
+// {
+//   distance: 4.22,
+//   veryActiveMinutes: 9,
+//   steps: 5884,
+//   date: "2014-01-26",
+//   user: 
+//   {
+//     _id: "52e97b7fb59349651b452fa1",
+//     username: "sdfnlewhtle"
+//   },
+//   _id: "52e97b84b59349651b452fa4",
+//   __v: 0
+// }
+// ]
+// ]
