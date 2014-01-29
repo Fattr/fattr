@@ -274,7 +274,7 @@ getDailyActivities = (req, res, day, cb) ->
     cb stat
 
 saveStats = (stat) ->
-  stat.save(err) ->
+  stat.save (err) ->
     if err
       console.log 'error savnig stats', err
     console.log 'save staaaats'
