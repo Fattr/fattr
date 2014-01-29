@@ -238,9 +238,17 @@ a.device p {
 }
 
 .card-bar {
-  border-top-right-radius: 50px; 
-  height: 100%;
-  padding: 15px;
+  border-top-right-radius: 10px; 
+  height: 15px;
+  margin: 1px 0 1px 0;
+}
+
+.your-bar {
+  background-color: #0088ff;
+}
+
+.their-bar {
+  background-color: red;
 }
 
 .col {

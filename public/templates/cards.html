@@ -26,8 +26,8 @@
             <div class="item item-body animate bouncy-slide-left" ng-if="!backShown" style="height:272px">
               <ul class="list">
                 <li class="card-bar-container animate slide-top">
-                  <div class="card-bar" ng-class="{true: 'winning', false: 'losing'}[currentUser.stats.steps - user.steps >= 0]" ng-style="calculateWidth(user, 'steps')">
-                  </div>
+                  <div class="card-bar your-bar" ng-style="calculateYourWidth(user, 'steps')"></div>
+                  <div class="card-bar their-bar" ng-style="calculateFriendWidth(user, 'steps')"></div>
                   <div class="row statrow">
                     <div class="col col-67 stats">{{currentUser.stats.steps - user.steps >= 0 ? 'You won by ' : 'You lost by '}}
                       {{Math.abs(currentUser.stats.steps - user.steps) | number:0}} steps
@@ -35,8 +35,8 @@
                     <div class="col stats friendValue">{{user.steps}}</div>
                 </li>
                 <li class="card-bar-container">
-                  <div class="card-bar" ng-class="{true: 'winning', false: 'losing'}[currentUser.stats.distance - user.distance >= 0]" ng-style="calculateWidth(user, 'distance')">
-                  </div>
+                  <div class="card-bar your-bar" ng-style="calculateYourWidth(user, 'distance')"></div>
+                  <div class="card-bar their-bar" ng-style="calculateFriendWidth(user, 'distance')"></div>
                   <div class="row statrow">
                     <div class="col col-67 stats">{{currentUser.stats.distance - user.distance >= 0 ? 'You won by ' : 'You lost by '}}
                       {{Math.abs(currentUser.stats.distance - user.distance) | number:2}} miles
@@ -44,8 +44,8 @@
                     <div class="col stats friendValue">{{user.distance}}</div>
                 </li>
                 <li class="card-bar-container">
-                  <div class="card-bar" ng-class="{true: 'winning', false: 'losing'}[currentUser.stats.veryActiveMinutes - user.veryActiveMinutes >= 0]" ng-style="calculateWidth(user, 'veryActiveMinutes')">
-                  </div>
+                  <div class="card-bar your-bar" ng-style="calculateYourWidth(user, 'veryActiveMinutes')"></div>
+                  <div class="card-bar their-bar" ng-style="calculateFriendWidth(user, 'veryActiveMinutes')"></div>
                   <div class="row statrow">
                     <div class="col col-67 stats">{{currentUser.stats.veryActiveMinutes - user.veryActiveMinutes >= 0 ? 'You won by ' : 'You lost by '}}
                       {{Math.abs(currentUser.stats.veryActiveMinutes - user.veryActiveMinutes) | number:0}} active mins

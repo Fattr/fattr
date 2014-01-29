@@ -14,15 +14,24 @@ angular.module('fittr.controllers')
       $scope.currentUser = UserService.currentUser;
       // getUsers.resolve(data);
 
-      $scope.calculateWidth = function (user, activity){
-        console.log("$scope.currentUser ====> ", $scope.currentUser);
-        console.log("user (on card) ====> ", user);
+      $scope.calculateYourWidth = function (user, activity){
+
         if ($scope.currentUser.stats[activity] - user[activity] >= 0)
           return {width: "100%"};
         else {
           return {width: String(~~(100*($scope.currentUser.stats[activity]/user[activity]))) + "%"};
         }
       };
+
+      $scope.calculateFriendWidth = function (user, activity){
+
+        if (user[activity] - $scope.currentUser.stats[activity] >= 0)
+          return {width: "100%"};
+        else {
+          return {width: String(~~(100*(user[activity]/$scope.currentUser.stats[activity]))) + "%"};
+        }
+      };
+
   });
 
 
