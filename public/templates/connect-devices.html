@@ -1,10 +1,8 @@
 <view title="'Connect your devices'">
   <div class="bar bar-header bar-stable">
-    <a href="#/"
-    class="button button-clear 
-    icon ion-chevron-left"></a>
+    <i class="button button-clear icon ion-chevron-left" ng-click="goBack()"></i>
     <h1 class="title">Connect your devices</h1>
-    <a class="button button-clear icon ion-log-out" href="/logout"></a>
+    <i class="button button-clear icon ion-log-out" ng-click="logout()"></i>
   </div>
   <content has-header="true" has-tabs="false" padding="true">
   <div class="list devices">
