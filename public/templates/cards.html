@@ -26,38 +26,31 @@
             <div class="item item-body animate bouncy-slide-left" ng-if="!backShown" style="height:272px">
               <ul class="list">
                 <li class="card-bar-container animate slide-top">
-                  <div class="card-bar" ng-class="{true: 'winning', false: 'losing'}[currentUser.steps - user.steps > 0]" style="width: {{percentage.steps}}%;">
-                  </div>
+                  <div class="card-bar your-bar" ng-style="calculateYourWidth(user, 'steps')"></div>
+                  <div class="card-bar their-bar" ng-style="calculateFriendWidth(user, 'steps')"></div>
                   <div class="row statrow">
-                    <div class="col" style="font-weight: bold">Steps</div>
-                    <div class="col stats">{{user.steps}}</div>
-                    <div class="col stats">
-                      {{currentUser.stats.steps - user.steps > 0 ? '+' : ''}}{{currentUser.stats.steps - user.steps | number:0}}
+                    <div class="col col-67 stats">{{currentUser.stats.steps - user.steps >= 0 ? 'You won by ' : 'You lost by '}}
+                      {{Math.abs(currentUser.stats.steps - user.steps) | number:0}} steps
                     </div>
-                  </div>
+                    <div class="col stats friendValue">{{user.steps}}</div>
                 </li>
                 <li class="card-bar-container">
-                  <div class="card-bar" ng-class="{true: 'winning', false: 'losing'}[currentUser.steps - user.steps > 0]" style="width: {{percentage.distance}}%;">
-                  </div>
+                  <div class="card-bar your-bar" ng-style="calculateYourWidth(user, 'distance')"></div>
+                  <div class="card-bar their-bar" ng-style="calculateFriendWidth(user, 'distance')"></div>
                   <div class="row statrow">
-                    <div class="col" style="font-weight: bold">Miles</div>
-                    <div class="col stats">{{user.distance}}</div>
-                    <div class="col stats">{{currentUser.stats.distance - user.distance > 0 ? '+' : ''}}{{currentUser.stats.distance - user.distance | number:1}}</div>
-                  </div>
+                    <div class="col col-67 stats">{{currentUser.stats.distance - user.distance >= 0 ? 'You won by ' : 'You lost by '}}
+                      {{Math.abs(currentUser.stats.distance - user.distance) | number:2}} miles
+                    </div>
+                    <div class="col stats friendValue">{{user.distance}}</div>
                 </li>
                 <li class="card-bar-container">
-                  <div class="card-bar" ng-class="{true: 'winning', false: 'losing'}[currentUser.steps - user.steps > 0]" style="width: {{percentage.calories}}%;">
-                  </div>
+                  <div class="card-bar your-bar" ng-style="calculateYourWidth(user, 'veryActiveMinutes')"></div>
+                  <div class="card-bar their-bar" ng-style="calculateFriendWidth(user, 'veryActiveMinutes')"></div>
                   <div class="row statrow">
-                    <div class="col" style="font-weight: bold">Active Minutes</div>
-                    <div class="col stats">{{user.veryActiveMinutes}}</div>
-                    <div class="col stats">{{currentUser.stats.veryActiveMinutes - user.calories > 0 ? '+' : ''}}{{currentUser.stats.veryActiveMinutes - user.veryActiveMinutes | number:0}}</div>
-                  </div>
-                  <div class="row" style="border-top: 1px dashed #c0c0c0; margin-top: 5px">
-                    <div class="col" style="color: #0088FF; font-size: 10px">Category</div>
-                    <div class="col" style="color: #0088FF; font-size: 10px; text-align: right">Quantity</div>
-                    <div class="col" style="color: #0088FF; font-size: 10px; text-align: right">Difference</div>
-                  </div>
+                    <div class="col col-67 stats">{{currentUser.stats.veryActiveMinutes - user.veryActiveMinutes >= 0 ? 'You won by ' : 'You lost by '}}
+                      {{Math.abs(currentUser.stats.veryActiveMinutes - user.veryActiveMinutes) | number:0}} active mins
+                    </div>
+                    <div class="col stats friendValue">{{user.veryActiveMinutes}}</div>
                 </li>
               </ul>
             </div>

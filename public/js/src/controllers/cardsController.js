@@ -2,8 +2,10 @@ angular.module('fittr.controllers')
 
 .controller('CardsController', function($q, $scope, UserService){
 
-  // var getUsers = $q.defer();
 
+  $scope.Math = window.Math; // so that we can use Math operations in angular expressions
+
+  // var getUsers = $q.defer();
   UserService.getAll(1)
     .then(function(data) {
       // console.log("getAll: ", data);
@@ -12,6 +14,25 @@ angular.module('fittr.controllers')
       UserService.users = data;
       $scope.currentUser = UserService.currentUser;
       // getUsers.resolve(data);
+
+      $scope.calculateYourWidth = function (user, activity){
+
+        if ($scope.currentUser.stats[activity] - user[activity] >= 0)
+          return {width: "100%"};
+        else {
+          return {width: String(~~(100*($scope.currentUser.stats[activity]/user[activity]))) + "%"};
+        }
+      };
+
+      $scope.calculateFriendWidth = function (user, activity){
+
+        if (user[activity] - $scope.currentUser.stats[activity] >= 0)
+          return {width: "100%"};
+        else {
+          return {width: String(~~(100*(user[activity]/$scope.currentUser.stats[activity]))) + "%"};
+        }
+      };
+
   });
 
 
@@ -33,8 +54,6 @@ angular.module('fittr.controllers')
       // fitbit: Object
         // avatar: "https://d6y8zfzc2qfsl.cloudfront.net/4F55F4BF-8DE2-4662-9BA5-A88E9F87E45B_profile_100_square.jpg"
 
-  $scope.percentage = {steps: 82, distance: 35, calories: 95};
-
   $scope.getWeekly = function(userId) {
   
     UserService.getWeekly(userId)
@@ -45,8 +64,6 @@ angular.module('fittr.controllers')
       });
   };
 
-
-  // CHART SAMPLE DATA BELOW
   var buildSampleData = function() {
     var data = [];
     var values = [];
