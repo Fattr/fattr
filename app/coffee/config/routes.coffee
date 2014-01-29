@@ -11,9 +11,6 @@ module.exports = (app, passport) ->
   # serves splash! Change splash to a real splash and not signup/sign in
   app.get '/', helper.index
 
-  # mock data for testing, use a testing DB instead
-  app.get '/test/data', helper.testData
-
   # Signup new users route
   app.post '/signup', passport.authenticate('local-signup'), (req, res) ->
     res.json 201, req.user
