@@ -11,6 +11,7 @@ angular.module('fittr.controllers')
       // console.log("getAll: ", data);
 
       $scope.users = data;
+      UserService.users = data;
       $scope.currentUser = UserService.currentUser;
       // getUsers.resolve(data);
 
@@ -53,7 +54,16 @@ angular.module('fittr.controllers')
       // fitbit: Object
         // avatar: "https://d6y8zfzc2qfsl.cloudfront.net/4F55F4BF-8DE2-4662-9BA5-A88E9F87E45B_profile_100_square.jpg"
 
-  // CHART SAMPLE DATA BELOW
+  $scope.getWeekly = function(userId) {
+  
+    UserService.getWeekly(userId)
+      .then(function(data) {
+        console.log("7 days worth: ", data);
+      }, function(status) {
+        console.log("An error occured during the call to get" + status);
+      });
+  };
+
   var buildSampleData = function() {
     var data = [];
     var values = [];
