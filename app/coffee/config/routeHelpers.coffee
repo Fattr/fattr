@@ -102,6 +102,7 @@ module.exports =
           getDailyActivities req, res, date.format('YYYY-MM-DD'), saveStats
           date = date.add 'days', 1
         if date is toDate
+          console.log 'current', current
           res.json current
 
 
