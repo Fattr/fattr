@@ -118,15 +118,20 @@ module.exports =
 
     toDate = do moment
     console.log 'date', date, 'to date', toDate
+    query =
+      'user': req.user._id
+      'date': toDate.format 'YYYY-MM-DD'
 
     while date < toDate
-
       getDailyActivities req, res, date.format('YYYY-MM-DD'), saveStats
-
       date = date.add 'days', 1
-
     if date is toDate
-      res.send 200
+      Stats.findOne(query)
+      .populate('user', 'username pro authData.fitbit.avatar')
+      .exec (err, stat) ->
+        if err
+          console.log 'error in getting user data', err
+        res.json stat
 
 
 
