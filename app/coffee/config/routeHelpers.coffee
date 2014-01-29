@@ -95,8 +95,7 @@ module.exports =
       else if !stats.length
         # if no stats in db, go to fitbit and get 7 days
         # worth of stats and save to db
-        date = moment(req.params.from) or
-        moment().subtract('days', 8)
+        date = moment().subtract('days', 8)
 
         toDate = moment().subtract('days', 1)
         query =
@@ -117,8 +116,8 @@ module.exports =
     compareUser = req.params.userid
     query = user: req.user._id
 
-    to = moment().subtract('days', 1).format 'YYYY-MM-DD'
-    from = moment.subtract('days', 8).format 'YYYY-MM-DD'
+    to = moment().format 'YYYY-MM-DD'
+    from = moment().subtract('days', 9).format 'YYYY-MM-DD'
 
     dateRange from, to, query
 
@@ -139,7 +138,9 @@ module.exports =
         if err
           console.log 'err getting compred user ', error
           res.send 500
+        console.log 'compare statttt--- ', statt
         returnJSON.push statt
+        console.log 'array here---- ', returnJSON
         res.json returnJSON
 
 
