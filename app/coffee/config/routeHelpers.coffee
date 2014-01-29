@@ -7,6 +7,8 @@ fitbitClient = require("fitbit-js")(fitbit.consumerKey,
 fitbit.consumerSecret, fitbit.callbackURL)
 moment = require 'moment'
 
+# fixme: refactor to use promises or async library here
+# ASYNC hell down below!!!!!!!
 
 module.exports =
 
@@ -84,12 +86,15 @@ module.exports =
       if err
         res.send err
       else if stats.length
+      # if stats, send back reqested range of stats along with user data
         data =
           username: req.user.username
           pic: req.user.authData.fitbit.avatar
           stats: stats
         res.json data
       else if !stats.length
+        # if no stats in db, go to fitbit and get 7 days
+        # worth of stats and save to db
         date = moment(req.params.from) or
         moment().subtract('days', 8)
 
@@ -98,15 +103,45 @@ module.exports =
           'user': req.user._id
           'date': toDate.format 'YYYY-MM-DD'
 
+
         while date <= toDate
+          # helper function that goes to fitbit and gets a weeks data set
           getDailyActivities req, res, date.format('YYYY-MM-DD'), saveStats
-          # current
-
           date = date.add 'days', 1
-          console.log "date #{date.format 'YYYY-MM-DD'}",
-          "toDate #{toDate.format 'YYYY-MM-DD'}"
 
-        res.json returnStat
+          # change this to somethig else, this is horrbile, but
+          # front end will be looking for null right now
+        res.json null
+
+  compare: (req, res) ->
+    compareUser = req.params.userid
+    query = user: req.user._id
+
+    to = moment().subtract('days', 1).format 'YYYY-MM-DD'
+    from = moment.subtract('days', 8).format 'YYYY-MM-DD'
+
+    dateRange from, to, query
+
+    returnJSON = []
+    # get current users weeky data set
+    Stats.find query, (err, stat) ->
+      if err
+        console.log 'error gettig logged in user to compare', err
+        res.send 500
+      if stat
+        data =
+          username: req.user.username
+          stat: stat
+        returnJSON.push data
+
+      query.user = compareUser
+      Stats.find(query).populate('user', 'username').exec (error, statt) ->
+        if err
+          console.log 'err getting compred user ', error
+          res.send 500
+        returnJSON.push statt
+        res.json returnJSON
+
 
 
   # helper to delete current user
@@ -167,18 +202,13 @@ getDailyActivities = (req, res, day, cb) ->
     stat.steps = userData.summary.steps
     stat.veryActiveMinutes = userData.summary.veryActiveMinutes
     stat.distance = userData.summary.distances[0].distance
-    cb stat, currentStat
+    cb stat
 
-saveStats = (stat, cb) ->
+saveStats = (stat) ->
   date = moment().subtract('days', 1).format "YYYY-MM-DD"
   stat.save (err) ->
     if err
       console.log 'error savnig stats', err
     console.log 'stat date!!!!! ', stat.date
-    if stat.date is date
-      cb stat
 
-currentStat = (stat) ->
-  returnStat = stat
 
-returnStat = null
