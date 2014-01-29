@@ -79,7 +79,7 @@ module.exports =
   userActivity: (req, res) ->
     query =
       user: req.user._id
-      date: req.params.from
+      date: req.params.from or moment().subtract('days',1).format 'YYYY-MM-DD'
     Stats.findOne query, (err, stats) ->
       if err
         res.send err
