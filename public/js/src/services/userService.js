@@ -110,9 +110,9 @@ angular.module('fittr.services')
         // console.log("saveActivity: currentUser", this.currentUser);
         // this.saveToLocal(userId, user);
       },
-      getWeekly: function(username) {
-        return this._httpHelper('get', "/api/compare");
-      }
+      getWeekly: function(userId) {
+        return this._httpHelper('get', "/api/compare" + "/" + userId);
+      },
 
       //   stats: Object
 // __v: 0

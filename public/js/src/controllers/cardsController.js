@@ -9,6 +9,7 @@ angular.module('fittr.controllers')
       // console.log("getAll: ", data);
 
       $scope.users = data;
+      UserService.users = data;
       $scope.currentUser = UserService.currentUser;
       // getUsers.resolve(data);
   });
@@ -34,15 +35,15 @@ angular.module('fittr.controllers')
 
   $scope.percentage = {steps: 82, distance: 35, calories: 95};
 
-  $scope.getHistoricalData = function(username) {
-    UserService.getWeeklyData(username)
+  $scope.getWeekly = function(userId) {
+  
+    UserService.getWeekly(userId)
       .then(function(data) {
         console.log("7 days worth: ", data);
       }, function(status) {
         console.log("An error occured during the call to get" + status);
       });
   };
-
 
 
   // CHART SAMPLE DATA BELOW
