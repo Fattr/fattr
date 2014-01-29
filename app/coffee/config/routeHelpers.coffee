@@ -102,7 +102,7 @@ module.exports =
           getDailyActivities req, res, date.format('YYYY-MM-DD'), saveStats
           date = date.add 'days', 1
         if date is toDate
-          res.send 200
+          res.json current
 
 
 
@@ -251,11 +251,14 @@ getDailyActivities = (req, res, day, cb) ->
     stat.distance = userData.summary.distances[0].distance
     cb stat
 
+current = null
+
 saveStats = (stat) ->
   stat.save (err) ->
     if err
       console.log 'error savnig stats', err
-    console.log 'save staaaats'
+    if stat.date = moment().subtract('days', 1).format "YYYY-MM-DD"
+      current = stat
 
 
 
