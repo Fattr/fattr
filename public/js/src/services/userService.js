@@ -52,7 +52,12 @@ angular.module('fittr.services')
 
       get: function() {
         return this._httpHelper('get', "/api/user" + calculateDates(0));
-        // return this._httpHelper('get', "user/");
+      },
+
+      logout: function(user) {
+        localStorageService.clearAll();
+        console.log(this);
+        window.location.assign("/logout");
       },
 
       getAll: function(numOfDays) {
