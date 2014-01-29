@@ -6,7 +6,7 @@ angular.module('fittr.controllers')
   $scope.Math = window.Math; // so that we can use Math operations in angular expressions
 
   // var getUsers = $q.defer();
-  UserService.getAll(1)
+  UserService.getAll(0)
     .then(function(data) {
       // console.log("getAll: ", data);
 
