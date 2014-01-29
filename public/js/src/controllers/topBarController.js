@@ -24,7 +24,7 @@ angular.module('fittr.controllers')
 
   UserService.get().then(function(userData){
     console.log("get: ", userData);
-    UserService.saveActivity(userData.stats._id, userData);
+    UserService.saveActivity(userData.stats[0]._id, userData);
     $scope.me = UserService.currentUser;
   });
 

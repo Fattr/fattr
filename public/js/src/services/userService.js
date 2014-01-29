@@ -98,9 +98,9 @@ angular.module('fittr.services')
 
       saveActivity: function(userId, data) {
         var stats = {
-          steps: data.stats.steps,
-          distance: data.stats.distance,
-          veryActiveMinutes: data.stats.veryActiveMinutes
+          steps: data.stats[0].steps,
+          distance: data.stats[0].distance,
+          veryActiveMinutes: data.stats[0].veryActiveMinutes
         };
 
         // var user = this.getFromLocal(userId);
