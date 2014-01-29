@@ -77,11 +77,9 @@ module.exports =
   # ===========================
 
   userActivity: (req, res) ->
-    query = user: req.user._id
-    token =
-      oauth_token: req.user.authData.fitbit.access_token
-      oauth_token_secret: req.user.authData.fitbit.access_token_secret
-    dateRange req.params.from, req.params.to, query
+    query =
+      user: req.user._id
+      date: moment().format 'YYYY-MM-DD'
     Stats.findOne query, (err, stats) ->
       if err
         res.send err
