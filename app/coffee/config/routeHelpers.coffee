@@ -266,7 +266,7 @@ getDailyActivities = (req, res, day, cb) ->
       res.send 500
     stat = new Stats()
     stat.user = req.user._id
-    stat.date = date
+    stat.date = day
     stat.steps = userData.summary.steps
     stat.veryActiveMinutes = userData.summary.veryActiveMinutes
     stat.distance = userData.summary.distances[0].distance
