@@ -101,7 +101,8 @@ module.exports =
         while date <= toDate
           getDailyActivities req, res, date.format('YYYY-MM-DD'), saveStats
           date = date.add 'days', 1
-          console.log 'date', date.format 'YYYY-MM-DD'
+          console.log "date #{date.format 'YYYY-MM-DD'}",
+          "toDate #{toDate.format 'YYYY-MM-DD'}"
         if date.format('YYYY-MM-DD') is toDate.subtract('days', 1)
         .format('YYYY-MM-DD')
           console.log 'current', current
