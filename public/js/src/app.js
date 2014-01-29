@@ -28,26 +28,24 @@ angular.module('fittr', ['ionic', 'ngRoute', 'LocalStorageModule', 'nvd3ChartDir
   // Each state's controller can be found in controllers.js
 
     // ENTRY
-  var checkEntry = function($q, $state, $http, $rootScope) {
+  var checkConnectedDev = function($q, $state, $http, $rootScope) {
     // check localStorage to see if user is already logged in
     // if not continue on.
-
-    var user = null;
-
     var deferred = $q.defer();
     $http.get('/loggedin').success(function(user) {
-      if(user !== '0') {
+      if(user !== '0' && user.authData) {
         deferred.resolve();
-        $state.go('main.stream');
-      } else {
+      } else if (user !== '0' && !user.authData){
+        deferred.resolve();
+        $state.go('connect-devices');
+      }else {
         deferred.resolve();
       }
     });
     return deferred.promise;
   };
 
-
-  var checkAuth = function($q, $state, $http, $rootScope) {
+  var checkLoggedIn = function($q, $state, $http, $rootScope) {
     // check localStorage to see if user is already logged in
     // if not continue on.
 
@@ -70,7 +68,6 @@ angular.module('fittr', ['ionic', 'ngRoute', 'LocalStorageModule', 'nvd3ChartDir
       } else {
         // $rootScope.error_message = 'You must be logged in'; again, may come in handy here
         deferred.reject(); // user is not auth with server, so redirect that clown
-
         $state.go('login'); //where ever the sign up page will be, right now it's '/' but that will
         //be a splash soon and the signup/sign in will prob be someting like '#/signup' duh :)
       }
@@ -88,7 +85,7 @@ angular.module('fittr', ['ionic', 'ngRoute', 'LocalStorageModule', 'nvd3ChartDir
       url: '/',
       templateUrl: 'templates/entry.html',
       resolve: {
-        loggedin: checkEntry
+        loggedin: checkConnectedDev
       }
     })
 
@@ -110,7 +107,7 @@ angular.module('fittr', ['ionic', 'ngRoute', 'LocalStorageModule', 'nvd3ChartDir
       templateUrl: 'templates/connect-devices.html',
       controller: 'ConnectDevicesController',
       resolve: {
-        loggedin: checkAuth
+        loggedin: checkLoggedIn
       }
     })
 
@@ -120,7 +117,7 @@ angular.module('fittr', ['ionic', 'ngRoute', 'LocalStorageModule', 'nvd3ChartDir
       abstract: true,
       templateUrl: 'templates/main.html',
       resolve: {
-        loggedin: checkAuth // place this an any route you need
+        loggedin: checkConnectedDev // place this an any route you need
           //to protect and no unauth user will get to it
       }
     })
@@ -128,10 +125,6 @@ angular.module('fittr', ['ionic', 'ngRoute', 'LocalStorageModule', 'nvd3ChartDir
       url: '/stream',
       // nested views for /main/stream
       views: {
-      //   'searchBar@': {
-      //     templateUrl: 'templates/searchBar.html',
-          // controller: 'searchBarController'
-      // },
         'topBar@': {
           templateUrl: 'templates/topBar.html',
           controller: 'TopBarController'
