@@ -245,9 +245,11 @@ getDailyActivities = (req, res, day, cb) ->
 current = null
 
 saveStats = (stat) ->
+  date = moment().subtract('days', 1).format "YYYY-MM-DD"
   stat.save (err) ->
     if err
       console.log 'error savnig stats', err
     console.log 'stat date!!!!! ', stat.date
-    if stat.date is moment().subtract('days', 1).format "YYYY-MM-DD"
+    if stat.date is date
       current = stat
+      console.log 'current in save ', current, 'date ', date
