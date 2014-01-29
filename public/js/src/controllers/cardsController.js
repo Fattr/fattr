@@ -35,7 +35,7 @@ angular.module('fittr.controllers')
   $scope.percentage = {steps: 82, distance: 35, calories: 95};
 
   $scope.getHistoricalData = function(username) {
-    UserService.get(7)
+    UserService.getWeeklyData(username)
       .then(function(data) {
         console.log("7 days worth: ", data);
       }, function(status) {

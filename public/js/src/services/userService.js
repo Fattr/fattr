@@ -53,7 +53,7 @@ angular.module('fittr.services')
       },
 
       get: function() {
-        return this._httpHelper('get', "/api/user" + calculateDates(2));
+        return this._httpHelper('get', "/api/user" + calculateDates(1));
       },
 
       logout: function(user) {
@@ -110,7 +110,9 @@ angular.module('fittr.services')
         // console.log("saveActivity: currentUser", this.currentUser);
         // this.saveToLocal(userId, user);
       },
-
+      getWeekly: function(username) {
+        return this._httpHelper('get', "/api/compare");
+      }
 
       //   stats: Object
 // __v: 0
