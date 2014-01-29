@@ -98,13 +98,19 @@ module.exports =
           'user': req.user._id
           'date': toDate.format 'YYYY-MM-DD'
 
+        currentStat = null
+        current = (stat) ->
+          currentStat = stat
+
         while date <= toDate
-          getDailyActivities req, res, date.format('YYYY-MM-DD'), saveStats
+          getDailyActivities req, res, date.format('YYYY-MM-DD'), saveStats,
+          current
+
           date = date.add 'days', 1
           console.log "date #{date.format 'YYYY-MM-DD'}",
           "toDate #{toDate.format 'YYYY-MM-DD'}"
         console.log '==current====', current
-        res.json current
+        res.json currentStat
 
 
   # helper to delete current user
@@ -224,7 +230,7 @@ dateRange = (dateFrom, dateTo, query) ->
     query.date = $lte: dateTo  if dateTo isnt undefined
 
 
-getDailyActivities = (req, res, day, cb) ->
+getDailyActivities = (req, res, day, cb, returnStatCb) ->
   token =
     oauth_token: req.user.authData.fitbit.access_token
     oauth_token_secret: req.user.authData.fitbit.access_token_secret
@@ -240,16 +246,13 @@ getDailyActivities = (req, res, day, cb) ->
     stat.steps = userData.summary.steps
     stat.veryActiveMinutes = userData.summary.veryActiveMinutes
     stat.distance = userData.summary.distances[0].distance
-    cb stat
+    cb stat, returnStatCb
 
-current = null
-
-saveStats = (stat) ->
+saveStats = (stat, cb) ->
   date = moment().subtract('days', 1).format "YYYY-MM-DD"
   stat.save (err) ->
     if err
       console.log 'error savnig stats', err
     console.log 'stat date!!!!! ', stat.date
     if stat.date is date
-      current = stat
-      console.log 'current in save ', current, 'date ', date
+      cb stat
