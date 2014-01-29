@@ -2,7 +2,7 @@ angular.module('fittr.services')
 
 .provider('UserService', function() {
   this.$get = function($http, $q, localStorageService) {
-    var baseUrl = "http://fittrapp.herokuapp.com";
+    var baseUrl = "http://localhost:3000";
 
     var calculateDates = function(numOfDays) {
       var today = new Date();
