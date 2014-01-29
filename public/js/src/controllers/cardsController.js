@@ -1,6 +1,6 @@
 angular.module('fittr.controllers')
 
-.controller('CardsController', function($q, $scope, differential, UserService){
+.controller('CardsController', function($q, $scope, UserService){
 
   var getUsers = $q.defer();
 
