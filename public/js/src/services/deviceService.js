@@ -5,8 +5,8 @@ angular.module('fittr.services')
  */
 .factory('DeviceService', function() {
   // Some fake testing data
-  var baseUrl = "http://localhost:3000";
-  // var baseUrl = "http://fittrapp.herokuapp.com";
+  //var baseUrl = "http://localhost:3000";
+  var baseUrl = "http://fittrapp.herokuapp.com";
   devices = [
       {
         deviceName: "FitBit",
