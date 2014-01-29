@@ -99,14 +99,11 @@ module.exports =
           'date': toDate.format 'YYYY-MM-DD'
 
         while date <= toDate
-          getDailyActivities req, res, date.format('YYYY-MM-DD'), saveStats,
-          current
-
+          getDailyActivities req, res, date.format('YYYY-MM-DD'), saveStats
           date = date.add 'days', 1
           console.log "date #{date.format 'YYYY-MM-DD'}",
           "toDate #{toDate.format 'YYYY-MM-DD'}"
 
-        res.json returnStat
 
 
   # helper to delete current user
@@ -167,9 +164,9 @@ getDailyActivities = (req, res, day, cb) ->
     stat.steps = userData.summary.steps
     stat.veryActiveMinutes = userData.summary.veryActiveMinutes
     stat.distance = userData.summary.distances[0].distance
-    cb stat, currentStat
+    cb stat
 
-saveStats = (stat, cb) ->
+saveStats = (stat) ->
   date = moment().subtract('days', 1).format "YYYY-MM-DD"
   stat.save (err) ->
     if err
@@ -178,7 +175,4 @@ saveStats = (stat, cb) ->
     if stat.date is date
       cb stat
 
-currentStat = (stat) ->
-  returnStat = stat
 
-returnStat = null
