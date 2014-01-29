@@ -11,6 +11,16 @@ angular.module('fittr.controllers')
       $scope.users = data;
       $scope.currentUser = UserService.currentUser;
       // getUsers.resolve(data);
+
+      $scope.calculateWidth = function (user, activity){
+        console.log("$scope.currentUser ====> ", $scope.currentUser);
+        console.log("user (on card) ====> ", user);
+        if ($scope.currentUser.stats[activity] - user[activity] >= 0)
+          return {width: "100%"};
+        else {
+          return {width: String(~~(100*($scope.currentUser.stats[activity]/user[activity]))) + "%"};
+        }
+      };
   });
 
 
@@ -31,9 +41,6 @@ angular.module('fittr.controllers')
     // authData: Object
       // fitbit: Object
         // avatar: "https://d6y8zfzc2qfsl.cloudfront.net/4F55F4BF-8DE2-4662-9BA5-A88E9F87E45B_profile_100_square.jpg"
-
-  $scope.percentage = {steps: 82, distance: 35, calories: 95};
-
 
   // CHART SAMPLE DATA BELOW
   var buildSampleData = function() {
