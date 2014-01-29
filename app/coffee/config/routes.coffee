@@ -11,9 +11,6 @@ module.exports = (app, passport) ->
   # serves splash! Change splash to a real splash and not signup/sign in
   app.get '/', helper.index
 
-  # mock data for testing, use a testing DB instead
-  app.get '/test/data', helper.testData
-
   # Signup new users route
   app.post '/signup', passport.authenticate('local-signup'), (req, res) ->
     res.json 201, req.user
@@ -33,6 +30,7 @@ module.exports = (app, passport) ->
 
   # get current users stats
   app.get '/api/user/:from?/:to?', isLoggedIn, helper.userActivity
+
 
   # this is no the same as the isLogged in middleware
   # this route lets the front end know on the fly if the user is auth
