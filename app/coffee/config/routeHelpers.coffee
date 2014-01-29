@@ -98,10 +98,10 @@ module.exports =
           'user': req.user._id
           'date': toDate.format 'YYYY-MM-DD'
 
-        while date < toDate
+        while date <= toDate
           getDailyActivities req, res, date.format('YYYY-MM-DD'), saveStats
           date = date.add 'days', 1
-        if date is toDate
+        if date.format('YYYY-MM-DD') is toDate.format('YYYY-MM-DD')
           console.log 'current', current
           res.json current
 
