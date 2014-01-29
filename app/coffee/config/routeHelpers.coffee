@@ -82,16 +82,16 @@ module.exports =
       oauth_token: req.user.authData.fitbit.access_token
       oauth_token_secret: req.user.authData.fitbit.access_token_secret
     dateRange req.params.from, req.params.to, query
-    Stats.find query, (err, stats) ->
+    Stats.findOne query, (err, stats) ->
       if err
         res.send err
-      else if stats.length
+      else if stats
         data =
           username: req.user.username
           pic: req.user.authData.fitbit.avatar
-          stats: stats[0]
+          stats: stats
         res.json data
-      else if !stats.length
+      else if !stats
         date = moment(req.params.from) or
         moment().subtract('days', 7)
 
