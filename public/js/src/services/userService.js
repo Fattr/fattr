@@ -6,8 +6,9 @@ angular.module('fittr.services')
 
     var calculateDates = function(numOfDays) {
       var today = new Date();
-      var fromDate = new Date(today - (numOfDays * 86400000));
-      return "/" + fromDate.toISOString().slice(0, 10) + "/" + today.toISOString().slice(0, 10);
+      var yesterday = new Date(today - 86400000);
+      var fromDate = new Date(yesterday - (numOfDays * 86400000));
+      return "/" + fromDate.toISOString().slice(0, 10) + "/" + yesterday.toISOString().slice(0, 10);
     };
 
     return {
@@ -49,8 +50,8 @@ angular.module('fittr.services')
         return this._httpHelper('post', '/login', user);
       },
 
-      get: function(userId) {
-        return this._httpHelper('get', "/users" + userId, this);
+      get: function() {
+        return this._httpHelper('get', "/api/user" + calculateDates(0));
         // return this._httpHelper('get', "user/");
       },
 
@@ -88,13 +89,32 @@ angular.module('fittr.services')
         return this._httpHelper("get", "/api/user" + calculateDates(numOfDays));
       },
 
-      saveActivity: function(userId, activities) {
+      saveActivity: function(userId, data) {
+        var stats = {
+          steps: data.stats[0].steps,
+          distance: data.stats[0].distance,
+          veryActiveMinutes: data.stats[0].veryActiveMinutes
+        };
+
         var user = this.getFromLocal(userId);
 
-        this.currentUser.activities = activities;
-        user.activities = activities;
+        this.currentUser.stats = stats;
+        user.stats = stats;
+        console.log("saveActivity: currentUser", this.currentUser);
         this.saveToLocal(userId, user);
       },
+
+
+      //   stats: Object
+// __v: 0
+// _id: "52e86b91a7a407d4ad1f27b4"
+// date: "2014-01-22"
+// distance: 4.45
+// steps: 5973
+// user: "52e809e7a166559d706dc070"
+// veryActiveMinutes: 25
+// __proto__: Object
+// username: "stateoflux"
 
       // populate the currentUser object from the most recent currentUser stored
       // in localStorage. This ensures that the currentUser always has valid
