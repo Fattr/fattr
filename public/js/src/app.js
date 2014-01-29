@@ -35,7 +35,6 @@ angular.module('fittr', ['ionic', 'ngRoute', 'LocalStorageModule', 'nvd3ChartDir
     $http.get('/loggedin').success(function(user) {
       if(user !== '0' && user.authData) {
         deferred.resolve();
-        $state.go('main.stream');
       } else if (user !== '0' && !user.authData){
         deferred.resolve();
         $state.go('connect-devices');
@@ -69,7 +68,6 @@ angular.module('fittr', ['ionic', 'ngRoute', 'LocalStorageModule', 'nvd3ChartDir
       } else {
         // $rootScope.error_message = 'You must be logged in'; again, may come in handy here
         deferred.reject(); // user is not auth with server, so redirect that clown
-
         $state.go('login'); //where ever the sign up page will be, right now it's '/' but that will
         //be a splash soon and the signup/sign in will prob be someting like '#/signup' duh :)
       }
