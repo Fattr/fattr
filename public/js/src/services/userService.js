@@ -53,7 +53,7 @@ angular.module('fittr.services')
       },
 
       get: function() {
-        return this._httpHelper('get', "/api/user" + calculateDates(0));
+        return this._httpHelper('get', "/api/user" + calculateDates(2));
       },
 
       logout: function(user) {
@@ -98,17 +98,17 @@ angular.module('fittr.services')
 
       saveActivity: function(userId, data) {
         var stats = {
-          steps: data.stats[0].steps,
-          distance: data.stats[0].distance,
-          veryActiveMinutes: data.stats[0].veryActiveMinutes
+          steps: data.stats.steps,
+          distance: data.stats.distance,
+          veryActiveMinutes: data.stats.veryActiveMinutes
         };
 
-        var user = this.getFromLocal(userId);
+        // var user = this.getFromLocal(userId);
 
         this.currentUser.stats = stats;
-        user.stats = stats;
+        // user.stats = stats;
         console.log("saveActivity: currentUser", this.currentUser);
-        this.saveToLocal(userId, user);
+        // this.saveToLocal(userId, user);
       },
 
 
