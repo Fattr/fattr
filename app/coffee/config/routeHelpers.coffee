@@ -113,14 +113,18 @@ module.exports =
     #           stats: stat
     #         res.json data
 
-    date = moment(req.params.from).format 'YYYY-MM-DD' or
-    moment().subtract('days', 7).format 'YYYY-MM-DD'
+    date = moment(req.params.from) or
+    moment().subtract('days', 7)
 
-    toDate = moment().format 'YYYY-MM-DD'
+    toDate = do moment
     console.log 'date', date, 'to date', toDate
+
     while date < toDate
+
       getDailyActivities req, res, date, saveStats
+
       date = date.add 'days', 1
+
     if date is toDate
       res.send 200
 
