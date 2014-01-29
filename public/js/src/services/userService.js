@@ -49,8 +49,14 @@ angular.module('fittr.services')
         return this._httpHelper('post', '/login', user);
       },
 
+      logout: function(user) {
+        localStorageService.clearAll();
+        console.log(this);
+        window.location.assign("/logout");
+      },
+
       get: function(userId) {
-        return this._httpHelper('get', "/users" + userId, this);
+        return this._httpHelper('get', "/users/" + userId, this);
         // return this._httpHelper('get', "user/");
       },
 
