@@ -107,10 +107,6 @@ module.exports =
           res.json current
 
 
-
-
-
-
   graphData: (req, res) ->
     currentUserId = req.user._id
     compareUser = req.params.user
@@ -261,10 +257,3 @@ saveStats = (stat) ->
       console.log 'error savnig stats', err
     if stat.date = moment().subtract('days', 1).format "YYYY-MM-DD"
       current = stat
-
-
-
-
-
-
-
