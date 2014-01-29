@@ -77,61 +77,38 @@ module.exports =
   # ===========================
 
   userActivity: (req, res) ->
-    # query = user: req.user._id
-    # token =
-    #   oauth_token: req.user.authData.fitbit.access_token
-    #   oauth_token_secret: req.user.authData.fitbit.access_token_secret
-    # dateRange req.params.from, req.params.to, query
-    # Stats.find query, (err, stats) ->
-    #   if err
-    #     res.send err
-    #   else if stats.length
-    #     data =
-    #       username: req.user.username
-    #       pic: req.user.authData.fitbit.avatar
-    #       stats: stats[0]
-    #     res.json data
-    #   else if !stats.length
+    query = user: req.user._id
+    token =
+      oauth_token: req.user.authData.fitbit.access_token
+      oauth_token_secret: req.user.authData.fitbit.access_token_secret
+    dateRange req.params.from, req.params.to, query
+    Stats.find query, (err, stats) ->
+      if err
+        res.send err
+      else if stats.length
+        data =
+          username: req.user.username
+          pic: req.user.authData.fitbit.avatar
+          stats: stats[0]
+        res.json data
+      else if !stats.length
+        date = moment(req.params.from) or
+        moment().subtract('days', 7)
 
-    #     fitbitClient.apiCall 'GET', '/user/-/activities/date/'+
-    #     req.params.from + '.json', 'token': token,
-    #     (error, resp, userActivity) ->
-    #       if error
-    #         console.log "FITBIT err", error
-    #         res.send 500
-    #       stat = new Stats()
-    #       stat.user = query.user
-    #       stat.date = req.params.from
-    #       stat.steps = userActivity.summary.steps
-    #       stat.distance = userActivity.summary.distances[0].distance
-    #       stat.veryActiveMinutes = userActivity.summary.veryActiveMinutes
-    #       stat.save (err) ->
-    #         console.log 'err saving stat here', err if err
-    #         data =
-    #           username: req.user.username
-    #           pic: req.user.authData.fitbit.avatar
-    #           stats: stat
-    #         res.json data
+        toDate = do moment
+        console.log 'date', date, 'to date', toDate
+        query =
+          'user': req.user._id
+          'date': toDate.format 'YYYY-MM-DD'
 
-    date = moment(req.params.from) or
-    moment().subtract('days', 7)
+        while date < toDate
+          getDailyActivities req, res, date.format('YYYY-MM-DD'), saveStats
+          date = date.add 'days', 1
+        if date is toDate
+          res.send 200
 
-    toDate = do moment
-    console.log 'date', date, 'to date', toDate
-    query =
-      'user': req.user._id
-      'date': toDate.format 'YYYY-MM-DD'
 
-    while date < toDate
-      getDailyActivities req, res, date.format('YYYY-MM-DD'), saveStats
-      date = date.add 'days', 1
-    if date is toDate
-      Stats.findOne(query)
-      .populate('user', 'username pro authData.fitbit.avatar')
-      .exec (err, stat) ->
-        if err
-          console.log 'error in getting user data', err
-        res.json stat
+
 
 
 
@@ -275,7 +252,6 @@ getDailyActivities = (req, res, day, cb) ->
     stat.steps = userData.summary.steps
     stat.veryActiveMinutes = userData.summary.veryActiveMinutes
     stat.distance = userData.summary.distances[0].distance
-    console.log 'staaaaats', stat
     cb stat
 
 saveStats = (stat) ->
