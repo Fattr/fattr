@@ -2,8 +2,10 @@ angular.module('fittr.controllers')
 
 .controller('CardsController', function($q, $scope, UserService){
 
-  // var getUsers = $q.defer();
 
+  $scope.Math = window.Math; // so that we can use Math operations in angular expressions
+
+  // var getUsers = $q.defer();
   UserService.getAll(1)
     .then(function(data) {
       // console.log("getAll: ", data);
