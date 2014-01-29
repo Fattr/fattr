@@ -99,8 +99,8 @@ module.exports =
           'date': toDate.format 'YYYY-MM-DD'
 
         while date <= toDate
-          getDailyActivities req, res, date.format('YYYY-MM-DD'), saveStats,
-          current
+          getDailyActivities req, res, date.format('YYYY-MM-DD'), saveStats
+          # current
 
           date = date.add 'days', 1
           console.log "date #{date.format 'YYYY-MM-DD'}",

@@ -11,8 +11,8 @@
             <div class="item item-avatar">
               <div class="row">
                 <div class="col">
-                  <img ng-src={{user.pic}} >
-                  <h2 style="font-family: 'Audiowide'">{{user.username}}</h2>
+                  <img ng-src={{user.user.authData.fitbit.avatar}} >
+                  <h2 style="font-family: 'Audiowide'">{{user.user.username}}</h2>
                 </div>
                 <div class="col">
                   <i class="fa fa-align-left fa-2x" 
@@ -30,9 +30,9 @@
                   </div>
                   <div class="row statrow">
                     <div class="col" style="font-weight: bold">Steps</div>
-                    <div class="col stats">{{ user.steps }}</div>
+                    <div class="col stats">{{user.steps}}</div>
                     <div class="col stats">
-                      {{ currentUser.steps - user.steps > 0 ? '+' : ''}}{{ currentUser.steps - user.steps | number:0 }}
+                      {{currentUser.stats.steps - user.steps > 0 ? '+' : ''}}{{currentUser.stats.steps - user.steps | number:0}}
                     </div>
                   </div>
                 </li>
@@ -41,17 +41,17 @@
                   </div>
                   <div class="row statrow">
                     <div class="col" style="font-weight: bold">Miles</div>
-                    <div class="col stats">{{ user.distance }}</div>
-                    <div class="col stats">{{ currentUser.distance - user.distance > 0 ? '+' : ''}}{{ currentUser.distance - user.distance | number:1 }}</div>
+                    <div class="col stats">{{user.distance}}</div>
+                    <div class="col stats">{{currentUser.stats.distance - user.distance > 0 ? '+' : ''}}{{currentUser.stats.distance - user.distance | number:1}}</div>
                   </div>
                 </li>
                 <li class="card-bar-container">
                   <div class="card-bar" ng-class="{true: 'winning', false: 'losing'}[currentUser.steps - user.steps > 0]" style="width: {{percentage.calories}}%;">
                   </div>
                   <div class="row statrow">
-                    <div class="col" style="font-weight: bold">Calories</div>
-                    <div class="col stats">{{ user.calories }}</div>
-                    <div class="col stats">{{ currentUser.calories - user.calories > 0 ? '+' : ''}}{{ currentUser.calories - user.calories | number:0 }}</div>
+                    <div class="col" style="font-weight: bold">Active Minutes</div>
+                    <div class="col stats">{{user.veryActiveMinutes}}</div>
+                    <div class="col stats">{{currentUser.stats.veryActiveMinutes - user.calories > 0 ? '+' : ''}}{{currentUser.stats.veryActiveMinutes - user.veryActiveMinutes | number:0}}</div>
                   </div>
                   <div class="row" style="border-top: 1px dashed #c0c0c0; margin-top: 5px">
                     <div class="col" style="color: #0088FF; font-size: 10px">Category</div>
