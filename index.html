@@ -74,27 +74,22 @@
       </pane>
 
       <!-- LEFT MENU -->
-      <side-menu side="left">
+      <side-menu side="left" ng-controller="MainController">
         <div class="list">
 
           <div class="item item-divider">
             Menu
           </div>
 
-          <a class="item" href="" ng-touch="toggleMenu()">
-            Profile
+          <a class="item" href="/#/main/stream" ng-click="toggleMenu()">
+            Stream
           </a>
-          <a class="item" href="" ng-touch="toggleMenu()">
-            Settings
-          </a>
-          <a class="item" href="#/connect-devices" ng-touch="toggleMenu()">
+          <a class="item" href="/#/connect-devices" ng-click="toggleMenu()">
             Add Another Device or Service
           </a>
-          <a class="item" href="/logout" ng-touch="toggleMenu()">
+          <span class="item" ng-click="logout()" style="cursor:pointer">
             Logout
-          <a class="item" href="" ng-touch="toggleMenu()">
-            Other stuff
-          </a>
+          </span>
         </div>
       </side-menu>
 

@@ -39,7 +39,8 @@ angular.module('fittr', ['ionic', 'ngRoute', 'LocalStorageModule', 'nvd3ChartDir
         deferred.resolve();
         $state.go('connect-devices');
       }else {
-        deferred.resolve();
+        deferred.reject(); // user is not auth with server, so redirect
+        $state.go('login');
       }
     });
     return deferred.promise;
