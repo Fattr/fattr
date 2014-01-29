@@ -104,6 +104,35 @@ module.exports =
           console.log "date #{date.format 'YYYY-MM-DD'}",
           "toDate #{toDate.format 'YYYY-MM-DD'}"
 
+  compare: (req, res) ->
+    compareUser = req.params.userid
+    query = user: req.user._id
+
+    to = moment().subtract('days', 1).format 'YYYY-MM-DD'
+    from = moment.subtract('days', 8).format 'YYYY-MM-DD'
+
+    dateRange from, to, query
+
+    returnJSON = []
+
+    Stats.find query, (err, stat) ->
+      if err
+        console.log 'error gettig logged in user to compare', err
+        res.send 500
+      if stat
+        data =
+          username: req.user.username
+          stat: stat
+        returnJSON.push data
+
+      query.user = compareUser
+      Stats.find(query).populate('user', 'username').exec (error, statt) ->
+        if err
+          console.log 'err getting compred user ', error
+          res.send 500
+        returnJSON.push statt
+        res.json returnJSON
+
 
 
   # helper to delete current user
@@ -172,7 +201,5 @@ saveStats = (stat) ->
     if err
       console.log 'error savnig stats', err
     console.log 'stat date!!!!! ', stat.date
-    if stat.date is date
-      cb stat
 
 
