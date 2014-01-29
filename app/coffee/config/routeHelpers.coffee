@@ -121,7 +121,7 @@ module.exports =
 
     while date < toDate
 
-      getDailyActivities req, res, date, saveStats
+      getDailyActivities req, res, date.format 'YYYY-MM-DD', saveStats
 
       date = date.add 'days', 1
 
