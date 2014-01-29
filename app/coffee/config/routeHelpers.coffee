@@ -78,7 +78,50 @@ module.exports =
   # ===========================
 
   userActivity: (req, res) ->
-    fitbitDays(req, res)
+    # query = user: req.user._id
+    # token =
+    #   oauth_token: req.user.authData.fitbit.access_token
+    #   oauth_token_secret: req.user.authData.fitbit.access_token_secret
+    # dateRange req.params.from, req.params.to, query
+    # Stats.find query, (err, stats) ->
+    #   if err
+    #     res.send err
+    #   else if stats.length
+    #     data =
+    #       username: req.user.username
+    #       pic: req.user.authData.fitbit.avatar
+    #       stats: stats[0]
+    #     res.json data
+    #   else if !stats.length
+
+    #     fitbitClient.apiCall 'GET', '/user/-/activities/date/'+
+    #     req.params.from + '.json', 'token': token,
+    #     (error, resp, userActivity) ->
+    #       if error
+    #         console.log "FITBIT err", error
+    #         res.send 500
+    #       stat = new Stats()
+    #       stat.user = query.user
+    #       stat.date = req.params.from
+    #       stat.steps = userActivity.summary.steps
+    #       stat.distance = userActivity.summary.distances[0].distance
+    #       stat.veryActiveMinutes = userActivity.summary.veryActiveMinutes
+    #       stat.save (err) ->
+    #         console.log 'err saving stat here', err if err
+    #         data =
+    #           username: req.user.username
+    #           pic: req.user.authData.fitbit.avatar
+    #           stats: stat
+    #         res.json data
+
+    date = moment req.params.from || moment().subtract('days', 7).format 'YYYY-MM-DD'
+    toDate = moment().format 'YYYY-MM-DD'
+    while date > toDate
+      getDailyActivities req, res, date, saveStats
+
+      date = date.add 'days', 1
+    res.send 200
+
 
   graphData: (req, res) ->
     currentUserId = req.user._id
@@ -203,48 +246,33 @@ dateRange = (dateFrom, dateTo, query) ->
     query.date = $gte: dateFrom  if dateFrom isnt undefined
     query.date = $lte: dateTo  if dateTo isnt undefined
 
-fitbitDays = (req, res) ->
-  query = user: req.user._id
+
+getDailyActivities = (req, res, day, cb) ->
   token =
     oauth_token: req.user.authData.fitbit.access_token
     oauth_token_secret: req.user.authData.fitbit.access_token_secret
-  dateRange req.params.from, req.params.to, query
-  Stats.find query, (err, stats) ->
+
+  fitbitClient.apiCall 'GET', '/user/-/activities/date/'+ day + '.json',
+  'token': token, (err, resp, userData) ->
     if err
-      res.send err
-    else if stats.length
-      data =
-        username: req.user.username
-        pic: req.user.authData.fitbit.avatar
-        stats: stats[0]
-      res.json data
-    else if !stats.length
-      fromDay = moment req.params.from
-      toDay = moment req.params.to
-      while fromDay <= toDay
-        ((day) ->
-          fitbitClient.apiCall 'GET', '/user/-/activities/date/'+
-          day + '.json', 'token': token,
-          (error, resp, userActivity) ->
-            if error
-              console.log 'error getting fitbit data', error
-              res.send 500
-            stat = new Stats()
-            stat.user = query.user
-            stat.date = day
-            stat.steps = userActivity.summary.steps
-            stat.distance = userActivity.summary.distances[0].distance
-            stat.veryActiveMinutes = userActivity.summary.veryActiveMinutes
+      console.log 'error-- routeHelpers -- getDailyActivities', err
+      res.send 500
+    stat = new Stats()
+    stat.user = req.user._id
+    stat.date = date
+    stat.steps = userData.summary.steps
+    stat.veryActiveMinutes = userData.summary.veryActiveMinutes
+    stat.distance = userData.summary.distances[0].distance
+    console.log 'staaaaats', stat
+    cb stat
 
-            stat.save (errs) ->
-              if errs
-                console.log 'error saving fitbit data', errs
-                res.send 500
-              console.log 'stat here', stat
+saveStats = (stat) ->
+  stat.save(err) ->
+    if err
+      console.log 'error savnig stats', err
+    console.log 'save staaaats'
 
-        ) fromDay
-        fromDay = fromDay.add 'days', 1
-      res.send 200
+
 
 
 
