@@ -77,19 +77,19 @@ module.exports =
   # ===========================
 
   userActivity: (req, res) ->
-    query =
-      user: req.user._id
-      date: req.params.from or moment().subtract('days',1).format 'YYYY-MM-DD'
-    Stats.findOne query, (err, stats) ->
+    query = user: req.user._id
+    dateRange req.params.from, req.params.to, query
+
+    Stats.find query, (err, stats) ->
       if err
         res.send err
-      else if stats
+      else if stats.length
         data =
           username: req.user.username
           pic: req.user.authData.fitbit.avatar
           stats: stats
         res.json data
-      else if !stats
+      else if !stats.length
         date = moment(req.params.from) or
         moment().subtract('days', 8)
 
@@ -105,13 +105,6 @@ module.exports =
         if date.format('YYYY-MM-DD') is toDate.format('YYYY-MM-DD')
           console.log 'current', current
           res.json current
-
-
-  graphData: (req, res) ->
-    currentUserId = req.user._id
-    compareUser = req.params.user
-
-
 
 
   # helper to delete current user
