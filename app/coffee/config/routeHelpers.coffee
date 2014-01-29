@@ -79,7 +79,7 @@ module.exports =
   userActivity: (req, res) ->
     query =
       user: req.user._id
-      date: moment().format 'YYYY-MM-DD'
+      date: moment().subtract('days', 1).format 'YYYY-MM-DD'
     Stats.findOne query, (err, stats) ->
       if err
         res.send err
@@ -91,10 +91,9 @@ module.exports =
         res.json data
       else if !stats
         date = moment(req.params.from) or
-        moment().subtract('days', 7)
+        moment().subtract('days', 8)
 
-        toDate = do moment
-        console.log 'date', date, 'to date', toDate
+        toDate = moment().subtract('days', 1)
         query =
           'user': req.user._id
           'date': toDate.format 'YYYY-MM-DD'
