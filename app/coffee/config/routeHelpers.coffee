@@ -69,7 +69,6 @@ module.exports =
         console.log 'err users stream', err
         res.send 500
       else if stats
-        console.log 'stats', stats
         res.json stats
 
   # ===========================
@@ -118,11 +117,13 @@ module.exports =
     .format 'YYYY-MM-DD'
 
     toDate = moment().format 'YYYY-MM-DD'
-    while date > toDate
+    console.log 'date', date, 'to date', toDate
+    while date < toDate
       getDailyActivities req, res, date, saveStats
-
       date = date.add 'days', 1
-    res.send 200
+    if date is toDate
+      res.send 200
+
 
 
   graphData: (req, res) ->
