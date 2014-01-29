@@ -23,7 +23,7 @@ angular.module('fittr.controllers')
    */
 
   UserService.get().then(function(userData){
-    console.log("get: ", userData);
+    // console.log("get: ", userData);
     UserService.saveActivity(userData.stats._id, userData);
     $scope.me = UserService.currentUser;
   });

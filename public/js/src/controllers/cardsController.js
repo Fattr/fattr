@@ -2,48 +2,37 @@ angular.module('fittr.controllers')
 
 .controller('CardsController', function($q, $scope, UserService){
 
-  var getUsers = $q.defer();
+  // var getUsers = $q.defer();
 
-  UserService.getAll().
-  then(function(data) {
-    getUsers.resolve(data);
+  UserService.getAll(1)
+    .then(function(data) {
+      // console.log("getAll: ", data);
+
+      $scope.users = data;
+      $scope.currentUser = UserService.currentUser;
+      // getUsers.resolve(data);
   });
 
-  var users = getUsers.promise;
 
-  // THIS IS DUMMY DATA
-  // var users = [
-  //   {
-  //     username: 'Santa',
-  //     pic: 'https://pbs.twimg.com/profile_images/378800000080452472/98b3949c0ac9afbe5dfc32420c6f1d5f.jpeg',
-  //     steps: 15345,
-  //     distance: 4.3,
-  //     calories: 1567
-  //   },
-  //   {
-  //     username: 'Rudolph',
-  //     pic: 'http://31.media.tumblr.com/avatar_bd38855a9b02_96.png',
-  //     steps: 9134,
-  //     distance: 12.5,
-  //     calories: 2134
-  //   }
-  // ];
-  // DUMMY DATA END
 
-  // // Retrieve current user's activity for the past 7 days
-  // // and store in memory and localStorage
-  // UserService.currentUser = UserService.getFromLocal();
-  
-
-  // $scope.currentUser = UserService.currentUser;
-  $scope.users = users;
+ // Response object for UserService.getAll
+ // -----------------------------------------------------
+// [Object, Object]
+// 0: Object
+  // __v: 0
+  // _id: "52e8a7db1a77290dde1ad3f0"
+  // date: "2014-01-27"
+  // distance: 4.21
+  // steps: 5735
+  // veryActiveMinutes: 29
+  // user: Object
+    // _id: "52e8a7c91a77290dde1ad3ef"
+    // username: "stateoflux"
+    // authData: Object
+      // fitbit: Object
+        // avatar: "https://d6y8zfzc2qfsl.cloudfront.net/4F55F4BF-8DE2-4662-9BA5-A88E9F87E45B_profile_100_square.jpg"
 
   $scope.percentage = {steps: 82, distance: 35, calories: 95};
-
-
-
-
-
 
 
   // CHART SAMPLE DATA BELOW
@@ -73,7 +62,6 @@ angular.module('fittr.controllers')
 
   $scope.xAxisTickFormat = function() {
     return function(d) {
-      console.log(d);
       return d3.time.format('%m/%e')(new Date(d));
     };
   };
@@ -87,8 +75,6 @@ angular.module('fittr.controllers')
   };
 
   var datum = buildSampleData();
-  // $scope.Miles = buildSampleData();
-  // $scope['Active Minutes'] = buildSampleData();
 
   $scope.statCategories = {
     'Steps':datum,

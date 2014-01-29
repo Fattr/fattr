@@ -107,7 +107,7 @@ angular.module('fittr.services')
 
         this.currentUser.stats = stats;
         // user.stats = stats;
-        console.log("saveActivity: currentUser", this.currentUser);
+        // console.log("saveActivity: currentUser", this.currentUser);
         // this.saveToLocal(userId, user);
       },
 
