@@ -101,14 +101,15 @@ angular.module('fittr.services')
       },
 
       saveActivity: function(userId, data) {
+        console.log("SAVE ACTIVITY DATA =======>", data);
         var stats = {
-          steps: data.stats[0].steps,
-          distance: data.stats[0].distance,
-          veryActiveMinutes: data.stats[0].veryActiveMinutes
+          steps: data.stats.steps,
+          distance: data.stats.distance,
+          veryActiveMinutes: data.stats.veryActiveMinutes
         };
 
         // var user = this.getFromLocal(userId);
-
+        this.currentUser.pic = data.pic;
         this.currentUser.stats = stats;
         // user.stats = stats;
         // console.log("saveActivity: currentUser", this.currentUser);
