@@ -1,30 +1,30 @@
-<content padding="true" style="background: #2F3648">
+<content padding="true" style="background: rgba(189, 195, 199,1.0)">
 
   <div class="cards-contain">
 
     <div class="flipcardContainer">
-      <div class="list card animate flip-in" ng-repeat="user in users">
+      <div class="list card animate flip-in" ng-repeat="user in users"  style="box-shadow: 0 1px 2px #555">
 
         <figure class="cardFront">
 
             <!-- Card Header -->
-            <div class="item item-avatar">
+            <div class="item item-avatar" style="background-color: rgba(52, 73, 94, 1)">
               <div class="row">
                 <div class="col">
                   <img ng-src={{user.user.authData.fitbit.avatar}} >
-                  <h2 style="font-family: 'Audiowide'">{{user.user.username}}</h2>
+                  <h2 style="color: #fff; font-size: 25px; font-weight: bold" ng-click="getWeekly(user.user._id)">{{user.user.username}}</h2>
                 </div>
                 <div class="col">
                   <i class="fa fa-align-left fa-2x" 
-                     ng-click="!backShown && getWeekly(user.user._id); backShown=!backShown;"
-                     style="color: #0088ff; float: right"></i>
+                     ng-click="backShown=!backShown"
+                     style="color: #fff; float: right"></i>
                 </div>
               </div>
             </div>
 
             <!-- Card FRONT Body -->
-            <div class="item item-body animate bouncy-slide-left" ng-if="!backShown" 
-              style="height:272px">
+
+            <div class="item item-body animate bouncy-slide-left" ng-if="!backShown" style="background-color: rgba(44, 62, 80,1.0); height:272px">
               <ul class="list">
                 <li class="card-bar-container animate slide-top">
                   <div class="card-bar your-bar" ng-style="calculateYourWidth(user, 'steps')"></div>
