@@ -11,6 +11,8 @@ module.exports = (app, passport) ->
   # serves splash! Change splash to a real splash and not signup/sign in
   app.get '/', helper.index
 
+  app.get '/error/test', helper.errorTest
+
   # Signup new users route
   app.post '/signup', passport.authenticate('local-signup'), (req, res) ->
     res.json 201, req.user
