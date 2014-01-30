@@ -59,7 +59,12 @@ angular.module('fittr.controllers')
     UserService.getWeekly(userId)
       .then(function(data) {
         console.log("7 days worth: ", data);
-        datum = buildChartData();
+        datum = buildChartData(data);
+        $scope.statCategories = {
+          'Steps':datum,
+          'Miles':datum,
+          'Active':datum
+        };
 
       }, function(status) {
         console.log("An error occured during the call to get" + status);
@@ -69,9 +74,9 @@ angular.module('fittr.controllers')
 
   var buildChartData = function(data) {
     // format user data
-    var currentUser;
+    var currentUser = [];
     for (var i = 0; i < data[0].stat.length; i++) {
-      currentUser.push([data[0].stat[i]].date, [data[0].stat[i]].steps);
+      currentUser.push([data[0].stat[i].date, data[0].stat[i].steps]);
     }
     var userData = {
       'key': data[0].username,
@@ -79,12 +84,12 @@ angular.module('fittr.controllers')
     };
 
     // format compared user data
-    var comparedUser;
+    var comparedUser = [];
     for (var i = 0; i < data[1].length; i++) {
       comparedUser.push([data[1][i].date, data[1][i].steps]);
     }
     var comparedData = {
-      'key': data[1].user.username,
+      'key': data[1][0].user.username,
       'values': comparedUser
     };
 
@@ -134,11 +139,6 @@ angular.module('fittr.controllers')
   };
 
 
-  $scope.statCategories = {
-    'Steps':datum,
-    'Miles':datum,
-    'Active':datum
-  };
 
 });
 
