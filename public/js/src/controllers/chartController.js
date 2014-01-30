@@ -1,29 +1,63 @@
 angular.module('fittr.controllers')
 
-.controller('ChartController', function($q, $scope, UserService){
+.controller('ChartController', function($q, $scope, $timeout, UserService){
 
   var stepsDatum = null;
   var milesDatum = null;
   var activeDatum = null;
 
-  $scope.$on('chartButtonClick', function() {
-    console.log($scope.user);
-    //getWeekly(($scope.user.id))
-  });
 
+  // Generation of initial chart data
+  // ==========================================================================
+  var buildDefaultData = function() {
+    var data = [];
+    var values = [];
+    var today = new Date();
+    var day = 86400000;
+    var rand = function() {
+    return Math.floor(Math.random() * 10000);
+    };
+    var buildForOneUser = function(user) {
+    for (var i = 0; i < 7; i++) {
+      var dayStats = [];
+      dayStats[0] = today.getTime() - (i * day);
+      dayStats[1] = rand();
+      values.push(dayStats);
+    }
+    data.push({key: user, values: values});
+    values = [];
+    };
+
+    buildForOneUser("User1");
+    buildForOneUser("Me");
+    return data;
+  };
+
+
+  $scope.statCategories = {
+    'Steps': buildDefaultData(),
+    'Miles': buildDefaultData(),
+    'Active': buildDefaultData()
+  };
+  
+
+  // Generation of comparison data
+  // ==========================================================================
+  $scope.$on('chartButtonClick', function() {
+    getWeekly(($scope.user.user._id));
+  });
 
   var alreadyCalled = false;
 
-  var getWeekly = function(userId, backShown) {
+  var getWeekly = function(userId) {
 
-    console.log("backShown: ", backShown);
-    if (!backShown) { return; }
+    // console.log("backShown: ", backShown);
+    // if (!backShown) { return; }
     if (alreadyCalled) { return; }
 
     UserService.getWeekly(userId)
       .then(function(data) {
-        console.log("7 days worth: ", data);
-
+        // console.log("7 days worth: ", data);
         stepsDatum = buildChartData(data, 'steps');
         milesDatum = buildChartData(data, 'distance');
         activeDatum = buildChartData(data, 'veryActiveMinutes');
@@ -34,7 +68,6 @@ angular.module('fittr.controllers')
           'Active':activeDatum
         };
         alreadyCalled = true;
-
       }, function(status) {
         console.log("An error occured during the call to get" + status);
       });
@@ -51,7 +84,8 @@ angular.module('fittr.controllers')
     }
 
     var userData = {
-      'key': data[0].username,
+      // 'key': data[0].username,
+      'key': "You",
       'values': currentUser
     };
 
@@ -62,7 +96,7 @@ angular.module('fittr.controllers')
       comparedUser.push([date, data[1][j][stat]]);
     }
     var comparedData = {
-      'key': data[1][0].user.username,
+      'key': (data[1][0].user.username),
       'values': comparedUser
     };
 
@@ -71,47 +105,20 @@ angular.module('fittr.controllers')
     return chartOutputData;
   };
 
-  // var buildSampleData = function() {
-  //   var data = [];
-  //   var values = [];
-  //   var today = new Date();
-  //   var day = 86400000;
-  //   var rand = function() {
-  //   return Math.floor(Math.random() * 10000);
-  //   };
-  //   var buildForOneUser = function(user) {
-  //   for (var i = 0; i < 7; i++) {
-  //     var dayStats = [];
-  //     dayStats[0] = today.getTime() - (i * day);
-  //     dayStats[1] = rand();
-  //     values.push(dayStats);
-  //   }
-  //   data.push({key: user, values: values});
-  //   values = [];
-  //   };
-
-  //   buildForOneUser("Lebron James");
-  //   buildForOneUser("me");
-  //   return data;
-  // };
 
   $scope.xAxisTickFormat = function() {
     return function(d) {
-      console.log("d ====> ",d);
       return d3.time.format('%m/%e')(new Date(d));
     };
   };
 
-  var colorArray = ['#27ae60', '#c0392b'];
+  // var colorArray = ['#27ae60', '#c0392b'];
 
-  $scope.colorFunction = function() {
-    return function(d, i) {
-      return colorArray[i];
-    };
-  };
-
-
-
+  // $scope.colorFunction = function() {
+  //   return function(d, i) {
+  //     return colorArray[i];
+  //   };
+  // };
 });
 
 

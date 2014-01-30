@@ -1,6 +1,6 @@
 angular.module('fittr.controllers')
 
-.controller('CardsController', function($q, $scope, UserService){
+.controller('CardsController', function($q, $scope, $timeout, UserService){
   
   $scope.Math = window.Math; // so that we can use Math operations in angular expressions
 
@@ -44,9 +44,13 @@ angular.module('fittr.controllers')
 
   });
 
-  $scope.buttonClick = function() {
+  $scope.onclick = function() {
     this.$broadcast('chartButtonClick');
-  }
+  };
+
+  // $scope.$on('chartButtonClick', function() {
+  //   console.log("i heard ya!");
+  // });
 
     
 
@@ -67,61 +71,61 @@ angular.module('fittr.controllers')
       // fitbit: Object
         // avatar: "https://d6y8zfzc2qfsl.cloudfront.net/4F55F4BF-8DE2-4662-9BA5-A88E9F87E45B_profile_100_square.jpg"
 
-  var stepsDatum = null;
-  var milesDatum = null;
-  var activeDatum = null;
+  // var stepsDatum = null;
+  // var milesDatum = null;
+  // var activeDatum = null;
 
-  $scope.getWeekly = function(userId) {
+  // $scope.getWeekly = function(userId) {
 
-    UserService.getWeekly(userId)
-      .then(function(data) {
-        console.log("7 days worth: ", data);
+  //   UserService.getWeekly(userId)
+  //     .then(function(data) {
+  //       console.log("7 days worth: ", data);
+  //       $timeout(function() {
+  //         stepsDatum = buildChartData(data, 'steps');
+  //         milesDatum = buildChartData(data, 'distance');
+  //         activeDatum = buildChartData(data, 'veryActiveMinutes');
 
-        stepsDatum = buildChartData(data, 'steps');
-        milesDatum = buildChartData(data, 'distance');
-        activeDatum = buildChartData(data, 'veryActiveMinutes');
+  //         $scope.statCategories = {
+  //           'Steps':stepsDatum,
+  //           'Miles':milesDatum,
+  //           'Active':activeDatum
+  //         };
+  //       }, 2000);
+  //     }, function(status) {
+  //       console.log("An error occured during the call to get" + status);
+  //     });
 
-        $scope.statCategories = {
-          'Steps':stepsDatum,
-          'Miles':milesDatum,
-          'Active':activeDatum
-        };
+  // };
 
-      }, function(status) {
-        console.log("An error occured during the call to get" + status);
-      });
+  // var buildChartData = function(data, stat) {
+  //   var date;
+  //   // format user data
+  //   var currentUser = [];
+  //   for (var i = 0; i < data[0].stat.length; i++) {
+  //     date = new Date(data[0].stat[i].date).getTime();
+  //     currentUser.push([date, data[0].stat[i][stat]]);
+  //   }
 
-  };
+  //   var userData = {
+  //     'key': data[0].username,
+  //     'values': currentUser
+  //   };
 
-  var buildChartData = function(data, stat) {
-    var date;
-    // format user data
-    var currentUser = [];
-    for (var i = 0; i < data[0].stat.length; i++) {
-      date = new Date(data[0].stat[i].date).getTime();
-      currentUser.push([date, data[0].stat[i][stat]]);
-    }
+  //   // format compared user data
+  //   var comparedUser = [];
+  //   for (var j = 0; j < data[1].length; j++) {
+  //     date = new Date(data[1][j].date).getTime();
+  //     comparedUser.push([date, data[1][j][stat]]);
+  //   }
+  //   var comparedData = {
+  //     'key': data[1][0].user.username,
+  //     'values': comparedUser
+  //   };
 
-    var userData = {
-      'key': data[0].username,
-      'values': currentUser
-    };
-
-    // format compared user data
-    var comparedUser = [];
-    for (var j = 0; j < data[1].length; j++) {
-      date = new Date(data[1][j].date).getTime();
-      comparedUser.push([date, data[1][j][stat]]);
-    }
-    var comparedData = {
-      'key': data[1][0].user.username,
-      'values': comparedUser
-    };
-
-    var chartOutputData = [userData, comparedData];
-    console.log(chartOutputData);
-    return chartOutputData;
-  };
+  //   var chartOutputData = [userData, comparedData];
+  //   console.log("chartData: ", chartOutputData);
+  //   return chartOutputData;
+  // };
 
 
 
@@ -151,7 +155,7 @@ angular.module('fittr.controllers')
 
   // $scope.xAxisTickFormat = function() {
   //   return function(d) {
-  //     console.log("d ====> ",d);
+  //     // console.log("d ====> ",d);
   //     return d3.time.format('%m/%e')(new Date(d));
   //   };
   // };
