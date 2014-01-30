@@ -98,7 +98,7 @@ module.exports =
         data =
           username: req.user.username
           pic: req.user.authData.fitbit.avatar
-          stats: stats
+          stats: stats[0]
         console.log 'already got data ', data
         res.json data
       else if !stats.length
@@ -126,7 +126,8 @@ module.exports =
     # and any given user's data for 7 days
     # used to populate d3 graphs on back of cards
     compareUser = req.params.userid
-    query = user: req.user._id
+    query =
+      user: req.user._id
 
     to = moment().format 'YYYY-MM-DD'
     from = moment().subtract('days', 9).format 'YYYY-MM-DD'
@@ -135,7 +136,7 @@ module.exports =
 
     returnJSON = []
     # get current users weeky data set
-    Stats.find query, (err, stat) ->
+    Stats.find(query).sort(date: 1).exec (err, stat) ->
       if err
         console.log 'error gettig logged in user to compare', err
         res.send 500
@@ -148,7 +149,8 @@ module.exports =
         returnJSON.push data
 
       query.user = compareUser
-      Stats.find(query).populate('user', 'username').exec (error, statt) ->
+      Stats.find(query).populate('user', 'username').sort(date: 1)
+      .exec (error, statt) ->
         if err
           res.send 500
         returnJSON.push statt
