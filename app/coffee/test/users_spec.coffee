@@ -1,34 +1,43 @@
 superTest = require 'superTest'
 mongoose  = require 'mongoose'
 expect    = require 'expect.js'
-dbUrl     = 'mongodb://127.0.0.1/app'
+dbUrl     = 'mongodb://localhost/test'
 User      = require '../models/user'
+clearDB   = require('mocha-mongoose')(dbUrl)
+
+describe "Example spec for a model", ->
+  beforeEach (done) ->
+    return done()  if mongoose.connection.db
+    mongoose.connect dbURI, done
+
+  it "can be saved", (done) ->
+    new User(username: 'scott').save done
+
+  it "can be listed", (done) ->
+    new User(username: 'scott').save (err, model) ->
+      return done(err)  if err
+      new User(username: 'mike').save (err, model) ->
+        return done(err)  if err
+        User.find {}, (err, docs) ->
+          return done(err)  if err
+
+          # without clearing the DB between specs, this would be 3
+          expect(docs.length).to.be 2
+          do done
 
 
-# function to find our test user, tracy
-findUser = (cb) ->
-  User.findOne 'email': 'tracy@gmail.com', (err, tracy) ->
-    throw new err if err
-    cb tracy
+  it "can clear the DB on demand", (done) ->
+    new User(username: 'scott').save (err, model) ->
+      return done(err)  if err
+      clearDB (err) ->
+        return done(err)  if err
+        promise = User.find({}).exec()
+        promise.then (docs) ->
+          expect(docs.length).to.eql 1
+          do done
 
-before (done) ->
-  return done()  if mongoose.connection.db
-  mongoose.connect dbUrl, done
-  # Drop db
-  User.collection.drop (err) ->
-    # save test user
-    if err then throw new err
-    user = new User(
-      'email': 'tracy@gmail.com'
-      'password': '1234'
-    )
-    user.save (err) ->
-      done err
 
-describe 'create user', ->
 
-  it 'Should create a document that can be found', (done) ->
-    User.findOne 'email': 'tracy@gmail.com', (err, tracy) ->
-      expect(tracy.email).to.be 'tracy@gmail.com'
-      do done
+
+
 
