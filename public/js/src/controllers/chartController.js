@@ -1,40 +1,39 @@
 angular.module('fittr.controllers')
 
-.controller('ChartController', function($q, $scope, UserService){
+.controller('ChartController', function($q, $scope, $timeout, UserService){
 
   var stepsDatum = null;
   var milesDatum = null;
   var activeDatum = null;
 
   $scope.$on('chartButtonClick', function() {
-    console.log($scope.user);
-    //getWeekly(($scope.user.id))
+    getWeekly(($scope.user.user._id));
   });
 
 
   var alreadyCalled = false;
 
-  var getWeekly = function(userId, backShown) {
+  var getWeekly = function(userId) {
 
-    console.log("backShown: ", backShown);
-    if (!backShown) { return; }
+    // console.log("backShown: ", backShown);
+    // if (!backShown) { return; }
     if (alreadyCalled) { return; }
 
     UserService.getWeekly(userId)
       .then(function(data) {
         console.log("7 days worth: ", data);
+        $timeout(function() {
+          stepsDatum = buildChartData(data, 'steps');
+          milesDatum = buildChartData(data, 'distance');
+          activeDatum = buildChartData(data, 'veryActiveMinutes');
 
-        stepsDatum = buildChartData(data, 'steps');
-        milesDatum = buildChartData(data, 'distance');
-        activeDatum = buildChartData(data, 'veryActiveMinutes');
-
-        $scope.statCategories = {
-          'Steps':stepsDatum,
-          'Miles':milesDatum,
-          'Active':activeDatum
-        };
-        alreadyCalled = true;
-
+          $scope.statCategories = {
+            'Steps':stepsDatum,
+            'Miles':milesDatum,
+            'Active':activeDatum
+          };
+          alreadyCalled = true;
+        }, 1000);
       }, function(status) {
         console.log("An error occured during the call to get" + status);
       });
@@ -97,7 +96,6 @@ angular.module('fittr.controllers')
 
   $scope.xAxisTickFormat = function() {
     return function(d) {
-      console.log("d ====> ",d);
       return d3.time.format('%m/%e')(new Date(d));
     };
   };
