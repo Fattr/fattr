@@ -53,17 +53,25 @@ angular.module('fittr.controllers')
     // authData: Object
       // fitbit: Object
         // avatar: "https://d6y8zfzc2qfsl.cloudfront.net/4F55F4BF-8DE2-4662-9BA5-A88E9F87E45B_profile_100_square.jpg"
-  var datum;
+
+  var stepsDatum = null;
+  var milesDatum = null;
+  var activeDatum = null;
+
   $scope.getWeekly = function(userId) {
 
     UserService.getWeekly(userId)
       .then(function(data) {
         console.log("7 days worth: ", data);
-        datum = buildChartData(data);
+
+        stepsDatum = buildChartData(data, 'steps');
+        milesDatum = buildChartData(data, 'distance');
+        activeDatum = buildChartData(data, 'veryActiveMinutes');
+
         $scope.statCategories = {
-          'Steps':datum,
-          'Miles':datum,
-          'Active':datum
+          'Steps':stepsDatum,
+          'Miles':milesDatum,
+          'Active':activeDatum
         };
 
       }, function(status) {
@@ -72,13 +80,13 @@ angular.module('fittr.controllers')
 
   };
 
-  var buildChartData = function(data) {
+  var buildChartData = function(data, stat) {
     var date;
     // format user data
     var currentUser = [];
     for (var i = 0; i < data[0].stat.length; i++) {
       date = new Date(data[0].stat[i].date).getTime();
-      currentUser.push([date, data[0].stat[i].steps]);
+      currentUser.push([date, data[0].stat[i][stat]]);
     }
 
     var userData = {
@@ -90,7 +98,7 @@ angular.module('fittr.controllers')
     var comparedUser = [];
     for (var j = 0; j < data[1].length; j++) {
       date = new Date(data[1][j].date).getTime();
-      comparedUser.push([date, data[1][j].steps]);
+      comparedUser.push([date, data[1][j][stat]]);
     }
     var comparedData = {
       'key': data[1][0].user.username,
