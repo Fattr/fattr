@@ -10,7 +10,9 @@ angular.module('fittr.services')
       var today = new Date();
       var yesterday = new Date(today - 86400000);
       var fromDate = new Date(yesterday - (numOfDays * 86400000));
-      return "/" + fromDate.toISOString().slice(0, 10) + "/" + yesterday.toISOString().slice(0, 10);
+      var calculatedDates = "/" + fromDate.toISOString().slice(0, 10) + "/" + yesterday.toISOString().slice(0, 10);
+      console.log('calculatedDates', calculatedDates);
+      return calculatedDates;
     };
 
     return {
@@ -53,7 +55,7 @@ angular.module('fittr.services')
       },
 
       get: function() {
-        return this._httpHelper('get', "/api/user" + calculateDates(1));
+        return this._httpHelper('get', "/api/user" + calculateDates(0));
       },
 
       logout: function(user) {
@@ -63,7 +65,7 @@ angular.module('fittr.services')
       },
 
       getAll: function(numOfDays) {
-        if (!numOfDays) return this._httpHelper("get", "/api/users");
+        if (numOfDays === undefined) return this._httpHelper("get", "/api/users");
         return this._httpHelper('get', "/api/users"+ calculateDates(numOfDays));
       },
 
@@ -92,7 +94,7 @@ angular.module('fittr.services')
 
       // Helper function to retrieve user's activity
       getActivity: function(numOfDays) {
-        if (!numOfDays) return this._httpHelper("get", "/api/user");
+        if (numOfDays === undefined) return this._httpHelper("get", "/api/user");
         return this._httpHelper("get", "/api/user" + calculateDates(numOfDays));
       },
 
