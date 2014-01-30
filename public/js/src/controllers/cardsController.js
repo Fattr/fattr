@@ -73,11 +73,14 @@ angular.module('fittr.controllers')
   };
 
   var buildChartData = function(data) {
+    var date;
     // format user data
     var currentUser = [];
     for (var i = 0; i < data[0].stat.length; i++) {
-      currentUser.push([data[0].stat[i].date, data[0].stat[i].steps]);
+      date = new Date(data[0].stat[i].date).getTime();
+      currentUser.push([date, data[0].stat[i].steps]);
     }
+
     var userData = {
       'key': data[0].username,
       'values': currentUser
@@ -85,8 +88,9 @@ angular.module('fittr.controllers')
 
     // format compared user data
     var comparedUser = [];
-    for (var i = 0; i < data[1].length; i++) {
-      comparedUser.push([data[1][i].date, data[1][i].steps]);
+    for (var j = 0; j < data[1].length; j++) {
+      date = new Date(data[1][j].date).getTime();
+      comparedUser.push([date, data[1][j].steps]);
     }
     var comparedData = {
       'key': data[1][0].user.username,
@@ -126,6 +130,7 @@ angular.module('fittr.controllers')
 
   $scope.xAxisTickFormat = function() {
     return function(d) {
+      console.log("d ====> ",d);
       return d3.time.format('%m/%e')(new Date(d));
     };
   };
