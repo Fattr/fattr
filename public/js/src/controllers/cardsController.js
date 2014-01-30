@@ -53,41 +53,76 @@ angular.module('fittr.controllers')
     // authData: Object
       // fitbit: Object
         // avatar: "https://d6y8zfzc2qfsl.cloudfront.net/4F55F4BF-8DE2-4662-9BA5-A88E9F87E45B_profile_100_square.jpg"
-
+  var datum;
   $scope.getWeekly = function(userId) {
-  
+
     UserService.getWeekly(userId)
       .then(function(data) {
         console.log("7 days worth: ", data);
+        datum = buildChartData(data);
+        $scope.statCategories = {
+          'Steps':datum,
+          'Miles':datum,
+          'Active':datum
+        };
 
       }, function(status) {
         console.log("An error occured during the call to get" + status);
       });
+
   };
 
-  var buildSampleData = function() {
-    var data = [];
-    var values = [];
-    var today = new Date();
-    var day = 86400000;
-    var rand = function() {
-    return Math.floor(Math.random() * 10000);
-    };
-    var buildForOneUser = function(user) {
-    for (var i = 0; i < 7; i++) {
-      var dayStats = [];
-      dayStats[0] = today.getTime() - (i * day);
-      dayStats[1] = rand();
-      values.push(dayStats);
+  var buildChartData = function(data) {
+    // format user data
+    var currentUser = [];
+    for (var i = 0; i < data[0].stat.length; i++) {
+      currentUser.push([data[0].stat[i].date, data[0].stat[i].steps]);
     }
-    data.push({key: user, values: values});
-    values = [];
+    var userData = {
+      'key': data[0].username,
+      'values': currentUser
     };
 
-    buildForOneUser("Lebron James");
-    buildForOneUser("me");
-    return data;
+    // format compared user data
+    var comparedUser = [];
+    for (var i = 0; i < data[1].length; i++) {
+      comparedUser.push([data[1][i].date, data[1][i].steps]);
+    }
+    var comparedData = {
+      'key': data[1][0].user.username,
+      'values': comparedUser
+    };
+
+    var chartOutputData = [userData, comparedData];
+    console.log(chartOutputData);
+    return chartOutputData;
   };
+
+
+
+  // var buildSampleData = function() {
+  //   var data = [];
+  //   var values = [];
+  //   var today = new Date();
+  //   var day = 86400000;
+  //   var rand = function() {
+  //   return Math.floor(Math.random() * 10000);
+  //   };
+  //   var buildForOneUser = function(user) {
+  //   for (var i = 0; i < 7; i++) {
+  //     var dayStats = [];
+  //     dayStats[0] = today.getTime() - (i * day);
+  //     dayStats[1] = rand();
+  //     values.push(dayStats);
+  //   }
+  //   data.push({key: user, values: values});
+  //   values = [];
+  //   };
+
+  //   buildForOneUser("Lebron James");
+  //   buildForOneUser("me");
+  //   return data;
+  // };
 
   $scope.xAxisTickFormat = function() {
     return function(d) {
@@ -103,32 +138,16 @@ angular.module('fittr.controllers')
     };
   };
 
-  var datum = buildSampleData();
 
-  $scope.statCategories = {
-    'Steps':datum,
-    'Miles':datum,
-    'Active':datum
-  };
 
 });
-
-var buildChartData = function(data) {
-  var currentUser;
-
-  // format user data
-  for (var i = 0; i < data[0].stat.length; i++) {
-    currentUser.push([data[0].stat[i]]);
-  }
-
-};
 
 
 
 // [
 // {
 //   username: "zooose",
-//   stat: 
+//   stat:
 //   [
 //   {
 //     distance: 4.22,
@@ -165,7 +184,7 @@ var buildChartData = function(data) {
 //   veryActiveMinutes: 20,
 //   steps: 6390,
 //   date: "2014-01-28",
-//   user: 
+//   user:
 //   {
 //     _id: "52e97b7fb59349651b452fa1",
 //     username: "sdfnlewhtle"
@@ -178,7 +197,7 @@ var buildChartData = function(data) {
 //   veryActiveMinutes: 22,
 //   steps: 7868,
 //   date: "2014-01-27",
-//   user: 
+//   user:
 //   {
 //     _id: "52e97b7fb59349651b452fa1",
 //     username: "sdfnlewhtle"
@@ -191,7 +210,7 @@ var buildChartData = function(data) {
 //   veryActiveMinutes: 9,
 //   steps: 5884,
 //   date: "2014-01-26",
-//   user: 
+//   user:
 //   {
 //     _id: "52e97b7fb59349651b452fa1",
 //     username: "sdfnlewhtle"
