@@ -6,6 +6,7 @@ angular.module('fittr.services')
     // var baseUrl = "http://fittrapp.herokuapp.com";
 
 
+
     // var calculateDates = function(numOfDays) {
     //   var today = new Date();
     //   var yesterday = new Date(today - 86400000);
@@ -14,6 +15,7 @@ angular.module('fittr.services')
     //   console.log("/" + fromDate.toString().slice(0, 10) + "/" + yesterday.toString().slice(0, 10));
     //   return "/" + fromDate.toString().slice(0, 10) + "/" + yesterday.toString().slice(0, 10);
     // };
+
 
     return {
       // currentUser: {},
