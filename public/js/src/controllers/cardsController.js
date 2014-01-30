@@ -1,6 +1,7 @@
 angular.module('fittr.controllers')
 
 .controller('CardsController', function($q, $scope, UserService){
+  
   $scope.Math = window.Math; // so that we can use Math operations in angular expressions
 
   // GET your stats from yesterday
