@@ -3,6 +3,9 @@
   <div class="cards-contain">
 
     <div class="flipcardContainer">
+
+      <p style="color: #2c3e50;font-weight: bold; text-align: center">Yesterday's Results: {{ 1391035059153 | date:'MMM d' }}</p>
+
       <div class="list card animate flip-in" ng-repeat="user in users"  style="box-shadow: 0 1px 2px #555">
 
         <figure class="cardFront">
@@ -49,7 +52,7 @@
                   <div class="card-bar their-bar" ng-style="calculateFriendWidth(user, 'veryActiveMinutes')"></div>
                   <div class="row statrow">
                     <div class="col col-67 stats">{{currentUser.stats.veryActiveMinutes - user.veryActiveMinutes >= 0 ? 'You won by ' : 'You lost by '}}
-                      {{Math.abs(currentUser.stats.veryActiveMinutes - user.veryActiveMinutes) | number:0}} active mins
+                      {{Math.abs(currentUser.stats.veryActiveMinutes - user.veryActiveMinutes) | number:0}} intense mins
                     </div>
                     <div class="col stats friendValue">{{user.veryActiveMinutes}}</div>
                 </li>
