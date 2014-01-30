@@ -9,8 +9,10 @@ fitbitClient = require("fitbit-js")(fitbit.consumerKey,
 fitbit.consumerSecret, fitbit.callbackURL)
 moment = require 'moment'
 
+
 # fixme: refactor to use promises or async library here
 # ASYNC hell down below!!!!!!!
+
 
 module.exports =
 
@@ -65,7 +67,8 @@ module.exports =
         $ne: req.user._id
 
     # check for from and to dates and add to query
-    dateRange req.params.from, req.params.to, query
+    yesterday = moment().subtract('days', 1).format 'YYYY-MM-DD'
+    dateRange  yesterday, yesterday, query
 
     # use .populate(), its fucking magic!
     # http://mongoosejs.com/docs/populate.html
@@ -84,9 +87,9 @@ module.exports =
 
   userActivity: (req, res) ->
     # define the DB query to get results
+    today = moment().subtract('days', 1).format 'YYYY-MM-DD'
     query = user: req.user._id
-    dateRange req.params.from, req.params.to, query
-
+    dateRange today, today, query
     Stats.find query, (err, stats) ->
       if err
         res.send err
@@ -96,11 +99,12 @@ module.exports =
           username: req.user.username
           pic: req.user.authData.fitbit.avatar
           stats: stats
+        console.log 'already got data ', data
         res.json data
       else if !stats.length
         # if no stats in db, go to fitbit and get 7 days
         # worth of stats and save to db
-        date = moment().subtract('days', 8)
+        date = moment().subtract('days', 7)
 
         toDate = moment().subtract('days', 1)
         query =
@@ -115,7 +119,7 @@ module.exports =
 
           # change this to somethig else, this is horrbile, but
           # front end will be looking for null right now
-        res.json null
+
 
   compare: (req, res) ->
     # used to send back a comparison of current user
@@ -146,11 +150,8 @@ module.exports =
       query.user = compareUser
       Stats.find(query).populate('user', 'username').exec (error, statt) ->
         if err
-          console.log 'err getting compred user ', error
           res.send 500
-        console.log 'compare statttt--- ', statt
         returnJSON.push statt
-        console.log 'array here---- ', returnJSON
         res.json returnJSON
 
   # helper to delete current user
@@ -207,14 +208,25 @@ getDailyActivities = (req, res, day, cb) ->
     stat.steps = userData.summary.steps
     stat.veryActiveMinutes = userData.summary.veryActiveMinutes
     stat.distance = userData.summary.distances[0].distance
-    cb stat
+    cb stat, req, res
 
 # helper function to save new stats
-saveStats = (stat) ->
+
+
+saveStats = (stat, req, res) ->
+
   date = moment().subtract('days', 1).format "YYYY-MM-DD"
   stat.save (err) ->
     if err
       console.log 'error savnig stats', err
-    console.log 'stat date!!!!! ', stat.date
+    console.log 'save new stat for ', stat.date
+    if stat.date is moment().subtract('days', 1).format 'YYYY-MM-DD'
+      console.log 'date matched', stat.date
+      data =
+          username: req.user.username
+          pic: req.user.authData.fitbit.avatar
+          stats: stat
+      console.log '====data====', data
+      res.json data
 
 
