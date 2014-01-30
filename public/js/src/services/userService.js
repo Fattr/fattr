@@ -101,7 +101,6 @@ angular.module('fittr.services')
       },
 
       saveActivity: function(userId, data) {
-        console.log("SAVE ACTIVITY DATA =======>", data);
         var stats = {
           steps: data.stats.steps,
           distance: data.stats.distance,
