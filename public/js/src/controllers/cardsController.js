@@ -1,31 +1,38 @@
 angular.module('fittr.controllers')
 
 .controller('CardsController', function($q, $scope, UserService){
-
-
+  
   $scope.Math = window.Math; // so that we can use Math operations in angular expressions
 
-  // var getUsers = $q.defer();
-  UserService.getAll(0)
-    .then(function(data) {
-      // console.log("getAll: ", data);
+  // GET your stats from yesterday
+  UserService.get().then(function(userData){
+    
+    // and save your activity to the UserService.currentUser
+    UserService.saveActivity(userData.stats._id, userData);
+    
+    // After your data is saved into UserService.currentUser
+    // we can get all the other users' activity stats from yesterday
+    UserService.getAll(0).then(function(data) {
 
       $scope.users = data;
       UserService.users = data;
       $scope.currentUser = UserService.currentUser;
-      // getUsers.resolve(data);
 
+      // define function that calculates width percentage for your bar chart
       $scope.calculateYourWidth = function (user, activity){
-
-        if ($scope.currentUser.stats[activity] - user[activity] >= 0)
+        // if you have more steps than the user on the card
+        if ($scope.currentUser.stats[activity] - user[activity] >= 0){
+          // your bar will be width 100%
           return {width: "100%"};
-        else {
+        } else {
+          // your bar will be a normalized percentage of their bar chart width
           return {width: String(~~(100*($scope.currentUser.stats[activity]/user[activity]))) + "%"};
         }
       };
 
+      // define function calculates width percentage for opponent's bar chart
+      // it's the reverse from the function above...
       $scope.calculateFriendWidth = function (user, activity){
-
         if (user[activity] - $scope.currentUser.stats[activity] >= 0)
           return {width: "100%"};
         else {
@@ -33,9 +40,12 @@ angular.module('fittr.controllers')
         }
       };
 
+    });
+
   });
 
 
+    
 
  // Response object for UserService.getAll
  // -----------------------------------------------------
@@ -53,17 +63,25 @@ angular.module('fittr.controllers')
     // authData: Object
       // fitbit: Object
         // avatar: "https://d6y8zfzc2qfsl.cloudfront.net/4F55F4BF-8DE2-4662-9BA5-A88E9F87E45B_profile_100_square.jpg"
-  var datum;
+
+  var stepsDatum = null;
+  var milesDatum = null;
+  var activeDatum = null;
+
   $scope.getWeekly = function(userId) {
 
     UserService.getWeekly(userId)
       .then(function(data) {
         console.log("7 days worth: ", data);
-        datum = buildChartData(data);
+
+        stepsDatum = buildChartData(data, 'steps');
+        milesDatum = buildChartData(data, 'distance');
+        activeDatum = buildChartData(data, 'veryActiveMinutes');
+
         $scope.statCategories = {
-          'Steps':datum,
-          'Miles':datum,
-          'Active':datum
+          'Steps':stepsDatum,
+          'Miles':milesDatum,
+          'Active':activeDatum
         };
 
       }, function(status) {
@@ -72,12 +90,15 @@ angular.module('fittr.controllers')
 
   };
 
-  var buildChartData = function(data) {
+  var buildChartData = function(data, stat) {
+    var date;
     // format user data
     var currentUser = [];
     for (var i = 0; i < data[0].stat.length; i++) {
-      currentUser.push([data[0].stat[i].date, data[0].stat[i].steps]);
+      date = new Date(data[0].stat[i].date).getTime();
+      currentUser.push([date, data[0].stat[i][stat]]);
     }
+
     var userData = {
       'key': data[0].username,
       'values': currentUser
@@ -85,8 +106,9 @@ angular.module('fittr.controllers')
 
     // format compared user data
     var comparedUser = [];
-    for (var i = 0; i < data[1].length; i++) {
-      comparedUser.push([data[1][i].date, data[1][i].steps]);
+    for (var j = 0; j < data[1].length; j++) {
+      date = new Date(data[1][j].date).getTime();
+      comparedUser.push([date, data[1][j][stat]]);
     }
     var comparedData = {
       'key': data[1][0].user.username,
@@ -126,6 +148,7 @@ angular.module('fittr.controllers')
 
   $scope.xAxisTickFormat = function() {
     return function(d) {
+      console.log("d ====> ",d);
       return d3.time.format('%m/%e')(new Date(d));
     };
   };

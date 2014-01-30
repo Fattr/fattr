@@ -123,7 +123,7 @@ a.device p {
 /* Top Bar */
 .topbar {
   height: 100px;
-  background: rgba(227, 227, 227, 0.95);
+  background: rgba(44, 62, 80, 0.95);
   box-shadow: 0 0 15px #000;
   margin-top: 44px;
   padding: 5px;
@@ -218,6 +218,10 @@ a.device p {
           box-shadow: 0 -5px 16px -7px #888;
 }
 
+.col {
+  color: #FFF;
+}
+
 .card {
   height: 339px;
 }
@@ -244,12 +248,19 @@ a.device p {
   margin: 1px 0 1px 0;
 }
 
+.item {
+  border: 0;
+}
+
 .your-bar {
-  background-color: #0088ff;
+  background-color: #E64B5D;
 }
 
 .their-bar {
-  background-color: red;
+  background-color: rgba(236, 240, 241,1.0);
+  /*background-color: #7f8c8d;*/
+  /*background-color: #FFF;*/
+  /*background-color: rgba(230, 126, 34,1.0);*/
 }
 
 .col {
