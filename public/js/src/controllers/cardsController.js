@@ -35,6 +35,9 @@ angular.module('fittr.controllers')
 
   });
 
+  $scope.buttonClick = function() {
+    this.$broadcast('chartButtonClick');
+  }
 
 
  // Response object for UserService.getAll
@@ -136,20 +139,20 @@ angular.module('fittr.controllers')
   //   return data;
   // };
 
-  $scope.xAxisTickFormat = function() {
-    return function(d) {
-      console.log("d ====> ",d);
-      return d3.time.format('%m/%e')(new Date(d));
-    };
-  };
+  // $scope.xAxisTickFormat = function() {
+  //   return function(d) {
+  //     console.log("d ====> ",d);
+  //     return d3.time.format('%m/%e')(new Date(d));
+  //   };
+  // };
 
-  var colorArray = ['#27ae60', '#c0392b'];
+  // var colorArray = ['#27ae60', '#c0392b'];
 
-  $scope.colorFunction = function() {
-    return function(d, i) {
-      return colorArray[i];
-    };
-  };
+  // $scope.colorFunction = function() {
+  //   return function(d, i) {
+  //     return colorArray[i];
+  //   };
+  // };
 
 
 
