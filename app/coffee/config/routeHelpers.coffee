@@ -2,6 +2,8 @@
 
 User    = require '../models/user'
 Stats   = require '../models/stat'
+
+# shorthand for require('./auth').fitbit
 {fitbit}  = require './auth'
 fitbitClient = require("fitbit-js")(fitbit.consumerKey,
 fitbit.consumerSecret, fitbit.callbackURL)
@@ -58,7 +60,9 @@ module.exports =
   # get all users here for streams
   allUsersActivity: (req, res) ->
     # define query for search
-    query = {}
+    query =
+      user:
+        $ne: req.user._id
 
     # check for from and to dates and add to query
     dateRange req.params.from, req.params.to, query
@@ -79,6 +83,7 @@ module.exports =
   # ===========================
 
   userActivity: (req, res) ->
+    # define the DB query to get results
     query = user: req.user._id
     dateRange req.params.from, req.params.to, query
 
@@ -113,6 +118,9 @@ module.exports =
         res.json null
 
   compare: (req, res) ->
+    # used to send back a comparison of current user
+    # and any given user's data for 7 days
+    # used to populate d3 graphs on back of cards
     compareUser = req.params.userid
     query = user: req.user._id
 
@@ -131,6 +139,8 @@ module.exports =
         data =
           username: req.user.username
           stat: stat
+        # collect the current users weekly data
+        # FIXME: find a better way to do this, promises
         returnJSON.push data
 
       query.user = compareUser
@@ -143,10 +153,7 @@ module.exports =
         console.log 'array here---- ', returnJSON
         res.json returnJSON
 
-
-
   # helper to delete current user
-
   deleteUser: (req, res) ->
     id = req.user._id
     User.findById id, (err, user) ->
@@ -172,9 +179,6 @@ module.exports =
   # API helpers
   #==========================
 
-  # mock data for quick developing on front end
-
-
 dateRange = (dateFrom, dateTo, query) ->
   dateFrom = (if (dateFrom is "-") then undefined else dateFrom)
   dateTo = (if (dateTo is "-") then undefined else dateTo)
@@ -186,7 +190,7 @@ dateRange = (dateFrom, dateTo, query) ->
     query.date = $gte: dateFrom  if dateFrom isnt undefined
     query.date = $lte: dateTo  if dateTo isnt undefined
 
-
+# helper function to get a weeks worth of data from fitbit
 getDailyActivities = (req, res, day, cb) ->
   token =
     oauth_token: req.user.authData.fitbit.access_token
@@ -205,6 +209,7 @@ getDailyActivities = (req, res, day, cb) ->
     stat.distance = userData.summary.distances[0].distance
     cb stat
 
+# helper function to save new stats
 saveStats = (stat) ->
   date = moment().subtract('days', 1).format "YYYY-MM-DD"
   stat.save (err) ->
