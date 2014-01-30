@@ -1,4 +1,4 @@
-superTest = require 'superTest'
+
 mongoose  = require 'mongoose'
 expect    = require 'expect.js'
 dbUrl     = 'mongodb://localhost/test'
