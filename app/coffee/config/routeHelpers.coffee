@@ -98,7 +98,7 @@ module.exports =
         data =
           username: req.user.username
           pic: req.user.authData.fitbit.avatar
-          stats: stats
+          stats: stats[0]
         console.log 'already got data ', data
         res.json data
       else if !stats.length
