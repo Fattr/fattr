@@ -37,11 +37,11 @@ module.exports =
     id = req.user._id
     User.findById id, (err, user) ->
       if err
-        console.error 'User.findOne error ', err
+        throw new Error err, ' cannot find user to log'
       if user
         user.lastLoggedIn = Date.now()
         user.save (err) ->
-          console.error err  if err
+          throw new Error err if err
       req.logout()
       res.redirect '/'
 
@@ -51,8 +51,8 @@ module.exports =
     res.send 401 if id isnt String req.user._id # can only get logged in user
     User.findById id, (err, user) ->
       if err
-        console.error 'User.findOne error ', err
-        res.send 500
+        throw new Error err, 'User.findOne error '
+
       if not user
         # user isn't in the db
         res.send 204
@@ -75,8 +75,7 @@ module.exports =
     Stats.find(query).populate('user', 'pro username authData.fitbit.avatar')
     .exec (err, stats) ->
       if err
-        console.log 'err users stream', err
-        res.send 500
+        throw new Error err, 'err users stream'
       else if stats
         res.json stats
 
@@ -92,7 +91,7 @@ module.exports =
     dateRange today, today, query
     Stats.find query, (err, stats) ->
       if err
-        res.send err
+        throw new Error err, 'error getting api/user data'
       else if stats.length
       # if stats, send back reqested range of stats along with user data
         data =
@@ -138,8 +137,7 @@ module.exports =
     # get current users weeky data set
     Stats.find(query).sort(date: 1).exec (err, stat) ->
       if err
-        console.log 'error gettig logged in user to compare', err
-        res.send 500
+        throw new Error err, 'error gettig logged in user to compare'
       if stat
         data =
           username: req.user.username
@@ -152,7 +150,7 @@ module.exports =
       Stats.find(query).populate('user', 'username').sort(date: 1)
       .exec (error, statt) ->
         if err
-          res.send 500
+          throw new Error error, 'finding second user to compare'
         returnJSON.push statt
         res.json returnJSON
 
@@ -161,16 +159,14 @@ module.exports =
     id = req.user._id
     User.findById id, (err, user) ->
       if err
-        console.error 'User.findOne error', err
-        res.send 500
+        throw new Error err, 'could not find user to delete'
       if not user
         # user is not in DB anyways..
         res.send 204
       else
         user.remove (err, user) -> # remove user record
           if err
-            console.error 'user.remove error ', err
-            res.send 500
+            throw new Error err, 'could not delete user'
           req.logout()
           res.redirect '/'
 
@@ -202,8 +198,7 @@ getDailyActivities = (req, res, day, cb) ->
   fitbitClient.apiCall 'GET', '/user/-/activities/date/'+ day + '.json',
   'token': token, (err, resp, userData) ->
     if err
-      console.log 'error-- routeHelpers -- getDailyActivities', err
-      res.send 500
+      throw new Error err, 'error-- routeHelpers -- getDailyActivities'
     stat = new Stats()
     stat.user = req.user._id
     stat.date = day
@@ -220,7 +215,7 @@ saveStats = (stat, req, res) ->
   date = moment().subtract('days', 1).format "YYYY-MM-DD"
   stat.save (err) ->
     if err
-      console.log 'error savnig stats', err
+      throw new Error err, 'error savnig stats'
     console.log 'save new stat for ', stat.date
     if stat.date is moment().subtract('days', 1).format 'YYYY-MM-DD'
       console.log 'date matched', stat.date
