@@ -6,12 +6,16 @@ angular.module('fittr.services')
     var baseUrl = "http://fittrapp.herokuapp.com";
 
 
-    var calculateDates = function(numOfDays) {
-      var today = new Date();
-      var yesterday = new Date(today - 86400000);
-      var fromDate = new Date(yesterday - (numOfDays * 86400000));
-      return "/" + fromDate.toISOString().slice(0, 10) + "/" + yesterday.toISOString().slice(0, 10);
-    };
+
+    // var calculateDates = function(numOfDays) {
+    //   var today = new Date();
+    //   var yesterday = new Date(today - 86400000);
+    //   console.log('yesterday = ', yesterday);
+    //   var fromDate = new Date(yesterday - (numOfDays * 86400000));
+    //   console.log("/" + fromDate.toString().slice(0, 10) + "/" + yesterday.toString().slice(0, 10));
+    //   return "/" + fromDate.toString().slice(0, 10) + "/" + yesterday.toString().slice(0, 10);
+    // };
+
 
     return {
       // currentUser: {},
@@ -53,7 +57,7 @@ angular.module('fittr.services')
       },
 
       get: function() {
-        return this._httpHelper('get', "/api/user" + calculateDates(2));
+        return this._httpHelper('get', "/api/user");
       },
 
       logout: function(user) {
@@ -64,7 +68,7 @@ angular.module('fittr.services')
 
       getAll: function(numOfDays) {
         if (!numOfDays) return this._httpHelper("get", "/api/users");
-        return this._httpHelper('get', "/api/users"+ calculateDates(numOfDays));
+        return this._httpHelper('get', "/api/users");
       },
 
       save: function(userData) {
@@ -93,7 +97,7 @@ angular.module('fittr.services')
       // Helper function to retrieve user's activity
       getActivity: function(numOfDays) {
         if (!numOfDays) return this._httpHelper("get", "/api/user");
-        return this._httpHelper("get", "/api/user" + calculateDates(numOfDays));
+        return this._httpHelper("get", "/api/user");
       },
 
       saveActivity: function(userId, data) {
@@ -110,7 +114,9 @@ angular.module('fittr.services')
         // console.log("saveActivity: currentUser", this.currentUser);
         // this.saveToLocal(userId, user);
       },
-
+      getWeekly: function(userId) {
+        return this._httpHelper('get', "/api/compare" + "/" + userId);
+      },
 
       //   stats: Object
 // __v: 0

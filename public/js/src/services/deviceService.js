@@ -15,17 +15,17 @@ angular.module('fittr.services')
       },
       {
         deviceName: "Jawbone Up",
-        imgUrl: "img/Jawbone_logo_black.png",
+        imgUrl: "img/Jawbone_logo_coming_soon.png",
         apiUrl: ""
       },
       {
         deviceName: "Moves",
-        imgUrl: "img/moves_logo.png",
+        imgUrl: "img/moves_logo_coming_soon.png",
         apiUrl: ""
       },
       {
         deviceName: "Runkeeper",
-        imgUrl: "img/rk-icon.png",
+        imgUrl: "img/rk-icon_coming_soon.png",
         apiUrl: ""
       }
     ];

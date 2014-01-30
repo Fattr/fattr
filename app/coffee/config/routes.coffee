@@ -31,6 +31,8 @@ module.exports = (app, passport) ->
   # get current users stats
   app.get '/api/user/:from?/:to?', isLoggedIn, helper.userActivity
 
+  app.get '/api/compare/:userid?', isLoggedIn, helper.compare
+
 
   # this is no the same as the isLogged in middleware
   # this route lets the front end know on the fly if the user is auth
