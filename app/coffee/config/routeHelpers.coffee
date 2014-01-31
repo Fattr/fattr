@@ -118,8 +118,6 @@ module.exports =
 
           # change this to somethig else, this is horrbile, but
           # front end will be looking for null right now
-  errorTest: (req, res) ->
-    throw new Error 'test error!!!!'
 
   compare: (req, res) ->
     # used to send back a comparison of current user
@@ -210,9 +208,7 @@ getDailyActivities = (req, res, day, cb) ->
 
 # helper function to save new stats
 
-
 saveStats = (stat, req, res) ->
-
   date = moment().subtract('days', 1).format "YYYY-MM-DD"
   stat.save (err) ->
     if err
