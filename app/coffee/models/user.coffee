@@ -8,6 +8,9 @@ UserSchema = new mongoose.Schema(
     type: String
     unique: true
 
+  pass_reset:
+    type: String
+
   password: String
 
   salt: String
@@ -43,10 +46,6 @@ UserSchema = new mongoose.Schema(
       auth_token: String
       auth_token_secret: String
 
-  services:[{
-    type: mongoose.Schema.ObjectId
-    ref: 'Service'
-  }]
 )
 
 module.exports = mongoose.model 'User', UserSchema
