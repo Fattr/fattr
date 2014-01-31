@@ -5,7 +5,7 @@ dbUrl     = 'mongodb://localhost/test'
 User      = require '../models/user'
 clearDB   = require('mocha-mongoose')(dbUrl)
 
-describe "Example spec for a model", ->
+describe "Saving a new user", ->
   beforeEach (done) ->
     return done()  if mongoose.connection.db
     mongoose.connect dbURI, done
@@ -13,7 +13,7 @@ describe "Example spec for a model", ->
   it "can be saved", (done) ->
     new User(username: 'scott').save done
 
-  it "can be listed", (done) ->
+  it "can be found", (done) ->
     new User(username: 'scott').save (err, model) ->
       return done(err)  if err
       new User(username: 'mike').save (err, model) ->
@@ -26,7 +26,7 @@ describe "Example spec for a model", ->
           do done
 
 
-  it "can clear the DB on demand", (done) ->
+  it "Remove user", (done) ->
     new User(username: 'scott').save (err, model) ->
       return done(err)  if err
       clearDB (err) ->
