@@ -168,13 +168,27 @@ a.device p {
   color: #0088ff;
 }
 
+.card-switch {
+  color: #fff;
+  float: right; 
+}
+
+.sweatr-bars {
+  font-size: 40px;
+  -webkit-transform:rotate(0.25turn) scaleY(1.5);
+  -moz-transform: rotate(0.25turn) scaleY(1.5);
+  -o-transform: rotate(0.25turn) scaleY(1.5);
+  -ms-transform: rotate(0.25turn) scaleY(1.5);
+  transform: rotate(0.25turn) scaleY(1.5);
+}
+
+.sweatr-chart {
+  font-size: 36px;
+}
+
 .item-avatar {
   background: #F5F5F5;
 }
-
-/*.item {
-  border: 1px solid #95afc7;
-}*/
 
 .stats {
   font-size: 17px;
