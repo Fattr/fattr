@@ -1,19 +1,20 @@
 <div class="topbar">
   <div class="row">
-    <div class="col">
-      <img ng-src="{{ me.pic }}" style="border-radius: 50%; height: 75px; width: 75px" />
+    <div class="col" style="text-align: center">
+      <img ng-src="{{ me.pic }}" style="border-radius: 50%; height: 50px; width: 50px" />
+      <p style="font-weight: bold">{{ me.username }}</p>
     </div>
     <div class="col" style="text-align: center">
-      <span style="display: inline-block; font-size: 18px; margin-top: 20px">{{me.stats.steps | number}}</span>
+      <span style="display: inline-block; font-size: 18px; font-weight: bold; margin-top: 10px">{{me.stats.steps | number}}</span>
       <br /><span style="color: #E64B5D; font-weight: bold; text-shadow: 0 0 3px #000">Steps</span>
     </div>
     <div class="col" style="text-align: center">
-      <span style="display: inline-block; font-size: 18px;  margin-top: 20px">{{me.stats.distance | number}}</span>
+      <span style="display: inline-block; font-size: 18px; font-weight: bold; margin-top: 10px">{{me.stats.distance | number}}</span>
       <br /><span style="color: #E64B5D; font-weight: bold; text-shadow: 0 0 3px #000">Miles</span>
     </div>
     <div class="col" style="text-align: center">
-       <span style="display: inline-block; font-size: 18px; margin-top: 20px">{{me.stats.veryActiveMinutes | number}}</span>
-      <br /><span style="color: #E64B5D; font-weight: bold; text-shadow: 0 0 3px #000">Beast Mins</span>
+       <span style="display: inline-block; font-size: 18px; font-weight: bold; margin-top: 10px">{{me.stats.veryActiveMinutes | number}}</span>
+      <br /><span style="color: #E64B5D; font-weight: bold; text-shadow: 0 0 3px #000">Intense Mins</span>
     </div>
   </div>
 </div>

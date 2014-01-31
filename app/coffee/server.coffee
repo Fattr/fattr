@@ -5,7 +5,8 @@ mongoose    = require 'mongoose'
 passport    = require 'passport'
 cors        = require './config/middleWare'
 mongoConfig = require './config/dbconfig'
-port        = require('./config/serverConfig')['port']
+{port}      = require './config/serverConfig'
+{error}     = require './config/serverConfig'
 
 # connect to DB
 mongoose.connect mongoConfig.url
@@ -27,6 +28,8 @@ app.use express.session secret: 'superfit'
 app.use passport.initialize()
 app.use passport.session()
 app.use app.router
+app.use error
+
 app.use express.static __dirname + '/../../public'
 
 # routes for api and DB endpoints

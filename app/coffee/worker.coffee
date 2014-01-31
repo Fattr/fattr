@@ -26,11 +26,8 @@ updateActivitiesDb = (userActivities) ->
     user: userActivities.id
     date: userActivities.date
     steps: userActivities.summary.steps
-    marginalCalories: userActivities.summary.marginalCalories
-    sedentaryMinutes: userActivities.summary.sedentaryMinutes
-    lightActiveMinutes: userActivities.summary.lightlyActiveMinutes
-    fairlyActiveMinutes: userActivities.summary.fairlyActiveMinutes
     veryActiveMinutes: userActivities.summary.veryActiveMinutes
+    distance: userActivities.summary.distances[0].distance
   )
   dailyActivities.save (err, activities, numAffected) ->
     unless err
