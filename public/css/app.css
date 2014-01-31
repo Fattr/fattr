@@ -87,13 +87,13 @@ input[type="email"], input[type="password"], input[type="text"] {
 .flash {
   position: fixed;
   top:14px;
-  width: auto;
   padding: 8px;
+  width: 100%;
+  margin-right: 20px;
   border-radius: 4px;
 
   background-color: rgba(192, 57, 43,0.5);
   border: 2px solid rgba(192, 57, 43,1.0);
-  /*color: rgba(192, 57, 43,1.0);*/
   color: #fff;
 }
 .dismiss {

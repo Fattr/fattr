@@ -10,18 +10,23 @@
       <div class="list list-inset">
 
         <!-- flash message -->
-        <div class="flash animate-if" ng-if="signupLoginError">
-          {{flashMessage}}
-          <i class="icon ion-close-round dismiss"
-            ng-click="dismiss()"></i>
+        <div class="row">
+          <div class="col" >
+            <div class="flash animate-if" ng-if="signupLoginError">
+              <span>{{flashMessage}}</span>
+              <i class="icon ion-close-round dismiss"
+                ng-click="dismiss()"></i>
+            </div>
+          </div>
         </div>
 
         <!-- user name -->
         <label class="item item-input">
           <i class="icon ion-person"></i>
-          <input type="text" name="username" placeholder="Choose a username" required
+          <input type="text" name="username" placeholder="Choose a username (12 char max)" required
             ng-model="user.username"
-            ng-minlength="3">
+            ng-minlength="3"
+            ng-maxlength="12">
             <i class="icon ion-checkmark-circled success" ng-show="inputValid(signupLoginForm.username)"></i>
             <i class="icon ion-close-circled error" ng-show="inputInvalid(signupLoginForm.username)"></i>
         </label>
