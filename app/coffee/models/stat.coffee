@@ -7,10 +7,6 @@ StatSchema = new mongoose.Schema(
     type: mongoose.Schema.ObjectId
     ref: 'User'
 
-  collectedFrom:
-    type: mongoose.Schema.ObjectId
-    ref: 'Service'
-
   date: String
 
   steps: Number
