@@ -60,3 +60,23 @@ describe "Auth with Fitbit", (done) ->
       expect(res.status).to.be 401
       expect(err).to.be null
       do done
+
+describe 'API access', (done) ->
+
+  it 'Should not be able to access user api withouth auth', (done) ->
+    request(app).get('/api/user').end (err, res) ->
+      expect(res.status).to.be 401
+      expect(err).to.be null
+      do done
+
+  it 'Should not be able to access users api without auth', (done) ->
+    request(app).get('/api/users').end (err, res) ->
+      expect(res.status).to.be 401
+      expect(err).to.be null
+      do done
+
+  it 'Should not be able to access compare api without auth', (done) ->
+    request(app).get('/api/compare/12324343345345').end (err, res) ->
+      expect(err).to.be null
+      expect(res.status).to.be 401
+      do done

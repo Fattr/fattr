@@ -28,7 +28,6 @@ updateActivitiesDb = (userActivities) ->
     steps: userActivities.summary.steps
     veryActiveMinutes: userActivities.summary.veryActiveMinutes
     distance: userActivities.summary.distances[0].distance
-
   )
   dailyActivities.save (err, activities, numAffected) ->
     unless err
