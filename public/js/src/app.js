@@ -150,3 +150,4 @@ angular.module('fittr', ['ionic', 'ngRoute', 'LocalStorageModule', 'nvd3ChartDir
  * SETTING SERVICES
  */
 angular.module('fittr.services', []);
+angular.module('fittr.controllers', []);

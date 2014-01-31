@@ -5,7 +5,7 @@
     icon ion-chevron-left"></a>
     <h1 class="title">{{title}}</h1>
   </div>
-  <content has-header="true" has-tabs="false" padding="true">
+  <content has-header="true" has-tabs="false" padding="true" style="margin-top: 50px">
     <form name="signupLoginForm" novalidate>
       <div class="list list-inset">
 
@@ -27,7 +27,7 @@
         </label>
 
         <!-- user password -->
-        <label class="item item-input">
+        <label class="item item-input" style="border-bottom-left-radius: 5px; border-bottom-right-radius: 5px">
           <i class="icon ion-locked"></i>
           <input type="password" name="password" placeholder="Enter a password" required
             ng-model="user.password"

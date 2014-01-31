@@ -4303,7 +4303,7 @@ button.item-button-right:after {
 .card,
 .list-inset {
   overflow: hidden;
-  margin: 20px 10px;
+  /*margin: 20px 10px;*/
   /*border-radius: 2px;*/
   border-radius: 5px;
   background-color: white; }
