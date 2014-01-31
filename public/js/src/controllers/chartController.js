@@ -14,8 +14,9 @@ angular.module('fittr.controllers')
   var buildDefaultData = function() {
     var data = [];
     var values = [];
-    var today = new Date();
+    var yesterday = Date.now()-1000*60*60*24;
     var day = 86400000;
+    
     var rand = function() {
       return Math.floor(Math.random() * 10000);
     };
@@ -23,7 +24,7 @@ angular.module('fittr.controllers')
     var buildForOneUser = function(user) {
     for (var i = 0; i < 7; i++) {
       var dayStats = [];
-      dayStats[0] = today.getTime() - (i * day);
+      dayStats[0] = yesterday - (i * day);
       dayStats[1] = rand();
       values.push(dayStats);
     }
@@ -81,7 +82,7 @@ angular.module('fittr.controllers')
     // format user data
     var currentUser = [];
     for (var i = 0; i < data[0].stat.length; i++) {
-      date = new Date(data[0].stat[i].date + "T12:00:00").getTime();
+      date = new Date(data[0].stat[i].date + "T08:00:00").getTime();
       currentUser.push([date, data[0].stat[i][stat]]);
     }
 
@@ -94,7 +95,7 @@ angular.module('fittr.controllers')
     // format compared user data
     var comparedUser = [];
     for (var j = 0; j < data[1].length; j++) {
-      date = new Date(data[1][j].date + "T12:00:00").getTime();
+      date = new Date(data[1][j].date + "T08:00:00").getTime();
       comparedUser.push([date, data[1][j][stat]]);
     }
     var comparedData = {
@@ -106,7 +107,6 @@ angular.module('fittr.controllers')
     // console.log(chartOutputData);
     return chartOutputData;
   };
-
 
   $scope.xAxisTickFormat = function() {
     return function(d) {
