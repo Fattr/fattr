@@ -25,7 +25,6 @@ describe "Saving a new user", ->
           expect(docs.length).to.be 2
           do done
 
-
   it "Remove user", (done) ->
     new User(username: 'scott').save (err, model) ->
       return done(err)  if err
