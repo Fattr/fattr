@@ -118,8 +118,7 @@ module.exports =
 
           # change this to somethig else, this is horrbile, but
           # front end will be looking for null right now
-  errorTest: (req, res) ->
-    throw new Error 'test error!!!!'
+
 
   compare: (req, res) ->
     # used to send back a comparison of current user
