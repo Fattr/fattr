@@ -68,47 +68,53 @@ angular.module('fittr', ['ionic', 'ngRoute', 'LocalStorageModule', 'nvd3ChartDir
 
   $stateProvider
 
+    // ENTRY
     .state('entry', {
       url: '/',
       templateUrl: 'templates/entry.html'
-    })
+    }).
 
-    .state('signup', {
+    state('signup', {
       url: '/signup',
       templateUrl: 'templates/signup-login.html',
       controller: 'SignupController'
-    })
+    }).
 
-    .state('login', {
+    state('login', {
       url: '/login',
       templateUrl: 'templates/signup-login.html',
       controller: 'LoginController'
-    })
+    }).
 
-    // User will connect their devices/services here
-    .state('connect-devices', {
+    // CONNECT FITNESS DEVICES
+    state('connect-devices', {
       url: '/connect-devices',
       templateUrl: 'templates/connect-devices.html',
       controller: 'ConnectDevicesController',
       resolve: {
         loggedin: checkLoggedIn
       }
-    })
+    }).
 
     // MAIN
-    .state('main', {
+    state('main', {
       url: '/main',
       abstract: true,
-      templateUrl: 'templates/main.html',
+      templateUrl: 'templates/main-contain.html',
+      // place this an any route you need to 
+      // protect and no unauth user will get to it
       resolve: {
-        loggedin: checkConnectedDev // place this an any route you need
-          //to protect and no unauth user will get to it
+        loggedin: checkConnectedDev 
       }
-    })
-    .state('main.stream', {
+    }).
+
+    state('main.stream', {
       url: '/stream',
       // nested views for /main/stream
       views: {
+        'main@': {
+          templateUrl: 'templates/main.html'
+        },
         'topBar@': {
           templateUrl: 'templates/topBar.html',
           controller: 'TopBarController'
