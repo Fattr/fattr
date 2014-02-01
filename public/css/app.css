@@ -1,4 +1,3 @@
-
 body {
   background-color: #ccc;
 }
@@ -8,12 +7,14 @@ body {
   width: 96px;
   height: 96px;
 }
+
 .pane {
-  background-image: url('../img/splash.png');
+  background-color: #272E37;
+/*  background-image: url('../img/splash.png');
   background-repeat: no-repeat;
   background-size: contain;
   background-position: center;
-}
+*/}
 
 .tile {
   border: 1px solid #ccc;
@@ -39,8 +40,16 @@ body {
 .login-btn:hover {
   color: #FFF; 
 }
+
 /* Signup Form
 * ========================================================================== */
+div .logo {
+  color: #FFF;
+  font-family: "Fugaz One", cursive;
+  font-size: 3rem;
+  text-align: center;
+  text-shadow: 0 0 0.25rem #FFF;
+}
 
 form[name="signupLoginForm"] {
   margin-top: 28%;
