@@ -21,15 +21,15 @@ angular.module('fittr.controllers')
     for (var i = 0; i < 7; i++) {
       var dayStats = [];
       dayStats[0] = yesterday - (i * day);
-      dayStats[1] = 0;
+      dayStats[1] = 0.1;
       values.push(dayStats);
     }
     data.push({key: user, values: values});
       values = [];
     };
 
-    buildForOneUser("User1");
-    buildForOneUser("Me");
+    buildForOneUser("Loading...");
+    // buildForOneUser("");
     return data;
   };
 
