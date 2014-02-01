@@ -290,8 +290,15 @@ a.device p {
 
 /*=======================================*/
 
+.text-center {
+  text-align: center;
+}
+
+.text-bold {
+  font-weight: bold;
+}
+
 .yesterday {
-  color: #2c3e50;
   font-weight: bold;
   text-align: center;
 }
@@ -303,4 +310,35 @@ a.device p {
 .title-bar {
   background-color: #E64B5D;
   box-shadow: 0 0 2px #000
+}
+
+.white {
+  color: #fff;
+}
+
+.darkblue-text {
+  color: #2c3e50;
+}
+
+.darkblue-bg {
+  background-color: #2c3e50;
+}
+
+.search-margin {
+  margin-top: 45px;
+}
+
+.signup-margin {
+  margin-top: 50px;
+}
+
+.label {
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px
+}
+
+.avatar {
+  border-radius: 50%;
+  height: 50px;
+  width: 50px;
 }
