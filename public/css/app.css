@@ -288,6 +288,8 @@ a.device p {
   padding: 0;
 }
 
+/*=======================================*/
+
 .yesterday {
   color: #2c3e50;
   font-weight: bold;
@@ -296,4 +298,9 @@ a.device p {
 
 .shadow {
   box-shadow: 0 1px 2px #555;
+}
+
+.title-bar {
+  background-color: #E64B5D;
+  box-shadow: 0 0 2px #000
 }
