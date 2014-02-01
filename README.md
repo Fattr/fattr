@@ -25,7 +25,7 @@ install node modules `npm install`
 start mongoDB in a seperate terminal window or tab `mongod`  
 in mongo use the command `use app` to change to the correct db  
 **Fittr does not include the required file that holds your Fitbit app data, to include, just make a  
-new file named `auth.js` in the [config folder](https://github.com/Hendrixer/Fittr/tree/master/config) You must now paste the following code in and then fill in your Fitbit app secrets**  
+new file named `auth.coffee` in the [config folder](https://github.com/Fittr/fittr/blob/master/app/coffee/config) You must now paste the following code in and then fill in your Fitbit app secrets**  
 ```coffeescript
 module.exports =
   fitbit:
@@ -37,11 +37,11 @@ module.exports =
 Next run the command `grunt serve`. This will lint and compile the coffeescript files, and start up server on localhost:3000.
 
 ## Bootstrap Fittr
-After signing up and populating your DB with users, you must run `node fitbitAllAct.js`  
+After signing up and populating your DB with users, you must run `nodemon app/coffee/config/worker.coffee`  
 to query the DB, select all users tokens and retrieve the user's info and data from  
 Fitbit.  
-`worker.js` will update all users' data from yesterday from fitbit. Use a cron job  
-to place the worker on a schedule, run `node worker.js`   
+`worker.coffee` will update all users' data from yesterday from fitbit. Use a cron job  
+to place the worker on a schedule, run the worker.   
 
 ## Team
 
