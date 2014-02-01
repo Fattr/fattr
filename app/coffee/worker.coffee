@@ -1,12 +1,13 @@
-mongoose = require "mongoose"
-{url} = require './config/dbconfig'
-db = mongoose.connect url
-User = require "./models/user"
-Stat = require "./models/stat"
-config = require("./config/auth").fitbit
+mongoose     = require "mongoose"
+{url}        = require './config/dbconfig'
+User         = require "./models/user"
+Stat         = require "./models/stat"
+config       = require("./config/auth").fitbit
+moment       = require "moment"
 fitbitClient = require("fitbit-js")(config.consumerKey,
 config.consumerSecret, config.callbackURL)
-moment = require "moment"
+
+db = mongoose.connect url
 
 # =================================
 # get all users fibit access tokens
@@ -20,8 +21,6 @@ yesterday = do ->
   date
 
 updateActivitiesDb = (userActivities) ->
-  console.log 'act', userActivities
-  console.log '---DATE---', userActivities.date
   dailyActivities = new Stat(
     user: userActivities.id
     date: userActivities.date

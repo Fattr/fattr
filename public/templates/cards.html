@@ -4,18 +4,18 @@
 
     <div class="flipcardContainer">
 
-      <p style="color: #2c3e50;font-weight: bold; text-align: center">Yesterday's Results: {{ yesterday | date:'MMM d' }}</p>
+      <p class="text-center text-bold darkblue-text">Yesterday's Results: {{ yesterday | date:'MMM d' }}</p>
 
-      <div class="list card animate flip-in" ng-repeat="user in users"  style="box-shadow: 0 1px 2px #555">
+      <div class="list card animate flip-in shadow" ng-repeat="user in users">
 
         <figure class="cardFront">
 
             <!-- Card Header -->
-            <div class="item item-avatar" style="background-color: rgba(52, 73, 94, 1)">
+            <div class="item item-avatar item-header-bg">
               <div class="row">
                 <div class="col">
                   <img ng-src={{user.user.authData.fitbit.avatar}} >
-                  <h2 style="color: #fff; font-size: 25px; font-weight: bold;">{{user.user.username}}</h2>
+                  <h2>{{user.user.username}}</h2>
                 </div>
                 <div class="col">
                   <i class="icon ion-stats-bars card-switch sweatr-bars" ng-show="backShown"
@@ -28,7 +28,7 @@
 
             <!-- Card FRONT Body -->
 
-            <div class="item item-body animate bouncy-slide-left" ng-if="!backShown" style="background-color: rgba(44, 62, 80,1.0); height:272px">
+            <div class="item item-body animate bouncy-slide-left item-content" ng-if="!backShown">
               <ul class="list">
                 <li class="card-bar-container animate slide-top">
                   <div class="card-bar your-bar" ng-style="calculateYourWidth(user, 'steps')"></div>

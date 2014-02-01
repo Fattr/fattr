@@ -4,13 +4,14 @@ controller('EntryController', function($interval, $scope) {
 
   var names = [ 
     'Fred',
-    'Fredness',
+    'DJ Fredness',
     'Your Fredness',
     'Ryan Stellar',
-    'Ryan Stellar',
-    'Ryan Stellar',
+    'Marcus Phillips',
+    'Doug Calhoun',
+    "D'andra Moss",
     'Your Mom',
-    'Your Roomate',
+    'Your Roommate',
     'Your Boyfriend',
     'Your Girlfriend',
     'Your Neighbor',
