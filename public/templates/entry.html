@@ -1,17 +1,35 @@
 <view title="'Fittr'">
   <content has-header="true" has-tabs="false" padding="false" class="splash">
-    <div class="logo" style="margin-top: 8rem">SweatR</div>
-    <div class="row" style="margin-top: 3rem">
+
+    <div class="logo" style="margin-top: 4rem">SweatR</div>
+    <!-- <hr  style="width: 5%; margin-top: 35px" /> -->
+
+    <div class="tagline">
+      Compete with the world using your fitness tracker
+    </div>
+
+    <hr class="white" style="width: 5%" />
+
+    <div class="sloge">
+      <span class="you">You</span>
+      <span class="versus">-VS-</span>
+      <span class="opposition">{{ opposition }}</span>
+    </div>
+
+    <div class="row">
       <div class="col btn-container">
         <a class="button button-block button-balanced" href="#/signup">
           Signup
         </a>
       </div>
+
       <div class="col btn-container">
         <a class="button button-block login-btn" href="#/login">
           Login
        </a>  
       </div>
     </div>
+
+
   </content>
 </view>
