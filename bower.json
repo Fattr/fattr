@@ -22,7 +22,9 @@
     "d3": "~3.4.1",
     "nvd3": "~1.1.15-beta",
     "angularjs-nvd3-directives": "~0.0.5-beta",
-    "font-awesome": "~4.0.3"
+    "font-awesome": "~4.0.3",
+    "ionic": "0.9.20-alpha",
+    "ionicons": "~1.4.1"
   },
   "resolutions": {
     "angular": "~1.2.11",

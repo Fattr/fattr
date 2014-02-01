@@ -3,6 +3,7 @@ angular.module('fittr.controllers')
 .controller('LoginController', function($scope, $state, $ionicLoading, UserService, ValidationService) {
 
   $scope.title = "Log In";
+  $scope.usernamePlaceholder = "Enter your username"
   $scope.user = {};
 
   // Form validation is handled by the ValidationSerice
@@ -46,7 +47,6 @@ angular.module('fittr.controllers')
       // deactiviate the loading spinner
       $scope.hide();
 
-      // console.log("response from /login: ", data);
       ValidationService.resetForm(ngFormController, $scope.user); 
 
       // save user profile data and store in mem and local storage

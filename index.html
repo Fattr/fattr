@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="bower_components/nvd3/nv.d3.min.css"/>
     <link href='http://fonts.googleapis.com/css?family=Roboto+Condensed' rel='stylesheet' type='text/css'>
     <link href='http://fonts.googleapis.com/css?family=Quantico' rel='stylesheet' type='text/css'>
+    <link href='http://fonts.googleapis.com/css?family=Fugaz+One' rel='stylesheet' type='text/css'> 
     <link href="css/app.css" rel="stylesheet">
     <link href="bower_components/font-awesome/css/font-awesome.min.css" rel="stylesheet">
 
@@ -25,48 +26,19 @@
   -->
   <body ng-app="fittr" animation="slide-left-right-ios7">
 
-    <side-menus>
-    <!-- CENTER CONTENT -->
-      <pane side-menu-content ng-controller="MainController">
-        <!--
-          The views will be rendered in the <nav-view> directive below
-          Templates are in the /templates folder (but you could also
-          have templates inline in this html file if you'd like).
-        -->
-        <nav-view></nav-view>
-      </pane>
-
-      <!-- LEFT MENU -->
-      <side-menu side="left" ng-controller="MainController" style="background-color: #2C3E50">
-        <div class="list">
-
-          <div class="item item-divider">
-            Menu
-          </div>
-
-          <a class="item" href="/#/main/stream" ng-click="toggleMenu()">
-            Stream
-          </a>
-          <a class="item" href="/#/connect-devices" ng-click="toggleMenu()">
-            Add Another Device or Service
-          </a>
-          <span class="item" ng-click="logout()" style="cursor:pointer">
-            Logout
-          </span>
-        </div>
-      </side-menu>
-
-    </side-menus>
+    <!-- ALL VIEW STATES LOADED IN HERE -->
+    <nav-view></nav-view>
 
     <!-- angularjs scripts -->
-    <script src="js/ionic.min.js"></script>
-    <script src="./bower_components/angular/angular.min.js"></script>
-    <script src="js/angular/angular-animate.min.js"></script>
-    <script src="js/angular/angular-route.min.js"></script>
-    <script src="js/angular/angular-touch.min.js"></script>
-    <script src="js/angular/angular-sanitize.min.js"></script>
-    <script src="js/angular-ui/angular-ui-router.min.js"></script>
-    <script src="js/ionic-angular.min.js"></script>
+    <script src="bower_components/ionic/dist/js/ionic.min.js"></script>
+    <script src="bower_components/ionic/dist/js/angular/angular.min.js"></script>
+    <!-- <script src="./bower_components/angular/angular.min.js"></script> -->
+    <script src="bower_components/ionic/dist/js/angular/angular-animate.min.js"></script>
+    <script src="bower_components/ionic/dist/js/angular/angular-route.min.js"></script>
+    <script src="bower_components/ionic/dist/js/angular/angular-touch.min.js"></script>
+    <script src="bower_components/ionic/dist/js/angular/angular-sanitize.min.js"></script>
+    <script src="bower_components/ionic/dist/js/angular-ui/angular-ui-router.min.js"></script>
+    <script src="bower_components/ionic/dist/js/ionic-angular.min.js"></script>
     <script src="bower_components/angular-local-storage/angular-local-storage.min.js"></script>
     <!-- <script src="http://localhost:35729/livereload.js"></script> -->
 
@@ -85,14 +57,12 @@
     <script src="js/src/services/categoriesValue.js"></script>
 
     <!-- CONTROLLERS -->
-    <!-- <script src="js/src/controllers/controllers.js"></script> -->
     <script src="js/src/controllers/cardsController.js"></script>
     <script src="js/src/controllers/chartController.js"></script>
     <script src="js/src/controllers/connectDevicesController.js"></script>
     <script src="js/src/controllers/loginController.js"></script>
     <script src="js/src/controllers/mainController.js"></script>
     <script src="js/src/controllers/signupController.js"></script>
-    <script src="js/src/controllers/searchBarController.js"></script>
     <script src="js/src/controllers/topBarController.js"></script>
 </body>
 </html>

@@ -1,10 +1,5 @@
 // Ionic fittr App, v0.9.20
 
-// angular.module is a global place for creating, registering and retrieving Angular modules
-// 'fittr' is the name of this angular module example (also set in a <body> attribute in index.html)
-// the 2nd parameter is an array of 'requires'
-// 'fittr.services' is found in services.js
-// 'fittr.controllers' is found in controllers.js
 angular.module('fittr', ['ionic', 'ngRoute', 'LocalStorageModule', 'nvd3ChartDirectives',
   'fittr.services', 'fittr.controllers'])
 .config(function(UserServiceProvider) {
@@ -22,11 +17,6 @@ angular.module('fittr', ['ionic', 'ngRoute', 'LocalStorageModule', 'nvd3ChartDir
 }])
 
 .config(function($stateProvider, $urlRouterProvider, $routeProvider) {
-  // Ionic uses AngularUI Router which uses the concept of states
-  // Learn more here: https://github.com/angular-ui/ui-router
-  // Set up the various states which the app can be in.
-  // Each state's controller can be found in controllers.js
-
     // ENTRY
   var checkConnectedDev = function($q, $state, $http, $rootScope) {
     // check localStorage to see if user is already logged in
@@ -76,53 +66,55 @@ angular.module('fittr', ['ionic', 'ngRoute', 'LocalStorageModule', 'nvd3ChartDir
     return deferred.promise;
   };
 
-
-  /*
-   * Fittr
-   */
   $stateProvider
 
+    // ENTRY
     .state('entry', {
       url: '/',
       templateUrl: 'templates/entry.html'
-    })
+    }).
 
-    .state('signup', {
+    state('signup', {
       url: '/signup',
       templateUrl: 'templates/signup-login.html',
       controller: 'SignupController'
-    })
+    }).
 
-    .state('login', {
+    state('login', {
       url: '/login',
       templateUrl: 'templates/signup-login.html',
       controller: 'LoginController'
-    })
+    }).
 
-    // User will connect their devices/services here
-    .state('connect-devices', {
+    // CONNECT FITNESS DEVICES
+    state('connect-devices', {
       url: '/connect-devices',
       templateUrl: 'templates/connect-devices.html',
       controller: 'ConnectDevicesController',
       resolve: {
         loggedin: checkLoggedIn
       }
-    })
+    }).
 
     // MAIN
-    .state('main', {
+    state('main', {
       url: '/main',
       abstract: true,
-      templateUrl: 'templates/main.html',
+      templateUrl: 'templates/main-contain.html',
+      // place this an any route you need to 
+      // protect and no unauth user will get to it
       resolve: {
-        loggedin: checkConnectedDev // place this an any route you need
-          //to protect and no unauth user will get to it
+        loggedin: checkConnectedDev 
       }
-    })
-    .state('main.stream', {
+    }).
+
+    state('main.stream', {
       url: '/stream',
       // nested views for /main/stream
       views: {
+        'main@': {
+          templateUrl: 'templates/main.html'
+        },
         'topBar@': {
           templateUrl: 'templates/topBar.html',
           controller: 'TopBarController'
@@ -134,9 +126,6 @@ angular.module('fittr', ['ionic', 'ngRoute', 'LocalStorageModule', 'nvd3ChartDir
       }
     });
 
-  
-    
-
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/');
 
@@ -146,8 +135,5 @@ angular.module('fittr', ['ionic', 'ngRoute', 'LocalStorageModule', 'nvd3ChartDir
   UserService.loadCurrentUser();
 });
 
-/*
- * SETTING SERVICES
- */
 angular.module('fittr.services', []);
 angular.module('fittr.controllers', []);

@@ -2,6 +2,7 @@ angular.module('fittr.controllers')
 
   .controller('SignupController', function($scope, $http, $state, $ionicLoading, UserService, ValidationService) {
     $scope.title = "Sign Up";
+    $scope.usernamePlaceholder = "Choose a username (12 chars max)";
     $scope.user = {};
 
     // Form validation
@@ -15,6 +16,10 @@ angular.module('fittr.controllers')
     $scope.flashMessage = "";
     $scope.dismiss = function() {
       $scope.signupLoginError = false;
+    };
+
+    var errorHandler = function() {
+
     };
 
     // Trigger the loading indicator
@@ -64,7 +69,7 @@ angular.module('fittr.controllers')
           // Display a flash message indicating error
           // TODO: would be cool to send back to the user the 
           // email address they used to sign up
-          $scope.flashMessage = 'Hmmm, looks like you already have an account.';  //TODO:
+          $scope.flashMessage = 'Hmmm, looks like you already have an account.';
           $scope.signupLoginError = true;
       });
     };
