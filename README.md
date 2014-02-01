@@ -1,10 +1,13 @@
 # Fittr
+[![Build Status](https://travis-ci.org/Fittr/fittr.png?branch=master)](https://travis-ci.org/Fittr/fittr)
 
 Fittr allows you to compare your fitness metrics to the world.
 Using the data from many popular trackers like Fitbit. Your metrics are collected and are used to compete with other users. Fittr was
 built with the [MEAN Stack](http://mean.io) ([MongoDB](http://mongodb.org) |
  [ExpressJS](http://expressjs.com) | [AngularJS](http://angularjs.org/) | [NodeJS](http://nodejs.org)).
  We also used the [Ionic Framework](http://ionicframework.com/) to give the application a more native feel.
+ 
+ You can demo the app [here](http://fittrapp.herokuapp.com).
 
 ## Prerequisites
 * Node.js - Download and install [Node.js](http://nodejs.org) 
