@@ -34,11 +34,11 @@ body {
 
 .login-btn {
   border-color: #34495e;
-  background-color: #34495e; 
+  background-color: #34495e;
   color: #fff;
 }
 .login-btn:hover {
-  color: #FFF; 
+  color: #FFF;
 }
 
 /* Signup Form
@@ -166,7 +166,7 @@ a.device p {
 
 .card-switch {
   color: #fff;
-  float: right; 
+  float: right;
 }
 
 .sweatr-bars {
@@ -182,8 +182,27 @@ a.device p {
   font-size: 36px;
 }
 
+.item {
+  border: 0;
+}
+
 .item-avatar {
   background: #F5F5F5;
+}
+
+.item-avatar h2 {
+  color: #fff;
+  font-size: 25px;
+  font-weight: bold;
+}
+
+.item-header-bg {
+  background-color: rgba(52, 73, 94, 1);
+}
+
+.item-content {
+  background-color: rgba(44, 62, 80,1.0);
+  height:272px
 }
 
 .stats {
@@ -251,14 +270,10 @@ a.device p {
 }
 
 .card-bar {
-  border-top-right-radius: 10px; 
-  border-bottom-right-radius: 10px; 
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
   height: 15px;
   margin: 1px 0 1px 0;
-}
-
-.item {
-  border: 0;
 }
 
 .your-bar {
@@ -273,4 +288,12 @@ a.device p {
   padding: 0;
 }
 
+.yesterday {
+  color: #2c3e50;
+  font-weight: bold;
+  text-align: center;
+}
 
+.shadow {
+  box-shadow: 0 1px 2px #555;
+}
