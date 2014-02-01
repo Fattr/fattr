@@ -2,6 +2,7 @@ angular.module('fittr.controllers')
 
   .controller('SignupController', function($scope, $http, $state, $ionicLoading, UserService, ValidationService) {
     $scope.title = "Sign Up";
+    $scope.usernamePlaceholder = "Choose a username (12 chars max)";
     $scope.user = {};
 
     // Form validation
@@ -15,6 +16,10 @@ angular.module('fittr.controllers')
     $scope.flashMessage = "";
     $scope.dismiss = function() {
       $scope.signupLoginError = false;
+    };
+
+    var errorHandler = function() {
+
     };
 
     // Trigger the loading indicator

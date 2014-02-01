@@ -3,6 +3,7 @@ angular.module('fittr.controllers')
 .controller('LoginController', function($scope, $state, $ionicLoading, UserService, ValidationService) {
 
   $scope.title = "Log In";
+  $scope.usernamePlaceholder = "Enter your username"
   $scope.user = {};
 
   // Form validation is handled by the ValidationSerice
