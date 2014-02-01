@@ -9,10 +9,8 @@ fitbitClient = require("fitbit-js")(fitbit.consumerKey,
 fitbit.consumerSecret, fitbit.callbackURL)
 moment = require 'moment'
 
-
 # fixme: refactor to use promises or async library here
 # ASYNC hell down below!!!!!!!
-
 
 module.exports =
 
@@ -98,7 +96,6 @@ module.exports =
           username: req.user.username
           pic: req.user.authData.fitbit.avatar
           stats: stats[0]
-        console.log 'already got data ', data
         res.json data
       else if !stats.length
         # if no stats in db, go to fitbit and get 7 days
@@ -207,20 +204,16 @@ getDailyActivities = (req, res, day, cb) ->
     cb stat, req, res
 
 # helper function to save new stats
-
 saveStats = (stat, req, res) ->
   date = moment().subtract('days', 1).format "YYYY-MM-DD"
   stat.save (err) ->
     if err
       throw new Error err, 'error savnig stats'
-    console.log 'save new stat for ', stat.date
     if stat.date is moment().subtract('days', 1).format 'YYYY-MM-DD'
-      console.log 'date matched', stat.date
       data =
-          username: req.user.username
-          pic: req.user.authData.fitbit.avatar
-          stats: stat
-      console.log '====data====', data
+        username: req.user.username
+        pic: req.user.authData.fitbit.avatar
+        stats: stat
       res.json data
 
 
