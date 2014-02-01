@@ -5,20 +5,16 @@
     icon ion-chevron-left"></a>
     <h1 class="title">{{title}}</h1>
   </div>
-  <content has-header="true" has-tabs="false" padding="true" style="margin-top: 50px">
+  <content has-header="false" has-tabs="false" padding="true" style="margin-top: 50px">
+    <!-- flash message -->
+    <div class="flash animate-if" ng-if="signupLoginError">
+      <span>{{flashMessage}}</span>
+      <i class="icon ion-close-round dismiss"
+        ng-click="dismiss()"></i>
+    </div>
     <form name="signupLoginForm" novalidate>
       <div class="list list-inset">
 
-        <!-- flash message -->
-        <div class="row">
-          <div class="col" >
-            <div class="flash animate-if" ng-if="signupLoginError">
-              <span>{{flashMessage}}</span>
-              <i class="icon ion-close-round dismiss"
-                ng-click="dismiss()"></i>
-            </div>
-          </div>
-        </div>
 
         <!-- user name -->
         <label class="item item-input">

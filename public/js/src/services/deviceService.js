@@ -10,7 +10,7 @@ angular.module('fittr.services')
   devices = [
       {
         deviceName: "FitBit",
-        imgUrl: "img/fitbit_logos/1024x1024/png/fitbit-1024-blk-transparent.png",
+        imgUrl: "img/fitbit_logos/fitbit-small-blk-transparent.png",
         apiUrl: baseUrl + "/connect/fitbit"
       },
       {

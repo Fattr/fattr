@@ -18,6 +18,10 @@ angular.module('fittr.controllers')
       $scope.signupLoginError = false;
     };
 
+    var errorHandler = function() {
+
+    };
+
     // Trigger the loading indicator
     $scope.show = function() {
 

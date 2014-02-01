@@ -48,12 +48,23 @@ body {
 .button-container {
   padding: 30px 40px;
 }
+.btn-container {
+  margin: 10px;
+}
 
+.login-btn {
+  border-color: #34495e;
+  background-color: #34495e; 
+  color: #fff;
+}
+.login-btn:hover {
+  color: #FFF; 
+}
 /* Signup Form
 * ========================================================================== */
 
 form[name="signupLoginForm"] {
-  margin-top: 60px;
+  margin-top: 28%;
 }
 form[name="signupLoginForm"] i.ion-email, i.ion-locked, i.ion-person{
   margin-right: 10px;
@@ -88,7 +99,7 @@ input[type="email"], input[type="password"], input[type="text"] {
   position: fixed;
   top:14px;
   padding: 8px;
-  width: 100%;
+  width: 95%;
   margin-right: 20px;
   border-radius: 4px;
 
@@ -97,7 +108,7 @@ input[type="email"], input[type="password"], input[type="text"] {
   color: #fff;
 }
 .dismiss {
-  margin-left: 20px;
+  float: right;
   cursor: pointer;
 }
 
