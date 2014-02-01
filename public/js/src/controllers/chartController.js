@@ -16,26 +16,20 @@ angular.module('fittr.controllers')
     var yesterday = Date.now()-1000*60*60*24;
     var day = 86400000;
 
-    var rand = function() {
-      return Math.floor(Math.random() * 10000);
-    };
-
     var buildForOneUser = function(user) {
-    for (var i = 0; i < 7; i++) {
-      var dayStats = [];
-      dayStats[0] = yesterday - (i * day);
-      dayStats[1] = rand();
-      values.push(dayStats);
-    }
-    data.push({key: user, values: values});
-      values = [];
-    };
+      for (var i = 0; i < 7; i++) {
+        var dayStats = [];
+        dayStats[0] = yesterday - (i * day);
+        dayStats[1] = 0.1;
+        values.push(dayStats);
+      }
+      data.push({key: user, values: values});
+        values = [];
+      };
 
-    buildForOneUser("User1");
-    buildForOneUser("Me");
-    return data;
+      buildForOneUser("Loading...");
+      return data;
   };
-
 
   $scope.statCategories = {
     'Steps': buildDefaultData(),
