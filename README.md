@@ -58,7 +58,7 @@ to place the worker on a schedule, run the worker.
 
 ## Team
 
-Fittr was built by [Mehul Patel](https://github.com/Mayho), [Scott Moss](https://github.com/Hendrixer), [David Wu](https://github.com/wuwoot), [Wayne Montague](https://github.com/stateoflux), and [Santiago Archila](https://github.com/sarchila) as a student project at [Hack Reactor](http://hackreactor.com)
+Fittr was built by [Mehul Patel](https://github.com/Mayho), [Scott Moss](https://github.com/Hendrixer), [David Wu](https://github.com/SudoStack), [Wayne Montague](https://github.com/stateoflux), and [Santiago Archila](https://github.com/sarchila) as a student project at [Hack Reactor](http://hackreactor.com)
 
 ## License
 MIT
