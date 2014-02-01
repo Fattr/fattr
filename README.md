@@ -49,7 +49,11 @@ Fitbit.
 `worker.coffee` will update all users' data from yesterday from fitbit. Use a cron job  
 to place the worker on a schedule, run the worker.   
 
-## TODO:
+## To Do
+* Add more quantified self devices/services
+* Add groups and challenges features
+* UI overhaul
+
 
 
 ## Team
