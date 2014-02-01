@@ -1,11 +1,11 @@
 # Fittr
-[![Build Status](https://travis-ci.org/Fittr/fittr.png?branch=master)](https://travis-ci.org/Fittr/fittr)
+[![Build Status](https://travis-ci.org/Fittr/fittr.png?branch=master)](https://travis-ci.org/Fittr/fittr)   ![Status of Dependencies](https://david-dm.org/Fittr/fittr.png)   [![Built with Grunt](https://cdn.gruntjs.com/builtwith.png)](http://gruntjs.com/)
 
 Fittr allows you to compare your fitness metrics to the world.
 Using the data from many popular trackers like Fitbit. Your metrics are collected and are used to compete with other users. Fittr was
 built with the [MEAN Stack](http://mean.io) ([MongoDB](http://mongodb.org) |
  [ExpressJS](http://expressjs.com) | [AngularJS](http://angularjs.org/) | [NodeJS](http://nodejs.org)).
- We also used the [Ionic Framework](http://ionicframework.com/) to give the application a more native feel.
+ We also used the [Ionic Framework v0.9.20](http://ionicframework.com/) to give the application a more native feel.
  
  You can demo the app [here](http://fittrapp.herokuapp.com).
 
@@ -45,6 +45,9 @@ to query the DB, select all users tokens and retrieve the user's info and data f
 Fitbit.  
 `worker.coffee` will update all users' data from yesterday from fitbit. Use a cron job  
 to place the worker on a schedule, run the worker.   
+
+## TODO:
+
 
 ## Team
 
