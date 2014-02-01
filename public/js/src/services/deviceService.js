@@ -1,12 +1,10 @@
 angular.module('fittr.services')
   .factory('DeviceService', function() {
-    var baseUrl = "http://localhost:3000";
-    // var baseUrl = "http://fittrapp.herokuapp.com";
     devices = [
         {
           deviceName: "FitBit",
           imgUrl: "img/fitbit-small-blk-transparent.png",
-          apiUrl: baseUrl + "/connect/fitbit"
+          apiUrl: "/connect/fitbit"
         },
         {
           deviceName: "Jawbone Up",

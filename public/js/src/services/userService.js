@@ -2,9 +2,6 @@ angular.module('fittr.services')
 
 .provider('UserService', function() {
   this.$get = function($http, $q, localStorageService) {
-    var baseUrl = "http://localhost:3000";
-    // var baseUrl = "http://fittrapp.herokuapp.com";
-
     return {
       users: [],
 
@@ -14,7 +11,7 @@ angular.module('fittr.services')
       // where one needs a reference to the UserService
       _httpHelper: function(verb, url, body) {
         var d = $q.defer();
-        $http[verb](baseUrl + url, body)
+        $http[verb](url, body)
           .success(function(data, status, headers, config) {
             d.resolve(data);
           })
