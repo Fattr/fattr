@@ -47,7 +47,7 @@ module.exports =
       user: req.user._id
 
     to = moment().format 'YYYY-MM-DD'
-    from = moment().subtract('days', 9).format 'YYYY-MM-DD'
+    from = moment().subtract('days', 8).format 'YYYY-MM-DD'
 
     dateRange from, to, query
 

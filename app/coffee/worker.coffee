@@ -1,5 +1,5 @@
-mongoose     = require "mongoose"
 {url}        = require './config/dbconfig'
+mongoose     = require "mongoose"
 User         = require "./models/user"
 Stat         = require "./models/stat"
 config       = require("./config/auth").fitbit
@@ -86,8 +86,8 @@ getProfile = (users) ->
 
     i++
 
-
 # Grab all users from DB
+
 User.find {$where: () ->
   @authData and @authData.fitbit},
   (err, users) ->

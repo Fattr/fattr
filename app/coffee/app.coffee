@@ -1,6 +1,6 @@
-app    = require './server'
 {port}  = require './config/serverConfig'
+app     = require './server'
 
 app.listen port
 
-console.log "I hears ya on #{port} breh!"
+console.log "Listening on port #{port}"
