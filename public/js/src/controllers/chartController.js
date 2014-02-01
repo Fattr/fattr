@@ -6,7 +6,6 @@ angular.module('fittr.controllers')
   var milesDatum = null;
   var activeDatum = null;
 
-
   // Generation of initial chart data
   // The line charts need initial data in order from them to render correctly
   // during the time it takes to request the weekly tracker data from our API
@@ -16,21 +15,20 @@ angular.module('fittr.controllers')
     var values = [];
     var yesterday = Date.now()-1000*60*60*24;
     var day = 86400000;
-    
-    var buildForOneUser = function(user) {
-    for (var i = 0; i < 7; i++) {
-      var dayStats = [];
-      dayStats[0] = yesterday - (i * day);
-      dayStats[1] = 0.1;
-      values.push(dayStats);
-    }
-    data.push({key: user, values: values});
-      values = [];
-    };
 
-    buildForOneUser("Loading...");
-    // buildForOneUser("");
-    return data;
+    var buildForOneUser = function(user) {
+      for (var i = 0; i < 7; i++) {
+        var dayStats = [];
+        dayStats[0] = yesterday - (i * day);
+        dayStats[1] = 0.1;
+        values.push(dayStats);
+      }
+      data.push({key: user, values: values});
+        values = [];
+      };
+
+      buildForOneUser("Loading...");
+      return data;
   };
 
   $scope.statCategories = {
@@ -38,7 +36,7 @@ angular.module('fittr.controllers')
     'Miles': buildDefaultData(),
     'Active': buildDefaultData()
   };
-  
+
   // Generation of comparison data
   // ==========================================================================
   $scope.$on('chartButtonClick', function() {
@@ -51,21 +49,20 @@ angular.module('fittr.controllers')
     if (alreadyCalled) { return; }
 
     UserService.getWeekly(userId)
-      .then(function(data) {
-        stepsDatum = buildChartData(data, 'steps');
-        milesDatum = buildChartData(data, 'distance');
-        activeDatum = buildChartData(data, 'veryActiveMinutes');
+    .then(function(data) {
+      stepsDatum = buildChartData(data, 'steps');
+      milesDatum = buildChartData(data, 'distance');
+      activeDatum = buildChartData(data, 'veryActiveMinutes');
 
-        $scope.statCategories = {
-          'Steps':stepsDatum,
-          'Miles':milesDatum,
-          'Active':activeDatum
-        };
-        alreadyCalled = true;
-      }, function(status) {
-        console.log("An error occured during the call to get" + status);
-      });
-
+      $scope.statCategories = {
+        'Steps':stepsDatum,
+        'Miles':milesDatum,
+        'Active':activeDatum
+      };
+      alreadyCalled = true;
+    }, function(status) {
+      console.log("An error occured during the call to get" + status);
+    });
   };
 
   var buildChartData = function(data, stat) {

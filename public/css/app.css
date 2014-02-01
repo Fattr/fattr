@@ -1,6 +1,7 @@
 body {
   background-color: #ccc;
 }
+
 .ionic-logo {
   display: block;
   margin: 15px auto;
@@ -28,17 +29,31 @@ body {
 .button-container {
   padding: 30px 40px;
 }
+
 .btn-container {
   margin: 10px;
 }
 
 .login-btn {
   border-color: #34495e;
-  background-color: #34495e; 
+  background-color: #34495e;
   color: #fff;
 }
 .login-btn:hover {
-  color: #FFF; 
+  color: #FFF;
+}
+
+.shadow {
+  box-shadow: 0 1px 2px #555;
+}
+
+.title-bar {
+  background-color: #E64B5D;
+  box-shadow: 0 0 2px #000
+}
+
+.search-margin {
+  margin-top: 45px;
 }
 
 /* Signup Form
@@ -54,12 +69,14 @@ div .logo {
 form[name="signupLoginForm"] {
   margin-top: 28%;
 }
+
 form[name="signupLoginForm"] i.ion-email, i.ion-locked, i.ion-person{
   margin-right: 10px;
   margin-left: 6px;
   font-size: 20px;
   color: #999;
 }
+
 input[type="email"], input[type="password"], input[type="text"] {
   padding: 6px;
   font-size: 18px;
@@ -71,13 +88,16 @@ input[type="email"], input[type="password"], input[type="text"] {
   /*background-color: #303747;*/
   background-color: rgba(0,0,0,0);
 }
+
 .list-inset .button.button-balanced {
   margin-top: 20px;
 }
+
 .success {
   color: rgba(39, 174, 96,1.0);
   font-size: 24px;
 }
+
 .error {
   color: rgba(192, 57, 43,1.0);
   font-size: 24px;
@@ -90,28 +110,41 @@ input[type="email"], input[type="password"], input[type="text"] {
   width: 95%;
   margin-right: 20px;
   border-radius: 4px;
-
   background-color: rgba(192, 57, 43,0.5);
   border: 2px solid rgba(192, 57, 43,1.0);
   color: #fff;
 }
+
 .dismiss {
   float: right;
   cursor: pointer;
 }
+
+.signup-margin {
+  margin-top: 50px;
+}
+
+.label {
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px
+}
+
 
 /* Connect Devices Pages
 * ========================================================================== */
 .devices {
   margin-top: 22px;
 }
+
 a.device {
   background-color: rgba(52, 73, 94,1.0);
   border: 1px solid rgba(47, 54, 72, 1);
 }
+
 a.device h2 {
   color: #fff;
 }
+
 a.device p {
   color: #daeaf5;
 }
@@ -131,6 +164,12 @@ a.device p {
   z-index: 10;
 }
 
+.avatar {
+  border-radius: 50%;
+  height: 50px;
+  width: 50px;
+}
+
 .diffNum {
   color: #0088ff;
   font-family: 'Quantico';
@@ -143,7 +182,6 @@ a.device p {
   font-family: 'Quantico';
   font-size: 18px;
 }
-
 
 /* Cards */
 .cards-contain {
@@ -166,7 +204,7 @@ a.device p {
 
 .card-switch {
   color: #fff;
-  float: right; 
+  float: right;
 }
 
 .sweatr-bars {
@@ -182,8 +220,27 @@ a.device p {
   font-size: 36px;
 }
 
+.item {
+  border: 0;
+}
+
 .item-avatar {
   background: #F5F5F5;
+}
+
+.item-avatar h2 {
+  color: #fff;
+  font-size: 25px;
+  font-weight: bold;
+}
+
+.item-header-bg {
+  background-color: rgba(52, 73, 94, 1);
+}
+
+.item-content {
+  background-color: rgba(44, 62, 80,1.0);
+  height:272px
 }
 
 .stats {
@@ -230,6 +287,7 @@ a.device p {
 
 .col {
   color: #FFF;
+  padding: 0;
 }
 
 .card {
@@ -251,14 +309,10 @@ a.device p {
 }
 
 .card-bar {
-  border-top-right-radius: 10px; 
-  border-bottom-right-radius: 10px; 
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
   height: 15px;
   margin: 1px 0 1px 0;
-}
-
-.item {
-  border: 0;
 }
 
 .your-bar {
@@ -269,8 +323,25 @@ a.device p {
   background-color: rgba(236, 240, 241,1.0);
 }
 
-.col {
-  padding: 0;
+/* TEXT STYLES AND COLORS
+*=======================================*/
+
+.text-center {
+  text-align: center;
 }
 
+.text-bold {
+  font-weight: bold;
+}
 
+.white {
+  color: #fff;
+}
+
+.darkblue-text {
+  color: #2c3e50;
+}
+
+.darkblue-bg {
+  background-color: #2c3e50;
+}
