@@ -1,16 +1,16 @@
 angular.module('fittr.controllers')
 
 .controller('CardsController', function($q, $scope, $timeout, UserService){
-  
+
   $scope.Math = window.Math; // so that we can use Math operations in angular expressions
   $scope.yesterday = Date.now()-1000*60*60*24; // this moment - the number of ms in a day;
 
   // GET your stats from yesterday
   UserService.get().then(function(userData){
-    
+
     // and save your activity to the UserService.currentUser
     UserService.saveActivity(userData.stats._id, userData);
-    
+
     // After your data is saved into UserService.currentUser
     // we can get all the other users' activity stats from yesterday
     UserService.getAll(0).then(function(data) {
@@ -40,12 +40,10 @@ angular.module('fittr.controllers')
           return {width: String(~~(100*(user[activity]/$scope.currentUser.stats[activity]))) + "%"};
         }
       };
-
     });
-
   });
-  
-  // broadcast to the child chartControllers that the chart button in the card's 
+
+  // broadcast to the child chartControllers that the chart button in the card's
   // header has been clicked
   $scope.onclick = function() {
     this.$broadcast('chartButtonClick');

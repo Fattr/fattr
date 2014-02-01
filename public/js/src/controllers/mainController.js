@@ -16,5 +16,4 @@ angular.module('fittr.controllers')
     console.log("trying to logout");
     UserService.logout();
   };
-  
 });

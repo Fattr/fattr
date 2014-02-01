@@ -1,11 +1,11 @@
 <view title="title">
   <div class="bar bar-header bar-stable">
     <a href="#/"
-    class="button button-clear 
+    class="button button-clear
     icon ion-chevron-left"></a>
     <h1 class="title">{{title}}</h1>
   </div>
-  <content has-header="false" has-tabs="false" padding="true" style="margin-top: 50px">
+  <content has-header="false" has-tabs="false" padding="true" class="signup-margin">
     <!-- flash message -->
     <div class="flash animate-if" ng-if="signupLoginError">
       <span>{{flashMessage}}</span>
@@ -14,7 +14,6 @@
     </div>
     <form name="signupLoginForm" novalidate>
       <div class="list list-inset">
-
 
         <!-- user name -->
         <label class="item item-input">
@@ -28,7 +27,7 @@
         </label>
 
         <!-- user password -->
-        <label class="item item-input" style="border-bottom-left-radius: 5px; border-bottom-right-radius: 5px">
+        <label class="item item-input label">
           <i class="icon ion-locked"></i>
           <input type="password" name="password" placeholder="Enter a password" required
             ng-model="user.password"
