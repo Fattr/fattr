@@ -1,5 +1,8 @@
 # Fittr
-[![Build Status](https://travis-ci.org/Fittr/fittr.png?branch=master)](https://travis-ci.org/Fittr/fittr)   ![Status of Dependencies](https://david-dm.org/Fittr/fittr.png)   [![Built with Grunt](https://cdn.gruntjs.com/builtwith.png)](http://gruntjs.com/)
+[![Build Status](https://travis-ci.org/Fittr/fittr.png?branch=master)](https://travis-ci.org/Fittr/fittr)   [![Dependency Status](https://david-dm.org/Fittr/fittr.png?theme=shields.io)](https://david-dm.org/Fittr/fittr)   [![devDependency Status](https://david-dm.org/Fittr/fittr/dev-status.png?theme=shields.io)](https://david-dm.org/Fittr/fittr#info=devDependencies)  [![Built with Grunt](https://cdn.gruntjs.com/builtwith.png)](http://gruntjs.com/)
+
+
+
 
 Fittr allows you to compare your fitness metrics to the world.
 Using the data from many popular trackers like Fitbit. Your metrics are collected and are used to compete with other users. Fittr was
