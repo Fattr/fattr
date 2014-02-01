@@ -12,7 +12,9 @@ built with the [MEAN Stack](http://mean.io) ([MongoDB](http://mongodb.org) |
  
  You can demo the app [here](http://fittrapp.herokuapp.com).
  
- ![App Screenshot](http://i59.tinypic.com/wbbecn.jpg)
+ App Screenshot 1                                        | App Screenshot 2
+ --------------------------------------------------------|--------------------------------------------------------
+ ![App Screenshot 1](http://i57.tinypic.com/1z70gu8.png) | ![App Screenshot 2](http://i59.tinypic.com/wbbecn.jpg)
 
 ## Prerequisites
 * Node.js - Download and install [Node.js](http://nodejs.org) 
