@@ -1,6 +1,4 @@
 
-/* Custom Fonts */
-
 body {
   background-color: #ccc;
 }
@@ -22,29 +20,10 @@ body {
   height: 75px;
 }
 
-.mast-head {
-  color: #fff;
-  padding: 40px;
-  font-weight: bold;
-  text-align: center;
-}
-.mast-head .title {
-  font-size: 30px;
-}
-.mast-head p {
-  font-size: 20px;
-  line-height: 25px;
-}
-
 .bar-fittr {
   background-color: rgba(41, 128, 185,1.0);
 }
 
-.debug h3 {
-  color: #fff;
-  margin-top: 30px;
-  text-align: center;
-}
 .button-container {
   padding: 30px 40px;
 }
@@ -144,7 +123,6 @@ a.device p {
 }
 
 .diffNum {
-  /*color: #00FF00;*/
   color: #0088ff;
   font-family: 'Quantico';
   font-size: 28px;
@@ -152,7 +130,6 @@ a.device p {
 }
 
 .catDiff {
-  /*color: #00FF00;*/
   color: #0088ff;
   font-family: 'Quantico';
   font-size: 18px;
@@ -171,7 +148,6 @@ a.device p {
 }
 
 .losing {
-  /*background-color: #c0392b;*/
   background-color: #E74C3C;
 }
 
@@ -263,7 +239,6 @@ a.device p {
   border-top-right-radius: 5px;
   background-color: rgba(0, 0, 0, 0);
   width:100%;
-  /*border: 1px solid #222;*/
 }
 
 .card-bar {
@@ -283,9 +258,6 @@ a.device p {
 
 .their-bar {
   background-color: rgba(236, 240, 241,1.0);
-  /*background-color: #7f8c8d;*/
-  /*background-color: #FFF;*/
-  /*background-color: rgba(230, 126, 34,1.0);*/
 }
 
 .col {

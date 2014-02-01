@@ -53,14 +53,10 @@ angular.module('fittr.controllers')
   var alreadyCalled = false;
 
   var getWeekly = function(userId) {
-
-    // console.log("backShown: ", backShown);
-    // if (!backShown) { return; }
     if (alreadyCalled) { return; }
 
     UserService.getWeekly(userId)
       .then(function(data) {
-        // console.log("7 days worth: ", data);
         stepsDatum = buildChartData(data, 'steps');
         milesDatum = buildChartData(data, 'distance');
         activeDatum = buildChartData(data, 'veryActiveMinutes');
@@ -79,7 +75,11 @@ angular.module('fittr.controllers')
 
   var buildChartData = function(data, stat) {
     var date;
-    // format user data
+
+    // The structure of the activity response from our API is different
+    // between the current user and the user that is being
+    // compared, hence the need for two separate
+    // data formatting functions
     var currentUser = [];
     for (var i = 0; i < data[0].stat.length; i++) {
       date = new Date(data[0].stat[i].date + "T08:00:00").getTime();
@@ -87,7 +87,6 @@ angular.module('fittr.controllers')
     }
 
     var userData = {
-      // 'key': data[0].username,
       'key': "You",
       'values': currentUser
     };
@@ -104,7 +103,6 @@ angular.module('fittr.controllers')
     };
 
     var chartOutputData = [userData, comparedData];
-    // console.log(chartOutputData);
     return chartOutputData;
   };
 
@@ -113,5 +111,4 @@ angular.module('fittr.controllers')
       return d3.time.format('%m/%e')(new Date(d));
     };
   };
-
 });
