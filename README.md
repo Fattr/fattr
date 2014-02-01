@@ -26,8 +26,8 @@ built with the [MEAN Stack](http://mean.io) ([MongoDB](http://mongodb.org) |
 ## Usage
 Clone the repo `git clone https://github.com/Fittr/fittr.git`
 
-The best way to get started with Fittr is to use npm and bower  
-install node modules `npm install`  
+The best way to get started with Fittr is to 
+install node modules and bower dependencies with `npm install`  
 start mongoDB in a seperate terminal window or tab `mongod`  
 in mongo use the command `use app` to change to the correct db  
 **Fittr does not include the required file that holds your Fitbit app data, to include, just make a  
