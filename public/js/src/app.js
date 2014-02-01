@@ -71,7 +71,8 @@ angular.module('fittr', ['ionic', 'ngRoute', 'LocalStorageModule', 'nvd3ChartDir
     // ENTRY
     .state('entry', {
       url: '/',
-      templateUrl: 'templates/entry.html'
+      templateUrl: 'templates/entry.html',
+      controller: 'EntryController'
     }).
 
     state('signup', {

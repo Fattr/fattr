@@ -43,6 +43,45 @@ body {
 
 /* Signup Form
 * ========================================================================== */
+.sloge {
+  font-family: 'Quantico';
+  font-size: 1rem;
+  margin: 3rem auto 2rem;
+  text-align: center;
+}
+
+.you {
+  color: #fff;
+  display: block;
+  font-size: 1.25rem;
+  margin-bottom: 15px;
+  text-shadow: 0 0 25px #000;
+}
+
+.versus {
+  /*color: #66cc33;*/
+  color: #fff;
+  display: block;
+  font-size: 0.75rem;
+  margin-bottom: 15px;
+}
+
+.opposition {
+  color: #FFF;
+  display: block;
+  font-size: 1.25rem;
+  text-shadow: 0 0 25px #000;
+}
+
+.tagline {
+  color: #fff;
+  font-size: 0.75rem;
+  font-style: italic;
+  margin: 15px auto;
+  text-align: center;
+  width: 85%;
+}
+
 div .logo {
   color: #FFF;
   font-family: "Fugaz One", cursive;
