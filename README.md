@@ -11,6 +11,8 @@ built with the [MEAN Stack](http://mean.io) ([MongoDB](http://mongodb.org) |
  We also used the [Ionic Framework v0.9.20](http://ionicframework.com/) to give the application a more native feel.
  
  You can demo the app [here](http://fittrapp.herokuapp.com).
+ 
+ ![App Screenshot](http://i59.tinypic.com/wbbecn.jpg)
 
 ## Prerequisites
 * Node.js - Download and install [Node.js](http://nodejs.org) 
