@@ -72,8 +72,8 @@ module.exports =
 
         toDate = moment().subtract('days', 1)
         query =
-          'user': req.user._id
-          'date': toDate.format 'YYYY-MM-DD'
+          'user': query.user
+          'date': today
 
 
         while date <= toDate

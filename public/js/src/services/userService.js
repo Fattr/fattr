@@ -2,6 +2,7 @@ angular.module('fittr.services')
 
 .provider('UserService', function() {
   this.$get = function($http, $q, localStorageService) {
+
     return {
       users: [],
 

@@ -23,7 +23,7 @@ UserSchema = new mongoose.Schema(
     type: Date
     default: Date.now
 
-  lastLoggedIn: Date
+  lastStat: String
 
   pro: Boolean
 
