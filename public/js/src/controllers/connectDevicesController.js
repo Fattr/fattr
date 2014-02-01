@@ -1,7 +1,6 @@
 angular.module('fittr.controllers')
 
 .controller('ConnectDevicesController', function($scope, $http, DeviceService, UserService) {
-  $scope.sideMenuController.close();
   $scope.devices = DeviceService.allDevices();
   $scope.services = DeviceService.allServices();
 
