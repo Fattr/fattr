@@ -4,6 +4,7 @@ mainFeed          = require './controllers/mainFeedController'
 isLoggedIn        = require('./middleWare').isLoggedIn
 alreadyLoggedOut  = require('./middleWare').alreadyLoggedOut
 
+
 module.exports = (app, passport) ->
   #=========================
   # Routes here!!

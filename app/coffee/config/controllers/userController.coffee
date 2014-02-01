@@ -1,7 +1,9 @@
 User                  = require '../../models/user'
+Stats                 = require '../../models/stat'
 moment                = require 'moment'
 {getDailyActivities}  = require './helpers'
 {saveStats}           = require './helpers'
+{dateRange}           = require './helpers'
 
 
 module.exports =

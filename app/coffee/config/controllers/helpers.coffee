@@ -1,7 +1,8 @@
 Stats         = require '../../models/stat'
 {fitbit}      = require '../auth'
+moment        = require 'moment'
 fitbitClient  = require('fitbit-js')(fitbit.consumerKey,
-fitbit.cosumerSecret, fitbit.callbackURL)
+fitbit.consumerSecret, fitbit.callbackURL)
 
 module.exports =
 
@@ -22,21 +23,26 @@ module.exports =
 
   # helper function to get a weeks worth of data from fitbit
   getDailyActivities: (req, res, day, cb) ->
-    token =
-      oauth_token: req.user.authData.fitbit.access_token
-      oauth_token_secret: req.user.authData.fitbit.access_token_secret
+    try
+      token =
+        oauth_token: req.user.authData.fitbit.access_token
+        oauth_token_secret: req.user.authData.fitbit.access_token_secret
 
-    fitbitClient.apiCall 'GET', '/user/-/activities/date/'+ day + '.json',
-    'token': token, (err, resp, userData) ->
-      if err
-        throw new Error err, 'error-- routeHelpers -- getDailyActivities'
-      stat = new Stats()
-      stat.user = req.user._id
-      stat.date = day
-      stat.steps = userData.summary.steps
-      stat.veryActiveMinutes = userData.summary.veryActiveMinutes
-      stat.distance = userData.summary.distances[0].distance
-      cb stat, req, res
+      fitbitClient.apiCall 'GET', '/user/-/activities/date/'+ day + '.json',
+      'token': token, (err, resp, userData) ->
+        if err
+          throw new Error err, 'fitbitClient call'
+        stat = new Stats()
+        stat.user = req.user._id
+        stat.date = day
+        stat.steps = userData.summary.steps
+        stat.veryActiveMinutes = userData.summary.veryActiveMinutes
+        stat.distance = userData.summary.distances[0].distance
+        cb stat, req, res
+    catch e
+      console.error e.stack
+      res.send 500
+
 
   # helper function to save new stats
   saveStats: (stat, req, res) ->
