@@ -13,7 +13,6 @@ module.exports =
   isLoggedIn: (req, res, next) ->
     # if user is authenticated in the session, carry on
     return next()  if req.isAuthenticated()
-
     # if they aren't redirect them to the home page
 
     res.send 401

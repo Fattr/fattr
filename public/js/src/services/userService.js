@@ -5,30 +5,7 @@ angular.module('fittr.services')
     //var baseUrl = "http://localhost:3000";
     var baseUrl = "http://fittrapp.herokuapp.com";
 
-
-
-    // var calculateDates = function(numOfDays) {
-    //   var today = new Date();
-    //   var yesterday = new Date(today - 86400000);
-    //   console.log('yesterday = ', yesterday);
-    //   var fromDate = new Date(yesterday - (numOfDays * 86400000));
-    //   console.log("/" + fromDate.toString().slice(0, 10) + "/" + yesterday.toString().slice(0, 10));
-    //   return "/" + fromDate.toString().slice(0, 10) + "/" + yesterday.toString().slice(0, 10);
-    // };
-
-
     return {
-      // currentUser: {},
-
-      // THIS IS DUMMY DATA
-      // currentUser: {
-      //   username: 'Marty McFly',
-      //   steps: 8000,
-      //   distance: 5.2,
-      //   calories: 2734
-      // },
-      // DUMMY DATA END
-
       users: [],
 
       // http helper since http operations are repeated
@@ -39,7 +16,6 @@ angular.module('fittr.services')
         var d = $q.defer();
         $http[verb](baseUrl + url, body)
           .success(function(data, status, headers, config) {
-            // console.log("data: ", data, "status: ", status);
             d.resolve(data);
           })
           .error(function(data, status, headers, config) {
@@ -77,12 +53,9 @@ angular.module('fittr.services')
         delete userData.salt;
         this.currentUser = userData;
         this.saveToLocal(userData._id, userData);
-
-        // console.log("currentUser: ", this.currentUser);
       },
 
       saveToLocal: function(id, userData) {
-        // debugger;
         localStorageService.add(id, userData);
         localStorageService.add('currentUser', userData);   // maybe this can be optimized
       },
@@ -111,23 +84,11 @@ angular.module('fittr.services')
         this.currentUser.pic = data.pic;
         this.currentUser.stats = stats;
         // user.stats = stats;
-        // console.log("saveActivity: currentUser", this.currentUser);
         // this.saveToLocal(userId, user);
       },
       getWeekly: function(userId) {
         return this._httpHelper('get', "/api/compare" + "/" + userId);
       },
-
-      //   stats: Object
-// __v: 0
-// _id: "52e86b91a7a407d4ad1f27b4"
-// date: "2014-01-22"
-// distance: 4.45
-// steps: 5973
-// user: "52e809e7a166559d706dc070"
-// veryActiveMinutes: 25
-// __proto__: Object
-// username: "stateoflux"
 
       // populate the currentUser object from the most recent currentUser stored
       // in localStorage. This ensures that the currentUser always has valid

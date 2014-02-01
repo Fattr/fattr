@@ -1,0 +1,36 @@
+<view title="'Main'">
+  <side-menus>
+    <!-- CENTER CONTENT -->
+    <pane side-menu-content ng-controller="MainController">
+      <!--
+        The views will be rendered in the <nav-view> directive below
+        Templates are in the /templates folder (but you could also
+        have templates inline in this html file if you'd like).
+      -->
+
+      <nav-view name="main"></nav-view>
+
+    </pane>
+
+    <!-- LEFT MENU -->
+    <side-menu side="left" ng-controller="MainController" style="background-color: #2C3E50">
+      <div class="list">
+
+        <div class="item item-divider">
+          Menu
+        </div>
+
+        <a class="item" href="/#/main/stream" ng-click="toggleMenu()">
+          Stream
+        </a>
+        <a class="item" href="/#/connect-devices" ng-click="toggleMenu()">
+          Add Another Device or Service
+        </a>
+        <span class="item" ng-click="logout()" style="cursor:pointer">
+          Logout
+        </span>
+      </div>
+    </side-menu>
+
+  </side-menus>
+</view>

@@ -1,4 +1,4 @@
-app     = require './server'
+app    = require './server'
 {port}  = require './config/serverConfig'
 
 app.listen port

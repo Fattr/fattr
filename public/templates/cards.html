@@ -4,7 +4,7 @@
 
     <div class="flipcardContainer">
 
-      <p style="color: #2c3e50;font-weight: bold; text-align: center">Yesterday's Results: {{ 1391035059153 | date:'MMM d' }}</p>
+      <p style="color: #2c3e50;font-weight: bold; text-align: center">Yesterday's Results: {{ yesterday | date:'MMM d' }}</p>
 
       <div class="list card animate flip-in" ng-repeat="user in users"  style="box-shadow: 0 1px 2px #555">
 
@@ -60,6 +60,7 @@
               </ul>
             </div>
 
+          <!-- Card BACK Body (chart) -->
           <div ng-controller="ChartController">
             <div class="item item-body chart animate toggle" ng-if="backShown">
               <slide-box>
@@ -72,8 +73,8 @@
                     showXAxis="true"
                     showYAxis="true"
                     xAxisTickFormat="xAxisTickFormat()"
-                    interpolate="basis"
                     margin="{left:30,top:30,bottom:24,right:18}"
+                    interpolate="monotone"
                     showLegend="true"
                     isArea="true">
                     <svg></svg>
@@ -89,6 +90,3 @@
   </div>
 
 </content>
-
-<!-- width="312" height="190"
- -->
