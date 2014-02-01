@@ -44,11 +44,11 @@ angular.module('fittr.controllers')
     });
 
   });
-
+  
+  // broadcast to the child chartControllers that the chart button in the card's 
+  // header has been clicked
   $scope.onclick = function() {
     this.$broadcast('chartButtonClick');
   };
-
-
 });
 
