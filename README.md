@@ -10,7 +10,7 @@ built with the [MEAN Stack](http://mean.io) ([MongoDB](http://mongodb.org) |
  [ExpressJS](http://expressjs.com) | [AngularJS](http://angularjs.org/) | [NodeJS](http://nodejs.org)).
  We also used the [Ionic Framework v0.9.20](http://ionicframework.com/) to give the application a more native feel.
  
- You can demo the app [here](http://fittrapp.herokuapp.com).
+ You can try an early build of the app [here](http://fittrapp.herokuapp.com).
  
  App Screenshot 1                                        | App Screenshot 2
  --------------------------------------------------------|--------------------------------------------------------
