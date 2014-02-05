@@ -108,7 +108,7 @@ div .logo {
 }
 
 form[name="signupLoginForm"] {
-  margin-top: 28%;
+  margin-top: 15%;
 }
 
 form[name="signupLoginForm"] i.ion-email, i.ion-locked, i.ion-person{
