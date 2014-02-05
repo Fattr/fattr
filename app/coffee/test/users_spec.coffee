@@ -11,12 +11,12 @@ describe "Saving a new user", ->
     mongoose.connect dbURI, done
 
   it "can be saved", (done) ->
-    new User(username: 'scott').save done
+    new User({username: 'scott', password: 'yess'}).save done
 
   it "can be found", (done) ->
-    new User(username: 'scott').save (err, model) ->
+    new User({username: 'scott', password: 'yess'}).save (err, model) ->
       return done(err)  if err
-      new User(username: 'mike').save (err, model) ->
+      new User({username: 'mike', password: 'yess'}).save (err, model) ->
         return done(err)  if err
         User.find {}, (err, docs) ->
           return done(err)  if err
@@ -26,7 +26,7 @@ describe "Saving a new user", ->
           do done
 
   it "Remove user", (done) ->
-    new User(username: 'scott').save (err, model) ->
+    new User({username: 'scott', password: 'yess'}).save (err, model) ->
       return done(err)  if err
       clearDB (err) ->
         return done(err)  if err
