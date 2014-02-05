@@ -4,4 +4,8 @@ before_install:
 - npm install -g coffee-script
 - npm install -g mocha
 services: mongodb
-
+deploy:
+  provider: heroku
+  api_key:
+    secure: jj6SDxhprIwq8cjC4rPLVciNcfvqS3dZWG27Aa4Eg58GTN8eVdNO+n3mDgZ2KRpZJ93/mVIOmgEnq9vDwPlfob8lT/BpLVkbS07zcagZxweoEN8RdOcRxWFG3qDR301RZwHSTqSw81pZsligE+lWWY69OxFzFVvAR0jDN7dxn/s=
+  app: still-scrubland-1948

@@ -7,11 +7,14 @@ UserSchema = new mongoose.Schema(
   username:
     type: String
     unique: true
+    required: true
 
   pass_reset:
     type: String
 
-  password: String
+  password:
+    type: String
+    required: true
 
   salt: String
 
@@ -23,9 +26,10 @@ UserSchema = new mongoose.Schema(
     type: Date
     default: Date.now
 
-  lastStat: String
-
   pro: Boolean
+
+  groups:
+    [{type: mongoose.Schema.ObjectId, ref: 'Group'}]
 
   authData:
 
@@ -33,19 +37,6 @@ UserSchema = new mongoose.Schema(
       avatar: String
       access_token: String
       access_token_secret: String
-
-    facebook:
-      id: String
-      access_token: String
-      expiration_date: Date
-      displayName: String
-
-    twitter:
-      id: String
-      screen_name: String
-      auth_token: String
-      auth_token_secret: String
-
 )
 
 module.exports = mongoose.model 'User', UserSchema
