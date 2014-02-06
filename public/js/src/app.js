@@ -125,6 +125,20 @@ angular.module('fittr', ['ionic', 'ngRoute', 'LocalStorageModule', 'nvd3ChartDir
           controller: 'CardsController'
         }
       }
+    }).
+
+    // GROUPS
+    state('groups', {
+      url: '/groups',
+      views: {
+        'main@': { // load groups.html into the main nav-view
+          templateUrl: 'templates/groups.html',
+          controller: 'GroupsController'
+        }
+      }
+      // resolve: {
+      //   loggedin: checkLoggedIn
+      // }
     });
 
   // if none of the above states are matched, use this as the fallback
