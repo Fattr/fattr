@@ -24,7 +24,7 @@ describe "User auth", (done) ->
 
   it "Should sing up new user", (done) ->
     request(app).post('/signup')
-    .send('username': 'scott', 'password': '1234')
+    .send('username': 'scott', 'password': '1234', 'email': 'scott@gmail.com')
     .end (err, res) ->
       expect(err).to.be null
       expect(res.status).to.be 201

@@ -11,6 +11,8 @@ module.exports =
   # get all users here for streams
   allUsersActivity: (req, res) ->
     # define query for search
+    # this query option will find all users except current user
+    # $ne = not equal
     query =
       user:
         $ne: req.user._id
