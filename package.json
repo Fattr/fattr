@@ -34,7 +34,8 @@
     "bower": "~1.2.8",
     "moment": "~2.5.1",
     "nodemailer": "~0.6.0",
-    "node-uuid": "~1.4.1"
+    "node-uuid": "~1.4.1",
+    "q": "~1.0.0"
   },
   "devDependencies": {
     "grunt-mocha-test": "~0.8.2",
