@@ -22,6 +22,10 @@ body {
   height: 75px;
 }
 
+.bar {
+  z-index: 50;
+}
+
 .bar-fittr {
   background-color: rgba(41, 128, 185,1.0);
 }

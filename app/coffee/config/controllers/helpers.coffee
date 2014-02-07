@@ -1,5 +1,5 @@
-Stats         = require '../../models/stat'
 {fitbit}      = require '../auth'
+Stats         = require '../../models/stat'
 moment        = require 'moment'
 fitbitClient  = require('fitbit-js')(fitbit.consumerKey,
 fitbit.consumerSecret, fitbit.callbackURL)

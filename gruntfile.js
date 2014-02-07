@@ -37,6 +37,22 @@ module.exports = function(grunt) {
       }
     },
 
+    stylus: {
+      compile: {
+        options: {
+          linenos: true,
+          compress: false
+        },
+        files: [{
+          expand: true,
+          cwd: 'public/css',
+          src: [ '**/*.styl' ],
+          dest: 'public/css',
+          ext: '.css'
+        }]
+      }
+    },
+
     watch: {
       coffee: {
         files: ['app/**/*.coffee'],
@@ -55,8 +71,9 @@ module.exports = function(grunt) {
           livereload: true,
         },
       },
-      css: {
-        files: ['public/css/**'],
+      stylus: {
+        files: ['public/css/*.styl'],
+        tasks: ['stylus'],
         options: {
           livereload: true
         }
@@ -117,17 +134,19 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-env');
   grunt.loadNpmTasks('grunt-karma');
   grunt.loadNpmTasks('grunt-contrib-jshint');
+  grunt.loadNpmTasks('grunt-contrib-stylus')
   grunt.loadNpmTasks('grunt-contrib-sass');
 
   // Server side tasks
   grunt.registerTask('build', ['coffeelint', 'coffee']);
+  grunt.registerTask('style', ['stylus']);
   grunt.registerTask('serve', ['build','shell:server']);
   grunt.registerTask('test', ['mochaTest:test', 'karma:unit']);
   grunt.registerTask('travis', ['build', 'test']);
 
   // client side tasks
   grunt.registerTask('testClient', ['env:test', 'karma:unit']);
-  grunt.registerTask('sass', ['sass']);
+  grunt.registerTask('stylus', ['stylus']);
 
   // deafult tasks lints and compiles coffe
   // use grunt command no options

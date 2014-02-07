@@ -1,8 +1,8 @@
 # for API and DB endpoints
-user              = require './controllers/userController'
-mainFeed          = require './controllers/mainFeedController'
-isLoggedIn        = require('./middleWare').isLoggedIn
-alreadyLoggedOut  = require('./middleWare').alreadyLoggedOut
+user                = require './controllers/userController'
+mainFeed            = require './controllers/mainFeedController'
+{isLoggedIn}        = require './middleWare'
+{alreadyLoggedOut}  = require './middleWare'
 
 
 module.exports = (app, passport) ->
@@ -26,6 +26,12 @@ module.exports = (app, passport) ->
 
   # delete user out from app and DB, no comming back
   app.delete '/users/delete', isLoggedIn, user.deleteUser
+
+  app.post '/user/forgot/password', user.forgotPassword
+
+  app.get '/user/reset/:token?', user.resetPassword
+
+  # app.post '/user/reset/:token?', user.updatePassword
 
   # users stream route
   app.get '/api/users/:from?/:to?', isLoggedIn, mainFeed.allUsersActivity
