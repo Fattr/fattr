@@ -4,7 +4,7 @@ mongoose = require 'mongoose'
 
 GroupSchema = new mongoose.Schema(
   
-  name:
+  groupname:
     type: String
     unique: true
     required: true
