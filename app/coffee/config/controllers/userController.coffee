@@ -1,6 +1,7 @@
 User                  = require '../../models/user'
 Stats                 = require '../../models/stat'
 moment                = require 'moment'
+
 {getDailyActivities}  = require './helpers'
 {saveStats}           = require './helpers'
 {dateRange}           = require './helpers'
@@ -49,6 +50,31 @@ module.exports =
         res.send 204
       if user
         res.json user
+
+  # method to retrieve forgotten password. User posts email
+  # generate access-token (should expire), email user link
+  # to update password, access token is attached as param to
+  # link. Check the access-token, if valid, then accept the
+  # new password and redirect somewhere
+  forgotPassword: (req, res) ->
+    email = req.body.email
+
+    User.findByEmail(email)
+    .then(User.resetPassword)
+    .then(User.emailPassword)
+    .then (response) ->
+      console.log 'sent message', response
+      res.send 200
+    .fail (err) ->
+      console.log 'err somewhere in reset pass', err
+      res.send 500
+
+  resetPassword: (req, res) ->
+    # send a redirect to an angular template instead of a pure html file
+    # this will allow for proper design and control over the password rest form
+    res.sendfile 'password.html',
+    root:"#{__dirname}/../../../../public/"
+
 
   userActivity: (req, res) ->
     # define the DB query to get results
