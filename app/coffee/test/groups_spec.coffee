@@ -1,11 +1,11 @@
 mongoose = require 'mongoose'
 expect   = require 'expect.js'
 dbUrl    = 'mongodb://localhost/test'
-User     = require '../models/user'
+Group    = require '../models/group'
 clearDB  = require('mocha-mongoose')(dbUrl)
 
 describe 'Saving a new group', ->
-  beforeEach(done) ->
+  beforeEach (done) ->
     return done() if mongoose.connection.db
     mongoose.connect dbURI, done
 
