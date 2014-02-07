@@ -135,10 +135,10 @@ angular.module('fittr', ['ionic', 'ngRoute', 'LocalStorageModule', 'nvd3ChartDir
           templateUrl: 'templates/groups.html',
           controller: 'GroupsController'
         }
+      },
+      resolve: {
+        loggedin: checkLoggedIn
       }
-      // resolve: {
-      //   loggedin: checkLoggedIn
-      // }
     });
 
   // if none of the above states are matched, use this as the fallback
