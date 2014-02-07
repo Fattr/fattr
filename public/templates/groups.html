@@ -1,0 +1,39 @@
+<div class="bar bar-header title-bar">
+  <button class="button button-icon icon ion-navicon" ng-click="toggleMenu()"></button>
+  <div class="h1 title white">Groups</div>
+</div>
+
+<content has-header="true">
+
+  <div class="button-bar">
+    <a class="button">Groups I'm In</a>
+    <a class="button" href="/#/groups/find">Find Groups</a>
+  </div> 
+
+  <!-- Groups (search) -->
+  <div class="bar bar-header item-input-inset" ng-if="search">
+    <label class="item-input-wrapper">
+      <i class="icon ion-ios7-search placeholder-icon"></i>
+      <input type="search" placeholder="Search">
+    </label>
+    <button class="button button-clear">
+      Cancel
+    </button>
+  </div>
+
+  <!-- Groups (already in) -->
+  <ul class="list groups">
+    <li 
+      class="item" 
+      ng-repeat="group in user.groups">
+        {{ group }}
+        <div style="float: right; font-size: 1.5rem">
+          <i class="ion-ios7-close-outline"></i>
+        </div>
+    </li>
+  </ul>
+
+  <!-- Groups (available) -->
+
+  <!-- Groups (create) -->
+</content>

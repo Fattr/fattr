@@ -1,0 +1,392 @@
+body {
+  background-color: #ccc;
+}
+
+.ionic-logo {
+  display: block;
+  margin: 15px auto;
+  width: 96px;
+  height: 96px;
+}
+
+.pane {
+  background-color: #272E37;
+/*  background-image: url('../img/splash.png');
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+*/}
+
+.tile {
+  border: 1px solid #ccc;
+  height: 75px;
+}
+
+.bar {
+  z-index: 50;
+}
+
+.bar-fittr {
+  background-color: rgba(41, 128, 185,1.0);
+}
+
+.button-container {
+  padding: 30px 40px;
+}
+
+.btn-container {
+  margin: 10px;
+}
+
+.login-btn {
+  border-color: #34495e;
+  background-color: #34495e;
+  color: #fff;
+}
+.login-btn:hover {
+  color: #FFF;
+}
+
+.shadow {
+  box-shadow: 0 1px 2px #555;
+}
+
+.title-bar {
+  background-color: #E64B5D;
+  box-shadow: 0 0 2px #000
+}
+
+.search-margin {
+  margin-top: 45px;
+}
+
+/* Signup Form
+* ========================================================================== */
+.sloge {
+  font-family: 'Quantico';
+  font-size: 1rem;
+  margin: 2rem auto 2rem;
+  text-align: center;
+}
+
+.you {
+  color: #fff;
+  display: block;
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+  text-shadow: 0 0 25px #000;
+}
+
+.versus {
+  /*color: #66cc33;*/
+  color: #fff;
+  display: block;
+  font-size: 0.75rem;
+  font-style: italic;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+.opposition {
+  color: #FFF;
+  display: block;
+  font-size: 1.5rem;
+  text-shadow: 0 0 25px #000;
+}
+
+.tagline {
+  color: #fff;
+  font-size: .88rem;
+  /*font-style: italic;*/
+  margin: 24px auto;
+  text-align: center;
+  width: 90%;
+}
+
+div .logo {
+  color: #FFF;
+  font-family: "Fugaz One", cursive;
+  font-size: 3rem;
+  text-align: center;
+  text-shadow: 0 0 0.25rem #FFF;
+}
+
+form[name="signupLoginForm"] {
+  margin-top: 15%;
+}
+
+form[name="signupLoginForm"] i.ion-email, i.ion-locked, i.ion-person{
+  margin-right: 10px;
+  margin-left: 6px;
+  font-size: 20px;
+  color: #999;
+}
+
+input[type="email"], input[type="password"], input[type="text"] {
+  padding: 6px;
+  font-size: 18px;
+  line-height: 27px;
+}
+
+/* set the same as the .pane background-color */
+.list-inset {
+  /*background-color: #303747;*/
+  background-color: rgba(0,0,0,0);
+}
+
+.list-inset .button.button-balanced {
+  margin-top: 20px;
+}
+
+.success {
+  color: rgba(39, 174, 96,1.0);
+  font-size: 24px;
+}
+
+.error {
+  color: rgba(192, 57, 43,1.0);
+  font-size: 24px;
+}
+
+.flash {
+  position: fixed;
+  top:14px;
+  padding: 8px;
+  width: 95%;
+  margin-right: 20px;
+  border-radius: 4px;
+  background-color: rgba(192, 57, 43,0.5);
+  border: 2px solid rgba(192, 57, 43,1.0);
+  color: #fff;
+}
+
+.dismiss {
+  float: right;
+  cursor: pointer;
+}
+
+.signup-margin {
+  margin-top: 50px;
+}
+
+.label {
+  border-bottom-left-radius: 5px;
+  border-bottom-right-radius: 5px
+}
+
+
+/* Connect Devices Pages
+* ========================================================================== */
+.devices {
+  margin-top: 22px;
+}
+
+a.device {
+  background-color: rgba(52, 73, 94,1.0);
+  border: 1px solid rgba(47, 54, 72, 1);
+}
+
+a.device h2 {
+  color: #fff;
+}
+
+a.device p {
+  color: #daeaf5;
+}
+
+/* Main Stream
+* ========================================================================== */
+
+/* Top Bar */
+.topbar {
+  height: 100px;
+  background: rgba(44, 62, 80, 0.95);
+  box-shadow: 0 0 15px #000;
+  margin-top: 44px;
+  padding: 5px;
+  position: absolute;
+  width: 100%;
+  z-index: 10;
+}
+
+.avatar {
+  border-radius: 50%;
+  height: 50px;
+  width: 50px;
+}
+
+.diffNum {
+  color: #0088ff;
+  font-family: 'Quantico';
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.catDiff {
+  color: #0088ff;
+  font-family: 'Quantico';
+  font-size: 18px;
+}
+
+/* Cards */
+.cards-contain {
+  height: 100%;
+  padding-top: 145px;
+  width: 100%;
+}
+
+.winning {
+  background-color: green;
+}
+
+.losing {
+  background-color: #E74C3C;
+}
+
+.username {
+  color: #0088ff;
+}
+
+.card-switch {
+  color: #fff;
+  float: right;
+}
+
+.sweatr-bars {
+  font-size: 40px;
+  -webkit-transform:rotate(0.25turn) scaleY(1.5);
+  -moz-transform: rotate(0.25turn) scaleY(1.5);
+  -o-transform: rotate(0.25turn) scaleY(1.5);
+  -ms-transform: rotate(0.25turn) scaleY(1.5);
+  transform: rotate(0.25turn) scaleY(1.5);
+}
+
+.sweatr-chart {
+  font-size: 36px;
+}
+
+.item {
+  border: 0;
+}
+
+.item-avatar {
+  background: #F5F5F5;
+}
+
+.item-avatar h2 {
+  color: #fff;
+  font-size: 25px;
+  font-weight: bold;
+}
+
+.item-header-bg {
+  background-color: rgba(52, 73, 94, 1);
+}
+
+.item-content {
+  background-color: rgba(44, 62, 80,1.0);
+  height:272px
+}
+
+.stats {
+  font-size: 17px;
+  font-family: 'Roboto Condensed';
+  margin-left: 5px;
+}
+
+.friendValue {
+  text-align: right;
+}
+
+/* Chart Styles
+* ========================================================================== */
+.nv-x text {
+  font-size: 11px;
+}
+.nv-y text {
+  font-size: 11px;
+}
+.chart h3 {
+  margin: 8px 0;
+}
+.chart .slider {
+  height: 240px;
+}
+
+/* CARD FLIP
+* ========================================================================== */
+
+.flipcardContainer {
+  margin-left: 0;
+  margin-right: 0;
+  height: 375px;
+  position: relative;
+  perspective: 800px;
+}
+
+.statrow {
+  -webkit-box-shadow: 0 -5px 16px -7px #888;
+     -moz-box-shadow: 0 -5px 16px -7px #888;
+          box-shadow: 0 -5px 16px -7px #888;
+}
+
+.col {
+  color: #FFF;
+  padding: 0;
+}
+
+.card {
+  height: 339px;
+}
+
+.card .item-body {
+  display: block;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+}
+
+.card-bar-container {
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  background-color: rgba(0, 0, 0, 0);
+  width:100%;
+}
+
+.card-bar {
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  height: 15px;
+  margin: 1px 0 1px 0;
+}
+
+.your-bar {
+  background-color: #E64B5D;
+}
+
+.their-bar {
+  background-color: rgba(236, 240, 241,1.0);
+}
+
+/* TEXT STYLES AND COLORS
+*=======================================*/
+
+.text-center {
+  text-align: center;
+}
+
+.text-bold {
+  font-weight: bold;
+}
+
+.white {
+  color: #fff;
+}
+
+.darkblue-text {
+  color: #2c3e50;
+}
+
+.darkblue-bg {
+  background-color: #2c3e50;
+}
