@@ -7,7 +7,7 @@
 
   <div class="button-bar">
     <a class="button">Groups I'm In</a>
-    <a class="button">Find Groups</a>
+    <a class="button" href="/#/groups/find">Find Groups</a>
   </div> 
 
   <!-- Groups (search) -->
@@ -27,8 +27,7 @@
       class="item" 
       ng-repeat="group in user.groups">
         {{ group }}
-        <div style="float: right; font-size: 1rem">
-          <i class="ion-ios7-checkmark-outline"></i>
+        <div style="float: right; font-size: 1.5rem">
           <i class="ion-ios7-close-outline"></i>
         </div>
     </li>
