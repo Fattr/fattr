@@ -1,6 +1,6 @@
 mongoose  = require 'mongoose'
 expect    = require 'expect.js'
-dbUrl     = 'mongodb://localhost/test'
+dbUrl     = 'mongodb://localhost/appp'
 User      = require '../models/user'
 clearDB   = require('mocha-mongoose')(dbUrl)
 
