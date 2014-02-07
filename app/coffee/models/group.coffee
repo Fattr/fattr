@@ -9,7 +9,7 @@ GroupSchema = new mongoose.Schema(
     unique: true
 
   users:
-    [{type: mongoose.Schema.ObjectId, ref: 'User'}]
+    [{type: mongoose.Schema.ObjectId, ref: 'User', index: true}]
 )
 
 module.exports = mongoose.model 'Group', GroupSchema
