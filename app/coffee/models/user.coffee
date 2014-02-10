@@ -39,7 +39,7 @@ UserSchema = new mongoose.Schema(
   pro: Boolean
 
   groups:
-    [{type: mongoose.Schema.ObjectId, ref: 'Group'}]
+    [{type: mongoose.Schema.ObjectId, ref: 'Group', index: true}]
 
   authData:
 
