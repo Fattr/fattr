@@ -10,12 +10,12 @@ describe 'Saving a new group', ->
     mongoose.connect dbURI, done
 
   it "can be saved", (done) ->
-    new Group({groupname: 'students'}).save done
+    new Group({name: 'students'}).save done
 
   it "can be found", (done) ->
-    new Group({groupname: 'students'}).save (err, model) ->
+    new Group({name: 'students'}).save (err, model) ->
       return done(err)  if err
-      new Group({groupname: 'staff'}).save (err, model) ->
+      new Group({name: 'staff'}).save (err, model) ->
         return done(err)  if err
         Group.find {}, (err, docs) ->
           return done(err)  if err

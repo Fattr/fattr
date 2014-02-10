@@ -1,6 +1,7 @@
 # for API and DB endpoints
 user                = require './controllers/userController'
 mainFeed            = require './controllers/mainFeedController'
+group               = require './controllers/groupController'
 {isLoggedIn}        = require './middleWare'
 {alreadyLoggedOut}  = require './middleWare'
 
@@ -47,6 +48,11 @@ module.exports = (app, passport) ->
   # the isLoggedIn middleware is to let the server know who is auth or not
   # isLoggedIn sends back an additional '401' for angular
   # to intercept if no auth
+
+  # Just chcking to see if a new group can be made
+  app.post '/group/new', group.newGroup
+
+  app.get '/group/:name', group.findGroup
 
   app.get '/loggedin', user.loggedIn
 
