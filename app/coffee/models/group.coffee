@@ -25,6 +25,13 @@ GroupSchema = new mongoose.Schema(
     ]
 )
 
+# Group schema static methods. The 'Group' model has access to these methods
+# They all return promisises ad expect promise resolutions as arguments with
+# 'findByName' being an exception. Some may not be needed. Mostly used to
+# handle group request, invitations, users, and admins
+# Should be able to remove users too.
+
+# check if user already brelongs to group
 GroupSchema.statics.checkGroup = (party) ->
   group = party.group
   user = party.user
@@ -36,6 +43,7 @@ GroupSchema.statics.checkGroup = (party) ->
   defer.resolve party
   defer.promise
 
+# will take one admin and email them a request from user to join a group
 GroupSchema.statics.askAdmin = (admin, group, user) ->
   defer = Q.defer()
   console.log 'askAdmin here', group
@@ -47,7 +55,9 @@ GroupSchema.statics.askAdmin = (admin, group, user) ->
     }
   )
 
-  # export this out and make reusable
+  # FIXME: export this out and make reusable
+  # ex: mailOptions = require('./mail')(admin, user, group)
+  # or mail = mailOptions(admin, user, group)
   mailOptions =
     'from': 'Scott Moss <scottmoss35@gmail.com>'
     'to': admin.email
@@ -70,6 +80,9 @@ GroupSchema.statics.askAdmin = (admin, group, user) ->
 
   defer.promise
 
+# send all admins from a group and send them one by one to 'askAdmin'
+# to email request uses Q.all to resolve an array of promises at one time.
+# 'askAdmin' returns a promise for every admin
 GroupSchema.statics.emailAdmins = (party) ->
   Group = mongoose.model 'Group'
   group = party.group
@@ -88,7 +101,10 @@ GroupSchema.statics.emailAdmins = (party) ->
 
   Q.all(promises)
 
-
+# when admin acepts request in email, this will add user to group
+# FIXME: this operation is non-atomic!!! It does not push to the original
+# user's array for the group! might have to do this operation inside a
+#'findByName' opertaion or something like that, or an update query might work
 GroupSchema.statics.addToGroup = (party) ->
   defer = Q.defer()
 
@@ -103,6 +119,7 @@ GroupSchema.statics.addToGroup = (party) ->
   defer.promise
 
 
+# when a user creates a group, this is fired, user automatically becomes admin
 GroupSchema.statics.createGroup = (user, groupName) ->
   defer = Q.defer()
   Group = mongoose.model 'Group'
@@ -117,6 +134,10 @@ GroupSchema.statics.createGroup = (user, groupName) ->
   defer.promise
 
 
+# find group by name. pass in optional boolean third argument if you want
+# to populate the groups admins array with the admins' emails and usernames,
+# us this option when sending admins email request should add feature to
+# optioanlly populate the users array as well
 GroupSchema.statics.findByName = (name, user, pop) ->
 
   Group = mongoose.model 'Group'
@@ -141,6 +162,7 @@ GroupSchema.statics.findByName = (name, user, pop) ->
   defer.promise
 
 
+# does not currently populate anything
 # GroupSchema.statics.memberRequest = (party) ->
 #   group = party.group
 #   defer = Q.defer()
@@ -152,6 +174,10 @@ GroupSchema.statics.findByName = (name, user, pop) ->
 #     if admins then defer.resolve party
 #   defer.promise
 
+
+# this fucntion is a wrapper for some of the above functions
+# it will populate the group with the admins, them email them all with a
+# request to join the group from the user
 GroupSchema.statics.getAdmins = (name, user) ->
 
   Group = mongoose.model 'Group'
