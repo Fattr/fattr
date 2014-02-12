@@ -52,7 +52,11 @@ module.exports = (app, passport) ->
   # Just chcking to see if a new group can be made
   app.post '/group/new', group.newGroup
 
+  app.post '/group/request', group.addToGroup
+
   app.get '/group/:name', group.findGroup
+
+  app.get '/add/:group/:user', group.newMember
 
   app.get '/loggedin', user.loggedIn
 
