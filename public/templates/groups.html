@@ -25,8 +25,8 @@
   <ul class="list groups">
     <li 
       class="item" 
-      ng-repeat="group in user.groups">
-        {{ group }}
+      ng-repeat="group in inGroups">
+        {{ group.name }}
         <div style="float: right; font-size: 1.5rem">
           <i class="ion-ios7-close-outline"></i>
         </div>
@@ -34,6 +34,17 @@
   </ul>
 
   <!-- Groups (available) -->
+  <ul class="list groups" ng-if="groupsAvail">
+    <li 
+      class="itme"
+      ng-repeat="group in groupsAvail">
+       {{ group.name }}
+        <div style="float: right; font-size: 1.5rem">
+          <i class="ion-android-add-contact"></i>
+        </div>
+    </li>
+  </ul>
 
   <!-- Groups (create) -->
+
 </content>

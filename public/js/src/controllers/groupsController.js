@@ -1,39 +1,36 @@
 angular.module('fittr.controllers')
 
-.controller('GroupsController',
-  [
-    '$scope',
-    'UserService',
-    'GroupService',
-    function($scope, UserService, GroupService) {
+.controller('GroupsController', [
+  '$scope',
+  'UserService',
+  'GroupService',
+  function($scope, UserService, GroupService) {
 
-    // Current user 
-    var user = UserService.currentUser;
+  // Current user 
+  var user = UserService.currentUser;
 
-    /*
-     * Group creation
-     */
-    $scope.createGroup = function(name) {
-      GroupService.create(name, user);
-    };
+  /*
+   * Create Groups
+   */
+  $scope.createGroup = function(name) {
+    return GroupService.create(name);
+  };
 
-    /*
-     * Fetch Groups
-     */ 
+  /*
+   * Fetch Groups
+   */
 
-    // In Groups
-    $scope.user.fetchGroups = function() {
-      GroupService.fetch(user);
-    };
+  // In Groups
+  $scope.inGroups = GroupService.inGroups();
 
-    // Available Groups
-    $scope.groupsAvail = function() {
-      GroupService.available();
-    };
+  // Available Groups
+  $scope.groupsAvail = function() {
+    return GroupService.available();
+  };
 
-    // Search Groups
-    $scope.search = function(params) {
-      GroupService.findGroup();
-    };
+  // Search Groups
+  $scope.findGroup = function(params) {
+    return GroupService.findGroup();
+  };
 
 }]);
