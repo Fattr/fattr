@@ -1,4 +1,4 @@
-Stats                 = require '../../models/stat'
+Stats                 = require '../models/stat'
 moment                = require 'moment'
 {dateRange}           = require './helpers'
 
