@@ -1,4 +1,4 @@
-Groups = require '../../models/group'
+Groups = require '../models/group'
 
 module.exports =
 

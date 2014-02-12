@@ -1,5 +1,5 @@
-User                  = require '../../models/user'
-Stats                 = require '../../models/stat'
+User                  = require '../models/user'
+Stats                 = require '../models/stat'
 moment                = require 'moment'
 
 {getDailyActivities}  = require './helpers'
