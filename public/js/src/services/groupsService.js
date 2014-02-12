@@ -28,14 +28,25 @@ angular.module('fittr.services')
       },
 
       // Create group
-      create: function(name) {
-        return this._httpHelper('post', '/group', name);
+      createGroup: function(name) {
+        return this._httpHelper('post', '/group/new', name);
       },
 
-      // Fetch group
-      fetch: function(name) {
-        return this._httpHelper('get', '/group', name);
+      // Fetch groups
+      inGroups: function() {
+        // return this._httpHelper('get', '/group', name);
+      },
+
+      // Available groups
+      groupsAvail: function() {
+        return this._httpHelper('get', '/group');
+      },
+
+      // Search groups
+      findGroup: function(params) {
+        return this._httpHelper('get', '/group/' + params)
       }
+
     }
   }
 
