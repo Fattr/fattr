@@ -9,6 +9,17 @@ angular.module('fittr.controllers')
   // Current user 
   var user = UserService.currentUser;
 
+  // Current View
+  $scope.view = function(view) {
+    if (view === 'in') {
+      $scope.v = 'in';
+      console.log('in');
+    } else if (view === 'find') {
+      $scope.v = 'find';
+      console.log('find');
+    }
+  }
+
   /*
    * Create Groups
    */
