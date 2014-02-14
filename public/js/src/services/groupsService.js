@@ -33,8 +33,9 @@ angular.module('fittr.services')
       },
 
       // Fetch groups
-      inGroups: function(userId) {
+      inGroups: function() {
         // return this._httpHelper('get', '/groups');
+        
         // this is temporary until the endpoint is set up
         return [
           {name: 'Hack Reactor'},
@@ -44,15 +45,23 @@ angular.module('fittr.services')
         ];
       },
 
+      // Available groups
+      groupsAvail: function() {
+        // return this._httpHelper('get', '/group');
+
+        // temp
+        return [
+          {name: 'Available 1'},
+          {name: 'Available 2'},
+          {name: 'Available 3'}
+        ]
+      },
+
       // Join group
       addToGroup: function(groupName) {
         return this._httpHelper('post', '/group/request', {group: groupName});
       },
 
-      // Available groups
-      groupsAvail: function() {
-        return this._httpHelper('get', '/group');
-      },
 
       // Search groups
       findGroup: function(params) {
