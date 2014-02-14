@@ -33,6 +33,9 @@ app.use error
 app.use express.static __dirname + '/../../public'
 
 # routes for api and DB endpoints
-require('./config/routes')(app, passport)
+require('./routes/userRoutes')(app, passport)
+require('./routes/groupRoutes')(app, passport)
+require('./routes/mainFeedRoutes')(app)
+
 
 module.exports = app
