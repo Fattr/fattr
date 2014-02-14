@@ -10,7 +10,7 @@
 angular.module('fittr.services')
 
 .provider('GroupService', function() {
-  this.$get = function($http, $q, UserService) {
+  this.$get = function($http, $q) {
     return {
 
       // http helper since http operations are repeated
@@ -33,16 +33,13 @@ angular.module('fittr.services')
       },
 
       // Fetch groups
-      inGroups: function() {
-        return this._httpHelper('get', '/groups');
+      inGroups: function(userId) {
+        return this._httpHelper('get', '/groups', userId);
       },
 
       // Join group
-      addToGroup: function(group) {
-        return this._httpHelper('post', '/group/request', {
-          group:  group,
-          user:   UserService.currentUser
-        });
+      addToGroup: function(groupName) {
+        return this._httpHelper('post', '/group/request', {group: groupName});
       },
 
       // Available groups

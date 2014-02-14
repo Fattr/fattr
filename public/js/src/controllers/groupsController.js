@@ -18,15 +18,9 @@ angular.module('fittr.controllers')
   $scope.view = function(view) {
     if (view === 'in') {
       $scope.v = 'in';
-      console.log('in');
+      $scope.groups = GroupService.inGroups(user._id);
     } else if (view === 'find') {
       $scope.v = 'find';
-      $scope.groups = [
-        {
-          name: 'testy'
-        }
-      ];
-      // set $scope.groups
     }
   }
 
@@ -43,15 +37,6 @@ angular.module('fittr.controllers')
 
   $scope.addMe = function(groupName) {
     GroupService.addToGroup(groupName);
-  };
-
-  // In Groups
-  $scope.inGroups = GroupService.inGroups();
-
-
-  // Search Groups
-  $scope.findGroup = function(params) {
-    return GroupService.findGroup();
   };
 
 }]);
