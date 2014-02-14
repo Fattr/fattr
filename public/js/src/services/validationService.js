@@ -4,6 +4,7 @@ angular.module('fittr.services')
     return {
       resetForm: function(ngFormController, user) {
         user.email = "";
+        user.username = "";
         user.password = "";
         ngFormController.$setPristine();
       },
