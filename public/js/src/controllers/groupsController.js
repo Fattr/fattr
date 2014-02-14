@@ -12,13 +12,13 @@ angular.module('fittr.controllers')
   $scope.notInGroup = false;
 
   // GROUPS
-  $scope.groups = [];
 
   // Current View
   $scope.view = function(view) {
     if (view === 'in') {
       $scope.v = 'in';
-      $scope.groups = GroupService.inGroups(user._id);
+      $scope.groups = GroupService.inGroups();
+      console.log($scope.groups);
     } else if (view === 'find') {
       $scope.v = 'find';
     }

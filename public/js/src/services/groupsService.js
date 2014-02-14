@@ -34,7 +34,14 @@ angular.module('fittr.services')
 
       // Fetch groups
       inGroups: function(userId) {
-        return this._httpHelper('get', '/groups', userId);
+        // return this._httpHelper('get', '/groups');
+        // this is temporary until the endpoint is set up
+        return [
+          {name: 'Hack Reactor'},
+          {name: '2013-11'},
+          {name: 'Hackers in Residence'},
+          {name: 'Staff'}
+        ];
       },
 
       // Join group
