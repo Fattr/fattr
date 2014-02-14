@@ -126,3 +126,18 @@ module.exports =
   loggedIn: (req, res) ->
     res.send if req.isAuthenticated() then req.user else "0"
 
+  groups: (req,res) ->
+    email = req.user.email
+    User.findByEmail(email)
+    .then (user) ->
+      user.findGroups()
+      .then (groups) ->
+        console.log '%s groups', groups
+        res.json groups
+      .fail (err) ->
+        console.log '%s err getting groups', err
+        res.send 500
+    .fail (err) ->
+      console.log '%s err finding user by email', err
+      res.send 500
+
