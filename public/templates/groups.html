@@ -23,7 +23,7 @@
 
   <!-- Groups (already in) -->
   <ul class="list groups" ng-show="v === 'in'">
-    <li class="item" ng-repeat="group in groups">
+    <li class="item" ng-repeat="group in groups | orderBy: 'name'">
       {{ group.name }}
       <div style="float: right; font-size: 1.5rem">
         <i class="ion-ios7-close-outline"></i>
