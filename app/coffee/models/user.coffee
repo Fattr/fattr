@@ -50,13 +50,30 @@ UserSchema = new mongoose.Schema(
 )
 
 ###
-Static methods to increase flow and tedious queries
+  User instance methods
+###
+  # find all groups for this user
+  UserSchema.methods.findGroups = ->
+    defer = Q.defer()
+    options =
+      path: 'groups'
+      select: 'name'
+
+    @populate options, (err, user) ->
+      if err then defer.reject err
+      if user
+        defer.resolve user.groups
+    defer.promise
+
+###
+  Static methods to increase flow and tedious queries
 ###
 
 # Find user by email, mainly used in password reset but not soley
 UserSchema.statics.findByEmail = (email) ->
+  User = mongoose.model 'User'
   defer = Q.defer()
-  @findOne 'email': email, (err, user) ->
+  User.findOne 'email': email, (err, user) ->
     if err then defer.reject err
     if user then defer.resolve user
     # FIXME
