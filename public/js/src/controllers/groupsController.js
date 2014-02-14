@@ -9,6 +9,11 @@ angular.module('fittr.controllers')
   // Current user 
   var user = UserService.currentUser;
 
+  $scope.notInGroup = false;
+
+  // GROUPS
+  $scope.groups = [];
+
   // Current View
   $scope.view = function(view) {
     if (view === 'in') {
@@ -16,7 +21,12 @@ angular.module('fittr.controllers')
       console.log('in');
     } else if (view === 'find') {
       $scope.v = 'find';
-      console.log('find');
+      $scope.groups = [
+        {
+          name: 'testy'
+        }
+      ];
+      // set $scope.groups
     }
   }
 
@@ -31,13 +41,13 @@ angular.module('fittr.controllers')
    * Fetch Groups
    */
 
+  $scope.addMe = function(groupName) {
+    GroupService.addToGroup(groupName);
+  };
+
   // In Groups
   $scope.inGroups = GroupService.inGroups();
 
-  // Available Groups
-  $scope.groupsAvail = function() {
-    return GroupService.available();
-  };
 
   // Search Groups
   $scope.findGroup = function(params) {

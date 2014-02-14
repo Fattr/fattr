@@ -14,7 +14,7 @@
   <div class="bar bar-header item-input-inset" ng-show="v === 'find'">
     <label class="item-input-wrapper">
       <i class="icon ion-ios7-search placeholder-icon"></i>
-      <input type="search" placeholder="Search">
+      <input type="search" placeholder="Search" ng-model="searchText" />
     </label>
     <button class="button button-clear">
       Cancel
@@ -23,25 +23,21 @@
 
   <!-- Groups (already in) -->
   <ul class="list groups" ng-show="v === 'in'">
-    <li 
-      class="item" 
-      ng-repeat="group in inGroups">
-        {{ group.name }}
-        <div style="float: right; font-size: 1.5rem">
-          <i class="ion-ios7-close-outline"></i>
-        </div>
+    <li class="item" ng-repeat="group in groups">
+      {{ group.name }}
+      <div style="float: right; font-size: 1.5rem">
+        <i class="ion-ios7-close-outline"></i>
+      </div>
     </li>
   </ul>
 
   <!-- Groups (available) -->
   <ul class="list groups" ng-show="v === 'find'">
-    <li 
-      class="item"
-      ng-repeat="group in groupsAvail">
-       {{ group.name }}
-        <div style="float: right; font-size: 1.5rem">
-          <i class="ion-android-add-contact"></i>
-        </div>
+    <li class="item" ng-repeat="group in groups | filter: searchText">
+      {{ group.name }}
+      <div style="float: right; font-size: 1.5rem">
+        <i class="ion-ios7-plus-outline" ng-click="addMe('{{ group.name }}')"></i>
+      </div>
     </li>
   </ul>
 
