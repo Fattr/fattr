@@ -99,7 +99,7 @@ UserSchema.statics.emailPassword = (user) ->
   smtpTransport = nodemailer.createTransport(
     'SMTP', {service: 'Gmail', auth: {
       user: 'willscottmoss@gmail.com'
-      pass: 'ballin35'
+      pass: ''
       }
     }
   )
