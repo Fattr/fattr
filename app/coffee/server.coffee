@@ -8,6 +8,7 @@ mongoConfig = require './config/dbconfig'
 {port}      = require './config/serverConfig'
 {error}     = require './config/serverConfig'
 
+
 # connect to DB
 mongoose.connect mongoConfig.url
 
@@ -39,3 +40,4 @@ require('./routes/mainFeedRoutes')(app)
 
 
 module.exports = app
+

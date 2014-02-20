@@ -2,7 +2,7 @@
 
 Q           = require 'q'
 mongoose    = require 'mongoose'
-nodemailer  = require 'nodemailer'
+mailer      = require '../config/mail'
 uuid        = require 'node-uuid'
 
 UserSchema = new mongoose.Schema(
@@ -53,17 +53,17 @@ UserSchema = new mongoose.Schema(
   User instance methods
 ###
   # find all groups for this user
-  UserSchema.methods.findGroups = ->
-    defer = Q.defer()
-    options =
-      path: 'groups'
-      select: 'name'
+UserSchema.methods.findGroups = ->
+  defer = Q.defer()
+  options =
+    path: 'groups'
+    select: 'name'
 
-    @populate options, (err, user) ->
-      if err then defer.reject err
-      if user
-        defer.resolve user.groups
-    defer.promise
+  @populate options, (err, user) ->
+    if err then defer.reject err
+    if user
+      defer.resolve user.groups
+  defer.promise
 
 ###
   Static methods to increase flow and tedious queries
@@ -113,26 +113,15 @@ UserSchema.statics.resetPassword = (user) ->
 UserSchema.statics.emailPassword = (user) ->
   # create a reusable transport method with nodemailer
   defer = Q.defer()
-  smtpTransport = nodemailer.createTransport(
-    'SMTP', {service: 'Gmail', auth: {
-      user: 'willscottmoss@gmail.com'
-      pass: ''
-      }
-    }
-  )
+
+  sender = mailer.smtpTransport 'GMAIL'
+
 
   console.log 'reset', user.reset.pass_reset
   # setup email options to be sent can HTML if need be, All Unicode
-  mailOptions =
-    'from': 'Scott Moss <scottmoss35@gmail.com>'
-    'to': user.email
-    'subject': 'Sweatr reset password'
-    'html': "<h1> Hello #{user.username}!</h1>"+
-            "<p> Here is the link to reset your password </p>" +
-            "<a href=http://localhost:3000/user/reset/"+
-            "#{user.reset.pass_reset} >Reset</a>"
+  mailOptions = mailer.resetPass user
 
-  smtpTransport.sendMail mailOptions, (err, response) ->
+  sender.sendMail mailOptions, (err, response) ->
     if err then defer.reject err
     if response then defer.resolve response
 

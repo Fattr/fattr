@@ -18,7 +18,7 @@ module.exports =
     # so this is just optional
     # send back splash/landing instead
     # of jsut login/signup
-    res.sendfile('index.html')
+    res.sendfile 'index.html'
 
   #==========================
   # CRUD ops
