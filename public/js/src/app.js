@@ -87,6 +87,12 @@ angular.module('fittr', ['ionic', 'ngRoute', 'LocalStorageModule', 'nvd3ChartDir
       controller: 'LoginController'
     }).
 
+    state('reset', {
+      url: '/reset',
+      templateUrl: 'templates/pw-reset.html',
+      controller: 'ResetController'
+    }).
+
     // CONNECT FITNESS DEVICES
     state('connect-devices', {
       url: '/connect-devices',
