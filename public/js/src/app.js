@@ -87,6 +87,12 @@ angular.module('fittr', ['ionic', 'ngRoute', 'LocalStorageModule', 'nvd3ChartDir
       controller: 'LoginController'
     }).
 
+    state('reset', {
+      url: '/reset',
+      templateUrl: 'templates/pw-reset.html',
+      controller: 'ResetController'
+    }).
+
     // CONNECT FITNESS DEVICES
     state('connect-devices', {
       url: '/connect-devices',
@@ -149,7 +155,7 @@ angular.module('fittr', ['ionic', 'ngRoute', 'LocalStorageModule', 'nvd3ChartDir
           controller: 'GroupsController'
         }
       }
-    })
+    });
 
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/');
