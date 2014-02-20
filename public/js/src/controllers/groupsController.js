@@ -6,6 +6,10 @@ angular.module('fittr.controllers')
   'GroupService',
   function($scope, UserService, GroupService) {
 
+    // initialize $scope.groups
+    $scope.groups = [];
+    $scope.found = true;
+
     // Current View
     $scope.view = function(view) {
       if (view === 'in') {
@@ -13,18 +17,14 @@ angular.module('fittr.controllers')
         $scope.groups = GroupService.inGroups();
       } else if (view === 'find') {
         $scope.v = 'find';
-        // temp until endpoint is set up on server
-        $scope.groups = [
-          {name: 'found group 1'},
-          {name: 'found group 2'},
-          {name: 'found group 3'}
-        ]
+        $scope.groups = GroupService.groupsAvail();
       }
-    }
+    };
 
     /*
      * Create Groups
      */
+
     $scope.createGroup = function(name) {
       return GroupService.create(name);
     };
