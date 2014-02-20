@@ -1,0 +1,37 @@
+<view title="title">
+  <div class="bar bar-header bar-stable">
+    <a href="#/"
+    class="button button-clear
+    icon ion-chevron-left"></a>
+    <h1 class="title">{{ title }}</h1>
+  </div>
+  <content has-header="false" has-tabs="false" padding="true" class="signup-margin">
+    <!-- flash message -->
+    <div class="flash animate-if" ng-if="signupLoginError">
+      <span>{{ flashMessage }}</span>
+      <i class="icon ion-close-round dismiss"
+        ng-click="dismiss()"></i>
+    </div>
+    <form name="resetForm" novalidate>
+      <div class="list list-inset">
+        
+        <!-- user password -->
+        <label class="item item-input label">
+          <i class="icon ion-locked"></i>
+          <input type="password" name="password" placeholder="Enter a password" required
+            ng-model="user.password"
+            ng-minlength="3">
+            <i class="icon ion-checkmark-circled success" ng-show="inputValid(resetForm.password)"></i>
+            <i class="icon ion-close-circled error" ng-show="inputInvalid(resetForm.password)"></i>
+        </label>
+
+        <button class="button button-block button-balanced"
+          ng-click="submit(resetForm)"
+          ng-disabled="!(resetForm.$dirty && resetForm.$valid)">
+          {{title}}
+        </button>
+        <div cg-busy="'loadingTracker'"></div>
+      </div>
+    </form>
+  </content>
+</view>

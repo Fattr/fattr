@@ -30,6 +30,10 @@ angular.module('fittr.services')
         return this._httpHelper('post', '/login', user);
       },
 
+      reset: function(user) {
+        return this._httpHelper('post', '/reset', user);
+      },
+
       get: function() {
         return this._httpHelper('get', "/api/user");
       },
