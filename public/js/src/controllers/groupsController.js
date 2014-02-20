@@ -6,6 +6,10 @@ angular.module('fittr.controllers')
   'GroupService',
   function($scope, UserService, GroupService) {
 
+    // initialize $scope.groups
+    $scope.groups = [];
+    $scope.found = true;
+
     // Current View
     $scope.view = function(view) {
       if (view === 'in') {
@@ -20,6 +24,7 @@ angular.module('fittr.controllers')
     /*
      * Create Groups
      */
+
     $scope.createGroup = function(name) {
       return GroupService.create(name);
     };
