@@ -39,6 +39,14 @@
         <i class="ion-ios7-plus-outline" ng-click="addMe('{{ group.name }}')"></i>
       </div>
     </li>
+
+    <li class="item">{{ !!(groups | filter: searchText).length }}</li>
+
+    <!-- if no groups create group <li> -->
+    <li class="item" style="font-weight: bold" ng-show="{{ !!((groups | filter: searchText).length) }}">
+      <!-- Group length: {{ groups.length }}<br /> -->
+      {{ searchText }}
+    </li>
   </ul>
 
   <!-- Groups (create) -->
