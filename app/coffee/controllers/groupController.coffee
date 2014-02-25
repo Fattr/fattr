@@ -1,14 +1,16 @@
-Groups = require '../models/group'
+Groups  = require '../models/group'
+User    = require '../models/user'
 
 module.exports =
 
   newGroup: (req, res) ->
     # FIXME: Change from req.body.id to req.user._id
-    user = req.user._id or req.body.id
+    user = req.body.id or req.user._id
     Groups.createGroup(user, req.body.group)
     .then (group) ->
-      console.log group
-      res.send 201
+      User.addGroup(group.id, user)
+      .then (user) ->
+        res.send 201
     .fail (err) ->
       console.log 'err in new group', err
       res.send 500
@@ -23,9 +25,9 @@ module.exports =
       res.send 500
 
   addToGroup: (req, res) ->
-    name = req.body.group
+    name = req.body.groupName
     # FIXME: Use req.user intead of req.body.user
-    user = req.user._id or req.body.user
+    user = req.body.user
     Groups.getAdmins(name, user)
     .then (promises) ->
       console.log 'addToGroup promises', promises
@@ -41,11 +43,11 @@ module.exports =
 
   approveMember: (req, res) ->
     group = req.params.group
-    user = req.params.user
-    Groups.findByName(group, user)
-    .then(Groups.addToGroup)
+    userId = req.params.user
+    console.log 'user id %s ', userId
+    Groups.findByNameAndAddUser(group, userId)
     .then (user) ->
-      console.log 'Added user', user
+      console.log 'Added user ', user
       res.send 200
     .fail (err) ->
       console.log 'error adding user', err

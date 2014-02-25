@@ -53,16 +53,23 @@ UserSchema = new mongoose.Schema(
   User instance methods
 ###
   # find all groups for this user
+
+UserSchema.statics.addGroup = (id, userId) ->
+  defer = Q.defer()
+  User = mongoose.model "User"
+
+  User.findByIdAndUpdate userId, {$push: groups: id},
+  (err, user) ->
+    defer.reject err if err
+    defer.resolve user if user
+  defer.promise
+
 UserSchema.methods.findGroups = ->
   defer = Q.defer()
-  options =
-    path: 'groups'
-    select: 'name'
-
-  @populate options, (err, user) ->
-    if err then defer.reject err
-    if user
-      defer.resolve user.groups
+  User = mongoose.model 'User'
+  User.findById(@_id).populate('groups', 'name').exec (err, user) ->
+    defer.reject err if err
+    defer.resolve user.groups if user
   defer.promise
 
 ###
@@ -80,10 +87,11 @@ UserSchema.statics.findByEmail = (email) ->
     if not user then console.log 'no user by that email'
   defer.promise
 
-UserSchema.statics.findByTokenAndUpdate = (token, password) ->
+UserSchema.statics.findByTokenAndUpdate = (crypt) ->
   User = mongoose.model 'User'
   defer = Q.defer()
-  User.findOneAndUpdate pass_reset: token,  (err, user) ->
+  User.findOneAndUpdate pass_reset: crypt.token,
+  {salt: crypt.salt, password: crypt.password}, (err, user) ->
     defer.reject err if err
     defer.resolve user
   defer.promise

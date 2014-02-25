@@ -82,7 +82,16 @@ module.exports =
     .then (salt) ->
       crypto.getHash(password, salt)
       .then (hash) ->
-        User.findByTokenAndUpdate token, hash
+        secured =
+          salt: salt
+          password: password
+          token: token
+        User.findByTokenAndUpdate(secured)
+        .then (user) ->
+          console.log "password has been updated for #{user.email}"
+          res.send 201
+        .fail (err) ->
+          throw new Error err
 
 
 
@@ -139,7 +148,12 @@ module.exports =
     res.send if req.isAuthenticated() then req.user else "0"
 
   groups: (req,res) ->
-    email = req.user.email
+    email =
+      if req.params.email
+        "#{req.params.email}.com"
+      else if req.user.email
+        req.user.email
+
     User.findByEmail(email)
     .then (user) ->
       user.findGroups()
@@ -148,8 +162,8 @@ module.exports =
         res.json groups
       .fail (err) ->
         console.log '%s err getting groups', err
-        res.send 500
+        throw new Error err
     .fail (err) ->
       console.log '%s err finding user by email', err
-      res.send 500
+      throw new Error err
 

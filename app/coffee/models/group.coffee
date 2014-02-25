@@ -53,7 +53,7 @@ GroupSchema.statics.askAdmin = (admin, group, user) ->
   # or mail = mailOptions(admin, user, group)
   mailOptions = mailer.groupRequest admin, group, user
 
-  smtpTransport.sendMail mailOptions, (err, response) ->
+  sender.sendMail mailOptions, (err, response) ->
     if err then defer.reject err
     if response then defer.resolve response
 
@@ -140,6 +140,15 @@ GroupSchema.statics.findByName = (name, user, pop) ->
       if group then defer.resolve party
   defer.promise
 
+
+GroupSchema.statics.findByNameAndAddUser = (group, userID) ->
+  Group = mongoose.model 'Group'
+  defer = Q.defer()
+  Group.findOneAndUpdate 'name': group, {$push: {users: userID}},
+  (err, group) ->
+    defer.reject err if err
+    defer.resolve userID if group
+  defer.promise
 
 # does not currently populate anything
 # GroupSchema.statics.memberRequest = (party) ->
