@@ -12,23 +12,23 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-      'bower_components/ionic/dist/js/angular/angular.js',
-      'bower_components/angular-mocks/angular-mocks.js',
-      'bower_components/ionic/dist/js/angular-*/*.js',
-      'bower_components/ionic/dist/js/ionic.js',
-      'bower_components/ionic/dist/js/ionic-angular.js',
-      'bower_components/angular-local-storage/angular-local-storage.js',
-      'js/src/app.js',
-      'js/src/services/services.js',
-      'js/src/services/userService.js',
-      'js/src/services/deviceService.js',
-      'js/src/controllers/controllers.js',
-      'js/src/controllers/cardsController.js',
-      'js/src/controllers/loginController.js',
-      'js/src/controllers/mainController.js',
-      'js/src/controllers/signupController.js',
-      'js/src/controllers/connectDevicesController.js',
-      'test/jasmine/**/*.js'
+      // 'bower_components/ionic/dist/js/angular/angular.js',
+      // 'bower_components/angular-mocks/angular-mocks.js',
+      // 'bower_components/ionic/dist/js/angular-*/*.js',
+      // 'bower_components/ionic/dist/js/ionic.js',
+      // 'bower_components/ionic/dist/js/ionic-angular.js',
+      // 'bower_components/angular-local-storage/angular-local-storage.js',
+      // 'js/src/app.js',
+      // 'js/src/services/services.js',
+      // 'js/src/services/userService.js',
+      // 'js/src/services/deviceService.js',
+      // 'js/src/controllers/controllers.js',
+      // 'js/src/controllers/cardsController.js',
+      // 'js/src/controllers/loginController.js',
+      // 'js/src/controllers/mainController.js',
+      // 'js/src/controllers/signupController.js',
+      // 'js/src/controllers/connectDevicesController.js',
+      // 'test/jasmine/**/*.js'
     ],
 
     // list of files to exclude
