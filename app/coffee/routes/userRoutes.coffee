@@ -26,7 +26,7 @@ module.exports = (app, passport) ->
 
   app.get '/user/reset/:token', user.resetPassword
 
-  # app.post '/user/reset/:token', user.updatePassword
+  app.post '/user/reset/:token', user.updatePassword
 
   app.get '/connect/fitbit', isLoggedIn, passport.authorize 'fitbit'
 

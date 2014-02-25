@@ -80,6 +80,16 @@ UserSchema.statics.findByEmail = (email) ->
     if not user then console.log 'no user by that email'
   defer.promise
 
+UserSchema.statics.findByTokenAndUpdate = (token, password) ->
+  User = mongoose.model 'User'
+  defer = Q.defer()
+  User.findOneAndUpdate pass_reset: token,  (err, user) ->
+    defer.reject err if err
+    defer.resolve user
+  defer.promise
+
+
+
 UserSchema.statics.resetPassword = (user) ->
   User = mongoose.model 'User'
   defer = Q.defer()
