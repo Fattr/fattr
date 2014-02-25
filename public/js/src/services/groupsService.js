@@ -47,7 +47,7 @@ angular.module('fittr.services')
 
       // Available groups
       groupsAvail: function() {
-        // return this._httpHelper('get', '/group');
+        return this._httpHelper('get', 'user/groups');
 
         // temp
         return [
