@@ -5,21 +5,15 @@ module.exports = {
   smtpTransport: (service) ->
     return nodemailer.createTransport(
       'SMTP', {service: service, auth: {
-        user: @user.email
-        pass: @user.pass
+        user: 'willscottmoss@gmail.com'
+        pass: 'ballin35'
         }
       }
     )
 
-  from: 'scottmoss35@gmail.com'
-
-  user:
-    email:  'willscottmoss@gmail.com'
-    pass:   'ballin35'
-
   groupRequest: (admin, group, user) ->
     body =
-      'form': @from
+      'form': 'scottmoss35@gmail.com'
       'to': admin.email
       'subject': "SweatR #{group.name} request"
       'html': "<h1>Hello #{admin.username}</h1>" +
@@ -30,7 +24,7 @@ module.exports = {
               "style='color:#FFFFFF; font-family:"+
               "Times New Roman, Times, serif;' align='center'"+
               "valign='middle'> <a href='http://"+
-              "localhost:3000/add/#{group.name}/#{user}'"+
+              "localhost:3000/group/add/#{group.name}/#{user}'"+
               "style='color:#FFFFFF; text-decoration:none;'>"+
               "Add user</a> </td> </tr> </table>"
     body

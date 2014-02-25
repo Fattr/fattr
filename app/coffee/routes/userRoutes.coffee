@@ -43,7 +43,7 @@ module.exports = (app, passport) ->
     GROUPS
   ###
 
-  app.get '/user/groups', isLoggedIn, user.groups
+  app.get '/user/groups/:email', user.groups
 
 
   ###
