@@ -1,7 +1,7 @@
 User                  = require '../models/user'
 Stats                 = require '../models/stat'
 moment                = require 'moment'
-
+crypto                = require '../config/crypto'
 {getDailyActivities}  = require './helpers'
 {saveStats}           = require './helpers'
 {dateRange}           = require './helpers'
@@ -72,8 +72,20 @@ module.exports =
   resetPassword: (req, res) ->
     # send a redirect to an angular template instead of a pure html file
     # this will allow for proper design and control over the password rest form
-    res.sendfile 'password.html',
-    root:"#{__dirname}/../../../../public/"
+    res.redirect '#/reset/password/password'
+
+  updatePassword: (req, res) ->
+    # take in new password and update the user
+    token = req.params.token
+    password = req.body.password
+    crypto.getSalt(10)
+    .then (salt) ->
+      crypto.getHash(password, salt)
+      .then (hash) ->
+        User.findByTokenAndUpdate token, hash
+
+
+
 
 
   userActivity: (req, res) ->
