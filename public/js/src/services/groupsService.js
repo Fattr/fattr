@@ -32,7 +32,7 @@ angular.module('fittr.services')
         return this._httpHelper('post', '/group/new', name);
       },
 
-      // Fetch groups
+      // Fetch logged-in user's groups
       inGroups: function() {
         // return this._httpHelper('get', '/groups');
         
@@ -48,13 +48,6 @@ angular.module('fittr.services')
       // Available groups
       groupsAvail: function() {
         return this._httpHelper('get', 'user/groups');
-
-        // temp
-        return [
-          {name: 'Available 1'},
-          {name: 'Available 2'},
-          {name: 'Available 3'}
-        ]
       },
 
       // Join group
