@@ -3,9 +3,6 @@ moment                = require 'moment'
 {dateRange}           = require './helpers'
 
 
-# fixme: refactor to use promises or async library here
-# ASYNC hell down below!!!!!!!
-
 module.exports =
 
   # get all users here for streams

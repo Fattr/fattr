@@ -14,17 +14,21 @@ UserCompetitionSchema = new Schema
 
   end: String
 
+  metric: String
+
+  accpeted: Boolean
+
   challenger:
+    type: ObjectId
     required: true
-    type: String
+    ref: 'User'
 
   opponent: String
 
   winner: String
 
 
-
-UserCompetitionSchema.statics.newChallengeReqesut = (options, username) ->
+UserCompetitionSchema.statics.makeNewChallenge = (options, username) ->
   UserComp = mongoose.model 'UserComp'
   defer = Q.defer()
 
@@ -32,11 +36,48 @@ UserCompetitionSchema.statics.newChallengeReqesut = (options, username) ->
     'name': options.name
     'start': options.start
     'end': options.end
-    'challenger': options.challenger
+    'metric': options.metric
 
   newChallenge.save (err, challenge) ->
     defer.reject err if err
     defer.resolve if challenge
+
+  defer.promise
+
+UserCompetitionSchema.statics.findByChallenger = (id) ->
+  UserComp = mongoose.model 'UserComp'
+  defer = Q.defer()
+
+  UserComp.findOne 'challenger': id, (err, comp) ->
+    defer.reject err if err
+    defer.resolve comp if comp
+
+  defer.promise
+
+UserCompetitionSchema.statics.findByOpponent = (username) ->
+  UserComp = mongoose.model 'UserComp'
+  defer = Q.defer()
+
+  UserComp.findOne 'opponent': opponent, (err, user) ->
+    defer.reject err if err
+    defer.resolve user if user
+
+  defer.promise
+
+UserCompetitionSchema.methods.verifyChallenge = (decision) ->
+  UserComp = mongoose.model 'UserComp'
+  defer = Q.defer()
+
+  UserComp.findByIdAndUpdate @_id, {'accpeted': value}, (err, user) ->
+    defer.reject err if err
+    defer.resolve user if user
+
+  defer.promise
+
+
+
+
+
 
 
 
