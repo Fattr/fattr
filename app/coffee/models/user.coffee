@@ -41,6 +41,9 @@ UserSchema = new mongoose.Schema(
   groups:
     [{type: mongoose.Schema.ObjectId, ref: 'Group', index: true}]
 
+  challenges:
+    [{type: mongoose.Schema.ObjectId, ref: 'UserComp'}]
+
   authData:
 
     fitbit:
@@ -53,6 +56,18 @@ UserSchema = new mongoose.Schema(
   User instance methods
 ###
   # find all groups for this user
+
+UserSchema.statics.findByUsername = (username) ->
+  defer     = Q.defer()
+  User      = mongoose.model 'User'
+
+  User.findOne 'username': username, (err, user) ->
+    defer.reject err if err?
+    defer.resolve user if user?
+    if not user?
+      console.log 'no user by that username'
+      return {}
+  defer.promise
 
 UserSchema.statics.addGroup = (id, userId) ->
   defer = Q.defer()
