@@ -50,8 +50,8 @@ module.exports = (app, passport) ->
     COMPETITION
   ###
   app.post '/user/compete/new', user.newChallenge
-  app.get '/competition/verify/:comp/:opponent/:decision', user.verifyChallenge
-  # app.get '/user/competitions', user.getChallenges
+  app.get '/competition/verify/:comp/:decision', user.verifyChallenge
+  app.get '/user/competitions/:id', user.getChallenges
 
 
 

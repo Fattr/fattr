@@ -1,6 +1,7 @@
 User                  = require '../models/user'
 Stats                 = require '../models/stat'
 moment                = require 'moment'
+$                     = require '../config/helpers'
 crypto                = require '../config/crypto'
 UserComp              = require '../models/userCompetition'
 {getDailyActivities}  = require './helpers'
@@ -211,6 +212,15 @@ module.exports =
     #     res.send 200 if comp?
 
   getChallenges: (req, res) ->
-    _id    = req.user._id
+    _id    = if req.user? then req.user._id else req.params.id
+    User.populateChallenges(_id)
+    .then (challenges) ->
+      $.map(challenges, User.getAllChallenges)
+      .then (grudges) ->
+        res.json grudges
+      .fail (err) ->
+        throw new Error err
+    .fail (err) ->
+      throw new Error err
 
 

@@ -160,4 +160,31 @@ UserSchema.statics.emailPassword = (user) ->
 
   defer.promise
 
+UserSchema.statics.populateChallenges = (id) ->
+  User     = mongoose.model 'User'
+  UserComp = mongoose.model 'UserComp'
+  defer    = Q.defer()
+  all      = []
+
+  User.findById(id)
+  .populate('challenges', 'name start end challenger accepted')
+  .exec (err, user) ->
+    defer.reject err if err?
+    defer.resolve user.challenges if user?
+  defer.promise
+
+UserSchema.statics.getAllChallenges = (comp) ->
+  defer       = Q.defer()
+  UserComp    = mongoose.model 'UserComp'
+
+  UserComp.findById(comp._id)
+  .populate('challenger', 'username authData.fitbit.avatar')
+  .exec (err, grudge) ->
+    defer.reject err if err?
+    defer.resolve grudge if grudge?
+
+  defer.promise
+
+
 module.exports = mongoose.model 'User', UserSchema
+
