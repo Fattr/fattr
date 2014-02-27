@@ -1,5 +1,6 @@
 angular.module('fittr.services')
-.factory('ValidationService', function() {
+
+  .factory('ValidationService', function() {
 
     return {
       resetForm: function(form, user) {
