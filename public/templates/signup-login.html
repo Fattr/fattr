@@ -12,6 +12,7 @@
       <i class="icon ion-close-round dismiss"
         ng-click="dismiss()"></i>
     </div>
+
     <form name="signupLoginForm" novalidate>
       <div class="list list-inset">
 
@@ -51,8 +52,13 @@
         <button class="button button-block button-balanced"
           ng-click="submit(signupLoginForm)"
           ng-disabled="!(signupLoginForm.$dirty && signupLoginForm.$valid)">
-          {{title}}
+          {{ title }}
         </button>
+
+        <a class="button button-block button-stable" href="/#/reset/request">
+          Forgot Username/Password?
+        </a>
+
         <div cg-busy="'loadingTracker'"></div>
       </div>
     </form>
