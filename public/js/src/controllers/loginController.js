@@ -37,7 +37,7 @@ angular.module('fittr.controllers')
       $scope.loading.hide();
     };
 
-    $scope.submit = function(ngFormController) {
+    $scope.submit = function(form) {
       // activate the loading spinner
       $scope.show();
     
@@ -47,7 +47,7 @@ angular.module('fittr.controllers')
         // deactiviate the loading spinner
         $scope.hide();
 
-        ValidationService.resetForm(ngFormController, $scope.user); 
+        ValidationService.resetForm(form, $scope.user); 
 
         // save user profile data and store in mem and local storage
         UserService.save(data);
@@ -60,7 +60,7 @@ angular.module('fittr.controllers')
         }
 
       }, function(reason) {
-          ValidationService.resetForm(ngFormController, $scope.user);
+          ValidationService.resetForm(form, $scope.user);
           // deactiviate the loading spinner
           $scope.hide();
 

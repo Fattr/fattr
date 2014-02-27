@@ -7,7 +7,7 @@ angular.module('fittr.services')
         user.email = "";
         user.username = "";
         user.password = "";
-        ngFormController.$setPristine();
+        form.$setPristine();
       },
       
       inputValid: function(form) {
