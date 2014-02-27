@@ -33,7 +33,7 @@ angular.module('fittr.services')
         },
 
         reset: function(user) {
-          return this._httpHelper('post', '/reset', user);
+          return this._httpHelper('post', '/user/forgot/password', user);
         },
 
         get: function() {

@@ -6,7 +6,7 @@ angular.module('fittr.controllers')
     if ( $stateParams.slug ) {
       $scope.reset = true;
     }; 
-    
+
     $scope.title = "Reset Password";
     $scope.user = {};
 
@@ -17,52 +17,33 @@ angular.module('fittr.controllers')
     $scope.canSubmit    = ValidationService.canSubmit;
 
     // Flash message
-    $scope.signupLoginError = false;
+    $scope.resetError = false;
     $scope.flashMessage = "";
     $scope.dismiss = function() {
-      $scope.signupLoginError = false;
+      $scope.resetError = false;
     };
 
-    $scope.show = function() {
-      // Show the loading overlay and text
-      $scope.loading = $ionicLoading.show({
-        content: 'Loading...',
-        animation: 'fade-in',
-        showBackdrop: true,
-        maxWidth: 200,
-        showDelay: 500
-      });
+    $scope.submit = function(form) {
 
-      // Hide the loading indicator
-      $scope.hide = function() {
-        $scope.loading.hide();
-      };
+      UserService.reset($scope.user)
+        .then(function(data) {
 
-      $scope.submit = function(form) {
-        // activate the loading spinner
-        $scope.show();
+          console.log("response from /user/forgot/password ", data);
+          ValidationService.resetForm(form, $scope.user);
 
-        UserService.reset($scope.user)
-          .then(function(data) {
-            // remove loading spinner
-            $scope.hide();
+          // save user data and store in mem and localStorage
+          // UserService.save(data);
 
-            console.log("response from /reset: ", data);
-            ValidationService.resetForm(form, $scope.user);
+          // $state.go('main/stream');
+          $scope.flashMessage = "A link to reset the password has been sent."
+          $scope.signupLoginError = true;
 
-            // save user data and store in mem and localStorage
-            UserService.save(data);
+        }, function(reason) {
+          ValidationService.resetForm(form, $scope.user);
+          console.log("reason: ", reason);
 
-            $state.go('main/stream');
-
-          }, function(reason) {
-            ValidationService.resetForm(form, $scope.user);
-            $scope.hide();
-            console.log("reason: ", reason);
-
-            $scope.flashMessage = "";
-            $scope.signupLoginError = true;
-          });
+          $scope.flashMessage = "";
+          $scope.signupLoginError = true;
+        });
       }
-    };
   });
