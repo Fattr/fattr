@@ -1,12 +1,11 @@
 nodemailer = require 'nodemailer'
 
-
 module.exports = {
   smtpTransport: (service) ->
     return nodemailer.createTransport(
       'SMTP', {service: service, auth: {
-        user: 'willscottmoss@gmail.com'
-        pass: 'ballin35'
+        user: process.env.EMAIL
+        pass: process.env.PASS
         }
       }
     )

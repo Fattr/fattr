@@ -39,5 +39,9 @@ require('./routes/groupRoutes')(app, passport)
 require('./routes/mainFeedRoutes')(app)
 
 
+console.log 'here!!!!!!', process.env.CONSUMER_KEY,
+process.env.CONSUMER_SECRET
+
+
 module.exports = app
 
