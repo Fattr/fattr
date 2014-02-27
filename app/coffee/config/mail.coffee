@@ -1,6 +1,5 @@
 nodemailer = require 'nodemailer'
 
-console.log 'process', process.env
 module.exports = {
   smtpTransport: (service) ->
     return nodemailer.createTransport(
