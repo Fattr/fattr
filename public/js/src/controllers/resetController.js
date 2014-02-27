@@ -1,63 +1,68 @@
 angular.module('fittr.controllers')
 
-.controller('ResetController', function($scope, $http, $state, $ionicLoading, UserService, ValidationService) {
+  .controller('ResetController', function($scope, $http, $state, $stateParams, $ionicLoading, UserService, ValidationService) {
 
-  $scope.title = "Reset Password";
-  $scope.user = {};
+    $scope.reset = false;
+    if ( $stateParams.slug ) {
+      $scope.reset = true;
+    }; 
+    
+    $scope.title = "Reset Password";
+    $scope.user = {};
 
-  // Form validation
-  $scope.inputValid   = ValidationService.inputValid;
-  $scope.inputInvalid = ValidationService.inputInvalid;
-  $scope.showError    = ValidationService.showError;
-  $scope.canSubmit    = ValidationService.canSubmit;
+    // Form validation
+    $scope.inputValid   = ValidationService.inputValid;
+    $scope.inputInvalid = ValidationService.inputInvalid;
+    $scope.showError    = ValidationService.showError;
+    $scope.canSubmit    = ValidationService.canSubmit;
 
-  // Flash message
-  $scope.signupLoginError = false;
-  $scope.flashMessage = "";
-  $scope.dismiss = function() {
+    // Flash message
     $scope.signupLoginError = false;
-  };
-
-  $scope.show = function() {
-    // Show the loading overlay and text
-    $scope.loading = $ionicLoading.show({
-      content: 'Loading...',
-      animation: 'fade-in',
-      showBackdrop: true,
-      maxWidth: 200,
-      showDelay: 500
-    });
-
-    // Hide the loading indicator
-    $scope.hide = function() {
-      $scope.loading.hide();
+    $scope.flashMessage = "";
+    $scope.dismiss = function() {
+      $scope.signupLoginError = false;
     };
 
-    $scope.submit = function(ngFormController) {
-      // activate the loading spinner
-      $scope.show();
+    $scope.show = function() {
+      // Show the loading overlay and text
+      $scope.loading = $ionicLoading.show({
+        content: 'Loading...',
+        animation: 'fade-in',
+        showBackdrop: true,
+        maxWidth: 200,
+        showDelay: 500
+      });
 
-      UserService.reset($scope.user)
-        .then(function(data) {
-          // remove loading spinner
-          $scope.hide();
+      // Hide the loading indicator
+      $scope.hide = function() {
+        $scope.loading.hide();
+      };
 
-          console.log("response from /reset: ", data);
-          ValidationService.resetForm(ngFormController, $scope.user);
+      $scope.submit = function(form) {
+        // activate the loading spinner
+        $scope.show();
 
-          // save user data and store in mem and localStorage
-          UserService.save(data);
+        UserService.reset($scope.user)
+          .then(function(data) {
+            // remove loading spinner
+            $scope.hide();
 
-          $state.go('main/stream');
+            console.log("response from /reset: ", data);
+            ValidationService.resetForm(form, $scope.user);
 
-        }, function(reason) {
-          ValidationService.resetForm(ngFormController, $scope.user);
-          $scope.hide();
-          console.log("reason: ", reason);
+            // save user data and store in mem and localStorage
+            UserService.save(data);
 
-          $scope.flashMessage = "";
-          $scope.signupLoginError = true;
-        });
-    }
-  };
-});
+            $state.go('main/stream');
+
+          }, function(reason) {
+            ValidationService.resetForm(form, $scope.user);
+            $scope.hide();
+            console.log("reason: ", reason);
+
+            $scope.flashMessage = "";
+            $scope.signupLoginError = true;
+          });
+      }
+    };
+  });
