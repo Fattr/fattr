@@ -41,6 +41,9 @@ UserSchema = new mongoose.Schema(
   groups:
     [{type: mongoose.Schema.ObjectId, ref: 'Group', index: true}]
 
+  challenges:
+    [{type: mongoose.Schema.ObjectId, ref: 'UserComp'}]
+
   authData:
 
     fitbit:
@@ -53,6 +56,18 @@ UserSchema = new mongoose.Schema(
   User instance methods
 ###
   # find all groups for this user
+
+UserSchema.statics.findByUsername = (username) ->
+  defer     = Q.defer()
+  User      = mongoose.model 'User'
+
+  User.findOne 'username': username, (err, user) ->
+    defer.reject err if err?
+    defer.resolve user if user?
+    if not user?
+      console.log 'no user by that username'
+      return {}
+  defer.promise
 
 UserSchema.statics.addGroup = (id, userId) ->
   defer = Q.defer()
@@ -145,4 +160,31 @@ UserSchema.statics.emailPassword = (user) ->
 
   defer.promise
 
+UserSchema.statics.populateChallenges = (id) ->
+  User     = mongoose.model 'User'
+  UserComp = mongoose.model 'UserComp'
+  defer    = Q.defer()
+  all      = []
+
+  User.findById(id)
+  .populate('challenges', 'name start end challenger accepted')
+  .exec (err, user) ->
+    defer.reject err if err?
+    defer.resolve user.challenges if user?
+  defer.promise
+
+UserSchema.statics.getAllChallenges = (comp) ->
+  defer       = Q.defer()
+  UserComp    = mongoose.model 'UserComp'
+
+  UserComp.findById(comp._id)
+  .populate('challenger', 'username authData.fitbit.avatar')
+  .exec (err, grudge) ->
+    defer.reject err if err?
+    defer.resolve grudge if grudge?
+
+  defer.promise
+
+
 module.exports = mongoose.model 'User', UserSchema
+

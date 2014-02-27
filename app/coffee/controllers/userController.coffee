@@ -1,7 +1,9 @@
 User                  = require '../models/user'
 Stats                 = require '../models/stat'
 moment                = require 'moment'
+$                     = require '../config/helpers'
 crypto                = require '../config/crypto'
+UserComp              = require '../models/userCompetition'
 {getDailyActivities}  = require './helpers'
 {saveStats}           = require './helpers'
 {dateRange}           = require './helpers'
@@ -166,4 +168,59 @@ module.exports =
     .fail (err) ->
       console.log '%s err finding user by email', err
       throw new Error err
+
+  newChallenge: (req, res) ->
+
+    ops =
+      name: req.body.name
+      start: req.body.start
+      end: req.body.end
+      metric: req.body.metric
+      opponent: req.body.opponent
+      challenger: req.body.user
+
+    UserComp.makeNewChallenge(ops)
+    .then (comp) ->
+      comp.emailOpponent()
+      .then (message) ->
+        console.log 'email %s ', message
+        res.send 201
+      .fail (err) ->
+        throw new Error err
+    .fail (err) ->
+      throw new Error err
+
+  verifyChallenge: (req, res) ->
+    compId      = req.params.comp
+    decision    = req.params.decision is 'yes' ? true : false
+
+    console.log decision
+
+    UserComp.verifyChallenge(decision, compId)
+    .then (comp) ->
+      console.log "verified #{comp.name} decision is #{decision}"
+      res.send 200
+    .fail (err) ->
+      throw new Error err
+
+    # User.findByUsername(opponent)
+    # .then (user) ->
+    #   UserComp.findByIdAndUpdate compId, {accepted: decision},
+    #   (err, comp) ->
+    #     throw new Error if err?
+    #     console.log 'verify comp: ', comp
+    #     res.send 200 if comp?
+
+  getChallenges: (req, res) ->
+    _id    = if req.user? then req.user._id else req.params.id
+    User.populateChallenges(_id)
+    .then (challenges) ->
+      $.map(challenges, User.getAllChallenges)
+      .then (grudges) ->
+        res.json grudges
+      .fail (err) ->
+        throw new Error err
+    .fail (err) ->
+      throw new Error err
+
 
