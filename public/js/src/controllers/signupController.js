@@ -1,6 +1,7 @@
 angular.module('fittr.controllers')
 
   .controller('SignupController', function($scope, $http, $state, $ionicLoading, UserService, ValidationService) {
+
     $scope.title = "Sign Up";
     $scope.user = {};
 

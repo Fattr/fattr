@@ -1,24 +1,25 @@
 angular.module('fittr.services')
-.factory('ValidationService', function() {
+
+  .factory('ValidationService', function() {
 
     return {
-      resetForm: function(ngFormController, user) {
+      resetForm: function(form, user) {
         user.email = "";
         user.username = "";
         user.password = "";
         ngFormController.$setPristine();
       },
       
-      inputValid: function(ngModelController) {
-        return ngModelController.$valid && ngModelController.$dirty;
+      inputValid: function(form) {
+        return form.$valid && form.$dirty;
       },
 
-      inputInvalid: function(ngModelController) {
-        return ngModelController.$invalid && ngModelController.$dirty;
+      inputInvalid: function(form) {
+        return form.$invalid && form.$dirty;
       },
 
-      showError: function(ngModelController, error) {
-        return ngModelController.$error[error];
+      showError: function(form, error) {
+        return form.$error[error];
       },
     };
   });

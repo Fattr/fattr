@@ -2,7 +2,7 @@
 
 Q           = require 'q'
 mongoose    = require 'mongoose'
-nodemailer  = require 'nodemailer'
+mailer      = require '../config/mail'
 uuid        = require 'node-uuid'
 
 UserSchema = new mongoose.Schema(
@@ -41,6 +41,9 @@ UserSchema = new mongoose.Schema(
   groups:
     [{type: mongoose.Schema.ObjectId, ref: 'Group', index: true}]
 
+  challenges:
+    [{type: mongoose.Schema.ObjectId, ref: 'UserComp'}]
+
   authData:
 
     fitbit:
@@ -50,18 +53,65 @@ UserSchema = new mongoose.Schema(
 )
 
 ###
-Static methods to increase flow and tedious queries
+  User instance methods
+###
+  # find all groups for this user
+
+UserSchema.statics.findByUsername = (username) ->
+  defer     = Q.defer()
+  User      = mongoose.model 'User'
+
+  User.findOne 'username': username, (err, user) ->
+    defer.reject err if err?
+    defer.resolve user if user?
+    if not user?
+      console.log 'no user by that username'
+      return {}
+  defer.promise
+
+UserSchema.statics.addGroup = (id, userId) ->
+  defer = Q.defer()
+  User = mongoose.model "User"
+
+  User.findByIdAndUpdate userId, {$push: groups: id},
+  (err, user) ->
+    defer.reject err if err
+    defer.resolve user if user
+  defer.promise
+
+UserSchema.methods.findGroups = ->
+  defer = Q.defer()
+  User = mongoose.model 'User'
+  User.findById(@_id).populate('groups', 'name').exec (err, user) ->
+    defer.reject err if err
+    defer.resolve user.groups if user
+  defer.promise
+
+###
+  Static methods to increase flow and tedious queries
 ###
 
 # Find user by email, mainly used in password reset but not soley
 UserSchema.statics.findByEmail = (email) ->
+  User = mongoose.model 'User'
   defer = Q.defer()
-  @findOne 'email': email, (err, user) ->
+  User.findOne 'email': email, (err, user) ->
     if err then defer.reject err
     if user then defer.resolve user
     # FIXME
     if not user then console.log 'no user by that email'
   defer.promise
+
+UserSchema.statics.findByTokenAndUpdate = (crypt) ->
+  User = mongoose.model 'User'
+  defer = Q.defer()
+  User.findOneAndUpdate pass_reset: crypt.token,
+  {salt: crypt.salt, password: crypt.password}, (err, user) ->
+    defer.reject err if err
+    defer.resolve user
+  defer.promise
+
+
 
 UserSchema.statics.resetPassword = (user) ->
   User = mongoose.model 'User'
@@ -96,29 +146,45 @@ UserSchema.statics.resetPassword = (user) ->
 UserSchema.statics.emailPassword = (user) ->
   # create a reusable transport method with nodemailer
   defer = Q.defer()
-  smtpTransport = nodemailer.createTransport(
-    'SMTP', {service: 'Gmail', auth: {
-      user: 'willscottmoss@gmail.com'
-      pass: 'ballin35'
-      }
-    }
-  )
+
+  sender = mailer.smtpTransport 'GMAIL'
+
 
   console.log 'reset', user.reset.pass_reset
   # setup email options to be sent can HTML if need be, All Unicode
-  mailOptions =
-    'from': 'Scott Moss <scottmoss35@gmail.com>'
-    'to': user.email
-    'subject': 'Sweatr reset password'
-    'html': "<h1> Hello #{user.username}!</h1>"+
-            "<p> Here is the link to reset your password </p>" +
-            "<a href=http://localhost:3000/user/reset/"+
-            "#{user.reset.pass_reset} >Reset</a>"
+  mailOptions = mailer.resetPass user
 
-  smtpTransport.sendMail mailOptions, (err, response) ->
+  sender.sendMail mailOptions, (err, response) ->
     if err then defer.reject err
     if response then defer.resolve response
 
   defer.promise
 
+UserSchema.statics.populateChallenges = (id) ->
+  User     = mongoose.model 'User'
+  UserComp = mongoose.model 'UserComp'
+  defer    = Q.defer()
+  all      = []
+
+  User.findById(id)
+  .populate('challenges', 'name start end challenger accepted')
+  .exec (err, user) ->
+    defer.reject err if err?
+    defer.resolve user.challenges if user?
+  defer.promise
+
+UserSchema.statics.getAllChallenges = (comp) ->
+  defer       = Q.defer()
+  UserComp    = mongoose.model 'UserComp'
+
+  UserComp.findById(comp._id)
+  .populate('challenger', 'username authData.fitbit.avatar')
+  .exec (err, grudge) ->
+    defer.reject err if err?
+    defer.resolve grudge if grudge?
+
+  defer.promise
+
+
 module.exports = mongoose.model 'User', UserSchema
+

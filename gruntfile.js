@@ -141,11 +141,11 @@ module.exports = function(grunt) {
   grunt.registerTask('build', ['coffeelint', 'coffee']);
   grunt.registerTask('style', ['stylus']);
   grunt.registerTask('serve', ['build','shell:server']);
-  grunt.registerTask('test', ['mochaTest:test', 'karma:unit']);
+  grunt.registerTask('test', ['mochaTest:test']);
   grunt.registerTask('travis', ['build', 'test']);
 
   // client side tasks
-  grunt.registerTask('testClient', ['env:test', 'karma:unit']);
+  // grunt.registerTask('testClient', ['env:test', 'karma:unit']);
   grunt.registerTask('stylus', ['stylus']);
 
   // deafult tasks lints and compiles coffe

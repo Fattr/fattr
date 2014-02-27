@@ -1,7 +1,9 @@
 User                  = require '../models/user'
 Stats                 = require '../models/stat'
 moment                = require 'moment'
-
+$                     = require '../config/helpers'
+crypto                = require '../config/crypto'
+UserComp              = require '../models/userCompetition'
 {getDailyActivities}  = require './helpers'
 {saveStats}           = require './helpers'
 {dateRange}           = require './helpers'
@@ -18,7 +20,7 @@ module.exports =
     # so this is just optional
     # send back splash/landing instead
     # of jsut login/signup
-    res.sendfile('index.html')
+    res.sendfile 'index.html'
 
   #==========================
   # CRUD ops
@@ -72,8 +74,29 @@ module.exports =
   resetPassword: (req, res) ->
     # send a redirect to an angular template instead of a pure html file
     # this will allow for proper design and control over the password rest form
-    res.sendfile 'password.html',
-    root:"#{__dirname}/../../../../public/"
+    res.redirect '#/reset/password/password'
+
+  updatePassword: (req, res) ->
+    # take in new password and update the user
+    token = req.params.token
+    password = req.body.password
+    crypto.getSalt(10)
+    .then (salt) ->
+      crypto.getHash(password, salt)
+      .then (hash) ->
+        secured =
+          salt: salt
+          password: password
+          token: token
+        User.findByTokenAndUpdate(secured)
+        .then (user) ->
+          console.log "password has been updated for #{user.email}"
+          res.send 201
+        .fail (err) ->
+          throw new Error err
+
+
+
 
 
   userActivity: (req, res) ->
@@ -125,4 +148,79 @@ module.exports =
   # helper to protect angular routes on client
   loggedIn: (req, res) ->
     res.send if req.isAuthenticated() then req.user else "0"
+
+  groups: (req,res) ->
+    email =
+      if req.params.email
+        "#{req.params.email}.com"
+      else if req.user.email
+        req.user.email
+
+    User.findByEmail(email)
+    .then (user) ->
+      user.findGroups()
+      .then (groups) ->
+        console.log '%s groups', groups
+        res.json groups
+      .fail (err) ->
+        console.log '%s err getting groups', err
+        throw new Error err
+    .fail (err) ->
+      console.log '%s err finding user by email', err
+      throw new Error err
+
+  newChallenge: (req, res) ->
+
+    ops =
+      name: req.body.name
+      start: req.body.start
+      end: req.body.end
+      metric: req.body.metric
+      opponent: req.body.opponent
+      challenger: req.body.user
+
+    UserComp.makeNewChallenge(ops)
+    .then (comp) ->
+      comp.emailOpponent()
+      .then (message) ->
+        console.log 'email %s ', message
+        res.send 201
+      .fail (err) ->
+        throw new Error err
+    .fail (err) ->
+      throw new Error err
+
+  verifyChallenge: (req, res) ->
+    compId      = req.params.comp
+    decision    = req.params.decision is 'yes' ? true : false
+
+    console.log decision
+
+    UserComp.verifyChallenge(decision, compId)
+    .then (comp) ->
+      console.log "verified #{comp.name} decision is #{decision}"
+      res.send 200
+    .fail (err) ->
+      throw new Error err
+
+    # User.findByUsername(opponent)
+    # .then (user) ->
+    #   UserComp.findByIdAndUpdate compId, {accepted: decision},
+    #   (err, comp) ->
+    #     throw new Error if err?
+    #     console.log 'verify comp: ', comp
+    #     res.send 200 if comp?
+
+  getChallenges: (req, res) ->
+    _id    = if req.user? then req.user._id else req.params.id
+    User.populateChallenges(_id)
+    .then (challenges) ->
+      $.map(challenges, User.getAllChallenges)
+      .then (grudges) ->
+        res.json grudges
+      .fail (err) ->
+        throw new Error err
+    .fail (err) ->
+      throw new Error err
+
 
