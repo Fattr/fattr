@@ -9,3 +9,9 @@ deploy:
   api_key:
     secure: jj6SDxhprIwq8cjC4rPLVciNcfvqS3dZWG27Aa4Eg58GTN8eVdNO+n3mDgZ2KRpZJ93/mVIOmgEnq9vDwPlfob8lT/BpLVkbS07zcagZxweoEN8RdOcRxWFG3qDR301RZwHSTqSw81pZsligE+lWWY69OxFzFVvAR0jDN7dxn/s=
   app: still-scrubland-1948
+env:
+  global:
+  - secure: T2mWSeNczqKUecLB3s7l4hT8Zslba0Z80nhJCtK8MxosI2nc6YDxc53miNs6y7+uVt5RPX4ckZPZGu+UKw6EHjE4mvZKmx2vLFdP1vm4BTvZv2q+d/Z+yH25jnPjnixInqXUJip4Fbx8gYFEDqldsuZG66Cj6iMKRDJpkcZu9wI=
+  - secure: vGxqU3wvdNQAmbW/XvFa9L+I55Vib/aV2A4jo5HsUQW31qSh51G0cQsQOVRT7OdACxr3q5LzpCcGBQb1/0Vzlsh47oc+bAyzx3p//Ca2zDHvOErS80wNSx+sAWRn8ePeONOnOtq57knKNkabu4HsYhuO5KbGdS0tQN+nlfpA6Rk=
+  - secure: mb0S1hhIrseW4LVC6e7Btb2wukm0XOrtoFlPdUDS0K3XDoEj8DTQOYKRhNlPoVnT72Rqd2PelzkDzncWnjVHESSf2xTfpHLzR1Z+9n/4PsmY2qxN97jtxh/fEVj2saCBH+p3HUUDKfLHBZKPpv6pv9mSt5rJyvbTZ8hM1WMzUqU=
+  - secure: BYFtJNRt+m5iXLARRwI9XTAJA+hHnaTia6Ps6A9AWHXBMUYyV3E3haLrqCvkYSxrLBec2vfzG0yn7DoeKUtZzbO3yWTHT9EwIkn8vDgblapcSNjyD6kFEth32mWeMALUQL+SSqZxdB7NTaT8CMOp/u/1TwJediKiwef9PqfAxec=
