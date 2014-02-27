@@ -5,6 +5,9 @@ dbUrl     = 'mongodb://localhost/teses'
 User      = require '../models/user'
 clearDB   = require('mocha-mongoose')(dbUrl)
 
+console.log 'here!!!!!!!', process.env.CONSUMER_KEY,
+process.env.CONSUMER_SECRET
+
 describe "Saving a new user", ->
   beforeEach (done) ->
     return done() if mongoose.connection.db

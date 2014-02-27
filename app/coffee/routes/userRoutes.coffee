@@ -22,10 +22,13 @@ module.exports = (app, passport) ->
 
   app.delete '/user/delete', isLoggedIn, user.deleteUser
 
+  # this route is expecting an email
   app.post '/user/forgot/password', user.forgotPassword
 
+  # this is the route the is sent in the email, use clicks this
   app.get '/user/reset/:token', user.resetPassword
 
+  # this is the route the the new passowrd will post to
   app.post '/user/reset/:token', user.updatePassword
 
   app.get '/connect/fitbit', isLoggedIn, passport.authorize 'fitbit'
