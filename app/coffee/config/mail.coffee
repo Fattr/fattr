@@ -1,5 +1,5 @@
-nodemailer = require 'nodemailer'
-
+nodemailer   = require 'nodemailer'
+{url}        = require './auth'
 
 module.exports = {
   smtpTransport: (service) ->
@@ -36,7 +36,7 @@ module.exports = {
       'subject': 'SweatR reset password'
       'html': "<h1> Hello #{user.username}!</h1>"+
               "<p> Here is the link to reset your password </p>" +
-              "<a href=http://localhost:3000/user/reset/"+
+              "<a href=#{url}/#/reset/new/"+
               "#{user.reset.pass_reset} >Reset</a>"
     body
 
