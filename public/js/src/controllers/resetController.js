@@ -28,8 +28,6 @@ angular.module('fittr.controllers')
 
     $scope.submit = function(form) {
 
-      console.log('$scope.user.token', $scope.user.token);
-
       UserService[verb]($scope.user)
         .then(function(data) {
 
