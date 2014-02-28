@@ -33,7 +33,11 @@ angular.module('fittr.services')
         },
 
         reset: function(user) {
-          return this._httpHelper('post', '/reset', user);
+          return this._httpHelper('post', '/user/forgot/password', user);
+        },
+
+        updatePw: function(user) {
+          return this._httpHelper('post', '/user/reset/' + user.token, user);
         },
 
         get: function() {
@@ -63,6 +67,7 @@ angular.module('fittr.services')
           localStorageService.add(id, userData);
           localStorageService.add('currentUser', userData);   // maybe this can be optimized
         },
+
         getFromLocal: function(userId) {
           if (userId) {
             return localStorageService.get(userId);
