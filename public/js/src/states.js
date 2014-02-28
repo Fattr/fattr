@@ -85,7 +85,7 @@ angular.module('fittr')
       }).
 
       state('reset.passwordEntry', {
-        url: '/new/:slug',
+        url: '/new/:token',
         templateUrl: 'templates/pw-reset.html',
         controller: 'ResetController'
       }).

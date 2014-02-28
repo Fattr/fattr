@@ -2,13 +2,16 @@ angular.module('fittr.controllers')
 
   .controller('ResetController', function($scope, $http, $state, $stateParams, $ionicLoading, UserService, ValidationService) {
 
-    $scope.reset = false;
-    if ( $stateParams.slug ) {
-      $scope.reset = true;
-    }; 
-
     $scope.title = "Reset Password";
     $scope.user = {};
+
+    var verb = 'reset';
+    $scope.reset = false;
+    if ( $stateParams.token ) {
+      $scope.reset = true;
+      $scope.user.token = $stateParams.token;
+      verb = 'updatePw';
+    }; 
 
     // Form validation
     $scope.inputValid   = ValidationService.inputValid;
@@ -25,10 +28,11 @@ angular.module('fittr.controllers')
 
     $scope.submit = function(form) {
 
-      UserService.reset($scope.user)
+      console.log('$scope.user.token', $scope.user.token);
+
+      UserService[verb]($scope.user)
         .then(function(data) {
 
-          console.log("response from /user/forgot/password ", data);
           ValidationService.resetForm(form, $scope.user);
 
           // save user data and store in mem and localStorage
